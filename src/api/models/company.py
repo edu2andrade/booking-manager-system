@@ -2,8 +2,8 @@ from api.models.db import db
 
 class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    # user = db.relationship("User")
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user = db.relationship("User")
     cif = db.Column(db.Integer(), nullable=False)
     name = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.String(300))

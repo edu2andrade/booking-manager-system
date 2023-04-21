@@ -2,8 +2,8 @@ from api.models.db import db
 
 class Workers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    # user = db.relationship("User")
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user = db.relationship("User")
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"))
     company = db.relationship("Company")
     name = db.Column(db.String(120), unique=True, nullable=False)
