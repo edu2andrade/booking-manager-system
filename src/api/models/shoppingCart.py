@@ -1,6 +1,6 @@
 from api.models.db import db
 
-class shoppingCards(db.Model):
+class ShoppingCart(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     user_id =db.Column(db.Integer, unique=False, nullable = False)
     products_id =db.Column(db.Integer, unique=False, nullable = False)
