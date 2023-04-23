@@ -5,7 +5,7 @@ import datetime
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    service_workers_id = db.Column(db.Integer, db.ForeignKey("serviceworkers.id"))
+    service_workers_id = db.Column(db.Integer, db.ForeignKey("services_workers.id"))
     created_at = db.Column(DateTime, default=datetime.datetime.utcnow())
     start_service = db.Column(DateTime, nullable=False)
     end_service = db.Column(DateTime, nullable=False)

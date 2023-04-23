@@ -11,10 +11,6 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=True)
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
     roles = db.relationship("Roles")
-    company = db.relationship("Company")
-    workers = db.relationship("Workers")
-    booking = db.relationship("Booking")
-    shopping_cart = db.relationship("ShoppingCart")
 
     def __init__(self, username, firstname, lastname, email, password, role_id):
         self.username = username
