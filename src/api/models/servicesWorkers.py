@@ -14,7 +14,6 @@ class ServicesWorkers(db.Model):
         self.service_id = service_id
         self.booking_id = booking_id
 
-    
     def serialize(self):
         return {
         "id": self.id,

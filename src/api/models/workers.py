@@ -25,8 +25,3 @@ class Workers(db.Model):
             "working_schedule": self.working_schedule,
         }
     
-    def serialize_populate(self): 
-        return {
-            "id": self.id,
-            "name": self.name
-        }

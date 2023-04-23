@@ -27,10 +27,3 @@ class Products(db.Model):
             "stock": self.stock,
         }
 
-    def serialize_populate(self): 
-        return {
-            "id": self.id,
-            "name": self.name,
-            "description": self.description
-        }
-    

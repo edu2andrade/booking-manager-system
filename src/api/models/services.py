@@ -33,8 +33,3 @@ class Services(db.Model):
         "is_active":self.is_active,
         }
     
-    def serialize_populate(self): 
-        return {
-        "id": self.id,
-        "name": self.name
-        }
