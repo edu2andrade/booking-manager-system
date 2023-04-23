@@ -11,8 +11,8 @@ class Company(db.Model):
     is_active = db.Column(db.Boolean(), nullable=False, default=True)
     user = db.relationship("User")
 
-    def __init__(self, user_id, cif, name, description, address, working_schedule):
-        self.user_id = user_id
+    def __init__(self, cif, name, description, address, working_schedule):
+        # self.user_id = user_id
         self.cif = cif
         self.name = name
         self.description = description
@@ -22,7 +22,6 @@ class Company(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
             "cif": self.cif,
             "name": self.name,
             "description": self.description,

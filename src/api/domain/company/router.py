@@ -4,7 +4,7 @@ import api.domain.company.controller as controller
 
 def company_route(app):
 
-    @app.route('/user/new_company', methods=['POST'])
+    @app.route('/new_company', methods=['POST'])
     def create_company():
         body = request.get_json()
         new_company = Controller.create_company(body)
@@ -22,4 +22,3 @@ def company_route(app):
     def delete_company(id):
         return Controller.delete_company(id)
 
-        
