@@ -8,7 +8,6 @@ class Workers(db.Model):
     working_schedule = db.Column(db.String(120), unique=True, nullable=False)
     user = db.relationship("User")
     company = db.relationship("Company")
-    servicesworkers = db.relationship("ServicesWorkers")
 
     def __init__(self, user_id, company_id, name, working_schedule):
         self.user_id = user_id

@@ -7,7 +7,6 @@ class Products(db.Model):
     description = db.Column(db.String(250), unique=False, nullable = False) 
     price = db.Column(db.String(250), unique=False, nullable = False) 
     stock = db.Column(db.String(250), unique=False, nullable = False) 
-    shopping_cart = db.relationship("ShoppingCart")
     company = db.relationship("Company")
     
     def __init__(self,company_id,name,description,price,stock):
