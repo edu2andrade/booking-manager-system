@@ -12,7 +12,7 @@ class Company(db.Model):
     user = db.relationship("User")
 
     def __init__(self, cif, name, description, address, working_schedule):
-        # self.user_id = user_id
+        self.user_id = user_id
         self.cif = cif
         self.name = name
         self.description = description
