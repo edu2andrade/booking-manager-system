@@ -11,7 +11,10 @@ from api.models.index import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
-
+from api.domain.services.route import services_route
+from api.domain.servicesWorkers.route import servicesWorkers_route
+from api.domain.products.route import products_route
+from api.domain.shoppingCart.route import cart_route
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -38,6 +41,14 @@ setup_admin(app)
 
 # add the admin
 setup_commands(app)
+
+services = services_route(app)
+
+servicesWorkers= servicesWorkers_route(app)
+
+products = products_route(app) 
+
+cart = cart_route(app)
 
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')

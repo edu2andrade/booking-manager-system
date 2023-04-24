@@ -11,7 +11,7 @@ class Services(db.Model):
     price = db.Column(db.String(250), unique=False, nullable = False) 
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
-    def __init__(self,company_id,date,name,description,service_duration):
+    def __init__(self, company_id, date, name, description, service_duration, price):
         self.company_id = company_id
         self.date = date
         self.name = name
