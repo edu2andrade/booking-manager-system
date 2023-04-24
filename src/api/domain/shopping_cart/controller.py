@@ -1,4 +1,4 @@
-import api.domain.shoppingCart.repository as Repository
+import api.domain.shopping_cart.repository as Repository
 import api.utilities.handle_response as Response
 
 

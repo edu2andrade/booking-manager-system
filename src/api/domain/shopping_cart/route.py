@@ -1,6 +1,6 @@
 from flask import request, jsonify
-from api.models.index import db, ShoppingCart
-import api.domain.shoppingCart.controller as Controller
+from api.models.index import db, Shopping_cart
+import api.domain.shopping_cart.controller as Controller
 
 
 def cart_route(app):

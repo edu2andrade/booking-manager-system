@@ -8,8 +8,3 @@ from api.models.roles import Roles
 from api.models.products import Products
 from api.models.shopping_cart import Shopping_cart
 from api.models.booking import Booking
-
-
-
-from api.models.shoppingCart import ShoppingCart
-from api.models.product import Products

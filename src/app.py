@@ -12,9 +12,9 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from api.domain.services.route import services_route
-from api.domain.servicesWorkers.route import servicesWorkers_route
+from api.domain.services_workers.route import servicesWorkers_route
 from api.domain.products.route import products_route
-from api.domain.shoppingCart.route import cart_route
+from api.domain.shopping_cart.route import cart_route
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
