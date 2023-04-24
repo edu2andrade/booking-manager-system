@@ -1,4 +1,4 @@
-import api.domain.products.repository as Repository 
+import api.domain.company.repository as Repository 
 import api.utilities.handle_response as Response
 
 def create_company(data):

@@ -1,6 +1,6 @@
 from flask import request, jsonify 
 from api.models.index import db, Company
-import api.domain.company.controller as controller
+import api.domain.company.controller as Controller
 
 def company_route(app):
 
