@@ -1,9 +1,9 @@
 from api.models.db import db
 
-class ServicesWorkers(db.Model):
+class Services_workers(db.Model):
     id= db.Column(db.Integer, primary_key=True)
-    worker_id =db.Column(db.Integer, db.ForeignKey("workers.id"))
-    service_id =db.Column(db.Integer, db.ForeignKey("services.id"))
+    worker_id = db.Column(db.Integer, db.ForeignKey("workers.id"))
+    service_id = db.Column(db.Integer, db.ForeignKey("services.id"))
     services = db.relationship("Services")
     workers = db.relationship("Workers")
 
