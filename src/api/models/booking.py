@@ -10,7 +10,7 @@ class Booking(db.Model):
     start_service = db.Column(DateTime, nullable=False)
     end_service = db.Column(DateTime, nullable=False)
     user = db.relationship("User")
-    services_workers = db.relationship("ServicesWorkers")
+    services_workers = db.relationship("Services_workers")
 
     def __init__(self, user_id, service_workers_id, created_at, start_service, end_service):
         self.user_id = user_id
