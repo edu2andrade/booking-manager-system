@@ -11,6 +11,7 @@ from api.models.index import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from api.domain.company.route import company_route
 
 #from models import Person
 
@@ -38,6 +39,7 @@ setup_admin(app)
 
 # add the admin
 setup_commands(app)
+
 
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')
