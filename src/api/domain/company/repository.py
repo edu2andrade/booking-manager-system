@@ -6,14 +6,23 @@ def create_company(data):
     db.session.commit()
     return new_company.serialize()
 
-def get_all_companies(): 
-    companies = Company.query.all()
-    serialize_all_companies = list(map(lambda company: company.serialize(), companies))
-    return serialize_all_companies
-
 def get_company_by_id(id):
     company = Company.query.get(id)
     return company.serialize()
+
+def update_company(data, company_id):
+    company = Company.query.get(company_id)
+    if company:
+        company.user_id = data['user_id']
+        company.cif = data['cif']
+        company.name = data['name']
+        company.description = data['description']
+        company.address = data['address']
+        company.working_schedule = data['working_schedule']
+        db.session.commit()
+        return company
+    else:
+        return None
 
 def delete_company(id):
     company = Company.query.get(id)

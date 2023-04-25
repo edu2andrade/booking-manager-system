@@ -1,27 +1,27 @@
-from flask import request, jsonify 
-from api.models.index import db, Company
+from flask import Flask, request, jsonify, Blueprint
+from api.models.index import db
 import api.domain.company.controller as Controller
 
 api = Blueprint('api/company', __name__)
 
-
-@app.route('/company', methods=['POST'])
+@api.route('/register', methods=['POST'])
 def create_company():
     body = request.get_json()
     new_company = Controller.create_company(body)
     return jsonify(new_company), 201
 
-@app.route('/company', methods=['GET'])
-def get_all_companies():
-    return Controller.get_all_companies()
+@api.route('/<int:company_id>', methods=['GET'])
+def get_company_by_id(id):
+    return Controller.get_company_by_id(id)
 
-@app.route('/company/<int:id>', methods=['GET'])
-    def get_company_by_id(id):
-        return Controller.get_company_by_id(id)
+@api.route('/<int:company_id>', methods=['PUT'])
+def update(company_id):
+    update_company = request.get_json()
+    return Controller.update_user(update_company, company_id)
 
-@app.route('/company/<int:id>', methods=['DELETE'])
-    def delete_company(id):
-        return Controller.delete_company(id)
+@api.route('/<int:company_id>', methods=['DELETE'])
+def delete_company(id):
+    return Controller.delete_company(id)
     
 
     
