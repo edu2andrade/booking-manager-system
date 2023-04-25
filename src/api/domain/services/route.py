@@ -26,7 +26,7 @@ def services_route(app):
     @app.route('/services/<int:id>', methods=['DELETE'])
     def delete_service(id):
 
-        return Controller.Delete_by_id_service(id)
+        return Controller.delete_by_id_service(id)
    
     
 

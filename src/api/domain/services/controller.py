@@ -20,7 +20,7 @@ def create_service(data):
 
 # DELETE SERVICES
 def delete_by_id_service(service_id):
-    service = Repository.Delete_by_id_service(service_id)
+    service = Repository.delete_by_id_service(service_id)
     if service is None:
         return Response.response_error('user no found', 404)
     return service

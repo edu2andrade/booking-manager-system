@@ -22,4 +22,4 @@ def products_route(app):
     @app.route('/products/<int:id>', methods=['DELETE'])
     def delete_product(id):
 
-        return Controller.Delete_by_id_product(id)
+        return Controller.delete_by_id_product(id)
