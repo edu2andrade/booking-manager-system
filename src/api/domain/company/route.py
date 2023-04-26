@@ -11,17 +11,17 @@ def create_company():
     return jsonify(new_company), 201
 
 @api.route('/<int:company_id>', methods=['GET'])
-def get_company_by_id(id):
-    return Controller.get_company_by_id(id)
+def get_company_by_id(company_id):
+    return Controller.get_company_by_id(company_id)
 
 @api.route('/<int:company_id>', methods=['PUT'])
-def update(company_id):
+def update_company(company_id):
     update_company = request.get_json()
-    return Controller.update_user(update_company, company_id)
+    return Controller.update_company(update_company, company_id)
 
 @api.route('/<int:company_id>', methods=['DELETE'])
-def delete_company(id):
-    return Controller.delete_company(id)
+def delete_company(company_id):
+    return Controller.delete_company(company_id)
     
 
     

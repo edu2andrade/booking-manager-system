@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import api.domains.users.repository as Repository
+import api.domain.users.repository as Repository
 import api.utilities.handle_response as Response
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, get_jwt
 import bcrypt

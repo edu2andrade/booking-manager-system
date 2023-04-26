@@ -29,6 +29,6 @@ def delete_company(id):
         return Response.response_error("ID is not a number", 404)
     company = Repository.delete_company(id) 
     if company is not None:
-        return Response.response_ok("Company deleted") 
+        return Response.response_ok("Company deleted", 200) 
     else:
         return Response.response_error("ID not found", 404)
