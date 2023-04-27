@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
+
 import injectContext from "./store/appContext";
 import HomePage from "./pages/home/home.jsx";
 import RegisterPage from "./pages/register/register.jsx";
