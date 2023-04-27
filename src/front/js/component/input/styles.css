@@ -4,14 +4,14 @@
 
 .inputContainer i {
   position: absolute;
-  top: 24px;
+  top: 18px;
   left: 14px;
 }
 
 .inputContainer input {
   padding: 8px 16px 8px 40px;
-  margin-block: 12px;
-  width: 400px;
+  margin-block: 6px;
+  width: 100%;
   border: none;
   border-radius: var(--border-sm);
 }

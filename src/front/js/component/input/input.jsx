@@ -1,11 +1,16 @@
 import React from "react";
 import "./styles.css";
 
-const Input = ({ type, placeholder }) => {
+const Input = ({ type, placeholder, icon, name }) => {
   return (
     <div className="inputContainer">
-      <i className="fa-solid fa-user"></i>
-      <input type={type} placeholder={placeholder} className="boxShadow" />
+      {icon}
+      <input
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        className="boxShadow"
+      />
     </div>
   );
 };
