@@ -1,6 +1,7 @@
 import React from "react";
 import logoDetail from "../../../../assets/logo_detail.png";
 import "./styles.css";
+import Input from "../../component/input/input.jsx";
 
 const RegisterPage = () => (
   <main className="mainContainer">
@@ -14,8 +15,9 @@ const RegisterPage = () => (
     </header>
     <section>
       <h2 className="title">Register</h2>
-      {/* Bootstrap thing here */}
+      {/* Form */}
       <form>
+        <Input type="text" placeholder="test" />
         <input type="text" className="form-control" placeholder="Username" />
         <input type="text" className="form-control" placeholder="First Name" />
         <input type="text" className="form-control" placeholder="Last Name" />
@@ -26,7 +28,7 @@ const RegisterPage = () => (
           placeholder="Password"
         />
         <div>
-          <label for="role-select">Please select a role:</label>
+          <label htmlFor="role-select">Please select a role:</label>
           <select name="role" id="role-select">
             <option value="admin">admin</option>
             <option value="client">client</option>
