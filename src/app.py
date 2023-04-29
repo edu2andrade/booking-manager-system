@@ -13,7 +13,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 
-import api.domains.users.route as user_routes
+import api.domain.users.route as user_routes
 
 #from models import Person
 
