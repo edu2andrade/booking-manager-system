@@ -7,6 +7,7 @@ import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
 
 import RegisterPage from "./pages/register/register.jsx";
+import LoginPage from "./pages/login/login.jsx";
 
 //create your first component
 const Layout = () => {
@@ -24,6 +25,7 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<RegisterPage />} path="/register" />
+            <Route element={<LoginPage />} path="/login" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
