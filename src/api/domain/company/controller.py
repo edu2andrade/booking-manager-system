@@ -30,7 +30,8 @@ def update_company(update_company, company_id):
 
     if update_company:
         return Response.response_ok(f'Company with id: {company_id}, has been updated in database.', update_company.serialize())
-    else:
+    
+    if company_id is None or company_id == '':
         return Response.response_error(f'Company with id: {company_id}, not found in database.', 404)
 
 def delete_company(company_id):

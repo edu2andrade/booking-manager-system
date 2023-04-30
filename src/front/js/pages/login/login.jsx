@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logoDetail from "../../../../assets/logo_detail.png";
 import "./styles.css";
 import Input from "../../component/input/input.jsx";
+import { registerUser } from "../../service";
 
 const initialState = {
   email: "",
@@ -9,6 +11,7 @@ const initialState = {
 };
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [newLogin, setNewLogin] = useState(initialState);
 
   const handleChange = ({ target }) => {
@@ -16,8 +19,10 @@ const LoginPage = () => {
   };
   console.log("Login User -->", newLogin);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await registerUser(newLogin);
+
     // make request to API
     // redirects based on role
   };

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logoDetail from "../../../../assets/logo_detail.png";
 import "./styles.css";
 import Input from "../../component/input/input.jsx";
+import { registerUser } from "../../service";
 
 const initialState = {
   username: "",
@@ -20,8 +21,9 @@ const RegisterPage = () => {
   };
   console.log("New User -->", newUser);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await registerUser(newUser);
     // make request to API...
     // redirects based on role...
   };
