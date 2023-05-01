@@ -19,7 +19,6 @@ const RegisterPage = () => {
   const handleChange = ({ target }) => {
     setNewUser({ ...newUser, [target.name]: target.value });
   };
-  console.log("New User -->", newUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

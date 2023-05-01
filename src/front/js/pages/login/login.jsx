@@ -17,7 +17,6 @@ const LoginPage = () => {
   const handleChange = ({ target }) => {
     setNewUser({ ...newLogin, [target.name]: target.value });
   };
-  console.log("Login User -->", newLogin);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

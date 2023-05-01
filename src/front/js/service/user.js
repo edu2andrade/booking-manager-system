@@ -14,7 +14,6 @@ export const registerUser = async (user) => {
             body: JSON.stringify(user)
         });
         const data = await res.json();
-        console.log(data)
     } catch (err) {
         console.log("Error Register User", err)
     }
@@ -28,7 +27,6 @@ export const loginUser = async (user) => {
             body: JSON.stringify(user)
         });
         const data = await res.json();
-        console.log(data)
     } catch (err) {
         console.log("Error Login User", err)
     }
