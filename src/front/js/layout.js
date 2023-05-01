@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
-import { Home } from "./pages/home";
-import injectContext from "./store/appContext";
 
+import injectContext from "./store/appContext";
+import HomePage from "./pages/home/home.jsx";
 import RegisterPage from "./pages/register/register.jsx";
 import LoginPage from "./pages/login/login.jsx";
 
@@ -23,7 +23,7 @@ const Layout = () => {
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Routes>
-            <Route element={<Home />} path="/" />
+            <Route element={<HomePage />} path="/" />
             <Route element={<RegisterPage />} path="/register" />
             <Route element={<LoginPage />} path="/login" />
             <Route element={<h1>Not found!</h1>} />
