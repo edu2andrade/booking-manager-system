@@ -9,6 +9,7 @@ const HEADERS = {
 export const registerUser = async (user) => {
     try {
         const res = await fetch(`${URL}/users/register`, {
+            mode: 'no-cors',
             method: "POST",
             headers: HEADERS,
             body: JSON.stringify(user)
