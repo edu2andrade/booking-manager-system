@@ -1,29 +1,41 @@
 from api.models.index import db, Company, Services
 import api.domain.services.repository as Repository
-import api.utilities.handle_response as Response
 
 def create_new_service(company_id, current_user_id, body):
     company = Company.query.get(company_id)
-    company_user_id = company.user_id
+    if company is None:
+        return {'msg': f'The Company with id: {company_id}, do not exists in this database.', 'status': 404}
 
-    if current_user_id != company_user_id:
-        return Response.response_error("User is not the company admin", 400)
+    if current_user_id != company.user_id:
+        return {'msg': 'You do not have rights to create new services!', 'status': 403}
 
-    # if service already exists... compare with name, id?
+    return Repository.create_new_service(body, company_id)
 
-    new_service = Repository.create_new_service(body, company_id)
-    return Response.response_ok('New service created successfully!', new_service.serialize())
+def get_services_by_company(company_id):
+    company = Company.query.get(company_id)
+    if company is None:
+        return {'msg': f'The Company with id: {company_id}, do not exists in this database.', 'status': 404}
 
+    services = Repository.get_services_by_company(company_id)
+    return services
 
+def get_single_service(service_id):
+    service = Repository.get_single_service(service_id)
+    if service is None:
+        return {'msg': f'Service with id: {service_id}, do not exists in this database.', 'status': 404}
 
-def get_services_list(company_id):
-    services = Services.query.all()
+    return service
 
-    services_by_company_id = Company.query.filter_by(id=company_id)
-    print('services by id -->', services_by_company_id)
+def delete_service(service_id, current_user_id):
+    service = Services.query.get(service_id)
+    if service is None:
+        return {'msg': f'Service with id: {service_id}, do not exists in this database.', 'status': 404}
+        
+    service_company_id = service.company_id
+    user_id = Company.query.get(service_company_id).user_id
 
-    # if services['company_id'] == company_id:
-    #     all_services = Repository.get_services_list()
+    if current_user_id != user_id:
+        return {'msg': 'You do not have rights to delete services!', 'status': 403}
 
-    return Response.response_ok('List of all services of this company', services_by_company_id.serialize())
-
+    deleted_service = Repository.delete_service(service_id)
+    return deleted_service

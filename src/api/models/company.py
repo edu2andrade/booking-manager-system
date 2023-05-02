@@ -29,4 +29,9 @@ class Company(db.Model):
             "working_schedule": self.working_schedule,
         }
 
+    def serialize_name(self):
+        return {
+            "name": self.name
+        }
+
     

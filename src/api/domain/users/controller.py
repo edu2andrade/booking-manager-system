@@ -66,8 +66,6 @@ def login(body):
 
     user = Repository.get_user_by_email(body['email'])
 
-    print('user --> ',user)
-
     if user is None: 
         return {"msg": "User not found", "error": True, "status": 404 }
     
