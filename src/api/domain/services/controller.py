@@ -32,9 +32,10 @@ def delete_service(service_id, current_user_id):
         return {'msg': f'Service with id: {service_id}, do not exists in this database.', 'status': 404}
         
     service_company_id = service.company_id
-    user_id = Company.query.get(service_company_id).user_id
+    company = Company.query.get(service_company_id)
+    company_user_id = company.user_id
 
-    if current_user_id != user_id:
+    if current_user_id != company_user_id:
         return {'msg': 'You do not have rights to delete services!', 'status': 403}
 
     deleted_service = Repository.delete_service(service_id)
