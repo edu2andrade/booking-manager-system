@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, Blueprint
 import api.domain.workers.controller as Controller
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from api.models.index import db, Company, Workers
+from api.models.index import db, Workers
 import api.utilities.handle_response as Response
 
 api = Blueprint("api/workers", __name__)
@@ -31,8 +31,7 @@ def list_worker_in_company(company_id):
 def delete_worker(worker_id):
     current_worker = get_jwt_identity()
     current_worker_id = current_worker["id"]
-    print("Current_worker_id++++++++++++", current_worker_id)
-    print("Current_workers++++++++++++", current_worker)
+    
     worker = Workers.query.get(worker_id)
 
     if worker is None:
