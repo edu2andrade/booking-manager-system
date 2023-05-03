@@ -1,19 +1,18 @@
 from api.models.index import db, Company
 
-
-def create_company(data):
-    new_company = Company(data['user_id'], data['cif'], data['name'], data['description'], data['address'], data['working_schedule'])
+def create_company(body):
+    new_company = Company(body['user_id'], body['cif'], body['name'], body['description'], body['address'], body['working_schedule'])
     db.session.add(new_company)
     db.session.commit()
-    return new_company.serialize()
+    return new_company
 
-def get_company_list():
+def get_companies_list():
     all_companies = Company.query.all()
     serialized_companies = list(map(lambda company: company.serialize(), all_companies))
     return serialized_companies
 
-def get_company_by_id(id):
-    company = Company.query.get(id)
+def get_company_by_id(company_id):
+    company = Company.query.get(company_id)
     return company
 
 def update_company(update_company, company_id):
@@ -30,9 +29,8 @@ def update_company(update_company, company_id):
 
 def delete_company(company_id):
     company = Company.query.get(company_id)
-    if company is not None:  
-        db.session.delete(company)
-        db.session.commit()
-    else:
-        #add delete functions for services, workers and products 
-        return company  
+    db.session.delete(company)
+    db.session.commit()
+    return company  
+    #add delete functions for services, workers and products 
+     
