@@ -28,7 +28,7 @@ def get_list_worker_company(company_id):
 
 
 def delete_worker(worker_id):
-    is_deleted_worker = Repository.delete_worker(workers_id)
+    is_deleted_worker = Repository.delete_worker(worker_id)
 
     if is_deleted_worker:
         return Response.response_ok(
