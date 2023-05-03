@@ -17,6 +17,7 @@ def create_new_service(company_id):
 
 
 @api.route('/<int:company_id>', methods=['GET'])
-def get_services_list(company_id):
-    return Controller.get_services_list(company_id)
+def get_services_by_company(company_id):
+    
+    return Controller.get_services_by_company(company_id)
 

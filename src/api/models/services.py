@@ -28,6 +28,5 @@ class Services(db.Model):
         "description": self.description,
         "service_duration": self.service_duration,
         "price": self.price,
-        "company": self.company.serialize()
         }
     

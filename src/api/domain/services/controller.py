@@ -16,7 +16,7 @@ def create_new_service(company_id, current_user_id, body):
 
 
 
-def get_services_list(company_id):
+def get_services_by_company(company_id):
     services = Services.query.all()
 
     services_by_company_id = Company.query.filter_by(id=company_id)

@@ -7,6 +7,6 @@ def create_new_service(body, company_id):
     db.session.commit()
     return new_service
 
-def get_services_list(all_services):
+def get_services_by_company(all_services):
     serialized_services = list(map(lambda service: service.serialize(), all_services))
     return serialized_services
