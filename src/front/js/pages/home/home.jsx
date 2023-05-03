@@ -16,20 +16,24 @@ const HomePage = () => {
         <img src={logoDetail} alt="purple square design used as logo" />
       </header>
       <section>
-        <div className="btn">
-          <Link to={"/register"}>
-            <button type="button" className="boxShadow">
+        <div className="btnWrapper">
+          <Link to={"/login"}>
+            <button type="button" className="loginBtn boxShadow">
               Login
             </button>
           </Link>
           <Link to={"/register"}>
-            <p className="btnregister">
+            <p className="registerLink">
               Don’t have an account yet? Register here!
             </p>
           </Link>
         </div>
-        <div className="imagencalendar">
-          <img className="calendar" src={calendarBox} alt="calendar agenda" />
+        <div className="calendarWrapper">
+          <img
+            className="calendar"
+            src={calendarBox}
+            alt="Purple calendar image with a schedule of worker"
+          />
         </div>
         <div className="bgImg"></div>
       </section>

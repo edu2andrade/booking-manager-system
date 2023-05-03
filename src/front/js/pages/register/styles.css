@@ -83,32 +83,6 @@ section form {
   width: 480px;
 }
 
-.selectContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-block: 8px;
-}
-
-.selectContainer label {
-  font-weight: var(--font-semibold);
-}
-
-.selectContainer select {
-  appearance: none;
-  cursor: pointer;
-  text-align: center;
-  padding: 8px;
-  width: 100px;
-  border: none;
-  border-radius: var(--border-sm);
-}
-
-.selectContainer select:focus {
-  outline: 2px solid var(--purple-500);
-  outline-offset: -2px;
-}
-
 .bgImg {
   position: absolute;
   bottom: 0px;
@@ -149,9 +123,9 @@ section form {
   }
 }
 
-button {
+.submitBtn {
   border: none;
-  border-radius: var(--border-sm);
+  border-radius: var(--border-md);
   background-color: var(--text-900);
   color: var(--text-100);
   font-weight: var(--font-semibold);
@@ -161,7 +135,7 @@ button {
   transition: 0.2s ease-in-out;
 }
 
-button:hover {
+.submitBtn:hover {
   background-color: var(--purple-500);
   color: var(--text-900);
 }

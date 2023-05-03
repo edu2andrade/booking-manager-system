@@ -9,7 +9,6 @@ const initialState = {
   lastname: "",
   email: "",
   password: "",
-  role: "",
 };
 
 const RegisterPage = () => {
@@ -18,6 +17,7 @@ const RegisterPage = () => {
   const handleChange = ({ target }) => {
     setNewUser({ ...newUser, [target.name]: target.value });
   };
+  // Remove this console when it's finished!
   console.log("New User -->", newUser);
 
   const handleSubmit = (e) => {
@@ -69,15 +69,7 @@ const RegisterPage = () => {
             placeholder="Password"
             name="password"
           />
-          <div className="selectContainer">
-            <label htmlFor="role-select">Please select a role:</label>
-            <select name="role" id="role-select" className="boxShadow">
-              <option value="admin">admin</option>
-              <option value="client">client</option>
-              <option value="worker">worker</option>
-            </select>
-          </div>
-          <button type="submit" className="boxShadow">
+          <button type="submit" className="submitBtn boxShadow">
             Register
           </button>
         </form>
