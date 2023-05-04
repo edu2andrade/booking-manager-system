@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logoDetail from "../../../../assets/logo_detail.png";
 import "./styles.css";
 import Input from "../../component/input/input.jsx";
-import { registerUser } from "../../service";
+import { loginUser } from "../../service";
 
 const initialState = {
   email: "",
@@ -15,14 +15,12 @@ const LoginPage = () => {
   const [newLogin, setNewLogin] = useState(initialState);
 
   const handleChange = ({ target }) => {
-    setNewUser({ ...newLogin, [target.name]: target.value });
+    setNewLogin({ ...newLogin, [target.name]: target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await registerUser(newLogin);
-
-    // make request to API
+    await loginUser(newLogin);
     // redirects based on role
   };
   return (

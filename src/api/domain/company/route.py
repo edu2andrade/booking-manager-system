@@ -10,9 +10,13 @@ api = Blueprint('api/company', __name__)
 @api.route('/register', methods=['POST'])
 def create_company():
     body = request.get_json()
-
+    
     new_company = Controller.create_company(body)
-    return jsonify(new_company.serialize())
+
+    if isinstance(new_company, Company):
+        return Response.response_ok('Company has been created in database.', new_company.serialize())
+    else:
+        return Response.response_error(new_company['msg'], new_company['status'])
 
 @api.route('/all', methods=['GET'])
 def get_companies_list():
