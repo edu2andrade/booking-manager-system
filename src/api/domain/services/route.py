@@ -11,10 +11,11 @@ api = Blueprint('api/services', __name__)
 def create_new_service(company_id):
     current_user = get_jwt_identity()
     current_user_id = current_user['id']
+    current_user_role_id = current_user['role_id']
     
     body = request.get_json()
 
-    new_service = Controller.create_new_service(company_id, current_user_id, body)
+    new_service = Controller.create_new_service(company_id, current_user_id, current_user_role_id, body)
 
     if isinstance(new_service, Services):
         return Response.response_ok('New service created successfully!', new_service.serialize())
@@ -45,8 +46,9 @@ def get_single_service(service_id):
 def delete_service(service_id):
     current_user = get_jwt_identity()
     current_user_id = current_user['id']
+    current_user_role_id = current_user['role_id']
 
-    service = Controller.delete_service(service_id, current_user_id)
+    service = Controller.delete_service(service_id, current_user_id, current_user_role_id)
 
     if isinstance(service, Services):
         return Response.response_ok(f'Service with id: {service_id}, was deleted from database.', service.serialize())
