@@ -27,6 +27,12 @@ def list_worker_in_company(company_id):
     return list_of_worker
 
 
+@api.route("/company/<int:company_id>", methods=["GET"])
+def list_worker_in_company(company_id):
+    list_of_worker = Controller.get_list_worker_company(company_id)
+    return list_of_worker
+
+
 @api.route("/<int:worker_id>", methods=["DELETE"])
 @jwt_required()
 def delete_worker(worker_id):
