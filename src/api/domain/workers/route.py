@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, Blueprint
 import api.domain.workers.controller as Controller
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from api.models.index import db, Company, Workers
+from api.models.index import db, Workers
 import api.utilities.handle_response as Response
 
 print("w", Company)
@@ -27,19 +27,12 @@ def list_worker_in_company(company_id):
     return list_of_worker
 
 
-@api.route("/company/<int:company_id>", methods=["GET"])
-def list_worker_in_company(company_id):
-    list_of_worker = Controller.get_list_worker_company(company_id)
-    return list_of_worker
-
-
 @api.route("/<int:worker_id>", methods=["DELETE"])
 @jwt_required()
 def delete_worker(worker_id):
-    current_worker = get_jwt_identity()
-    current_worker_id = current_worker["id"]
-    print("Current_worker_id++++++++++++", current_worker_id)
-    print("Current_workers++++++++++++", current_worker)
+    current_user = get_jwt_identity()
+    current_user_id = current_user["id"]
+
     worker = Workers.query.get(worker_id)
 
     if worker is None:
@@ -48,7 +41,7 @@ def delete_worker(worker_id):
     company = worker.company
     user_id = company.user_id
     print("user_id", user_id)
-    if current_worker_id != user_id:
+    if current_user_id != user_id:
         return Response.response_error(
             "You do not have permission to delete this worker", 401
         )
