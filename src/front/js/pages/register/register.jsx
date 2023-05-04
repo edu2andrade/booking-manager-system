@@ -22,7 +22,6 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await registerUser(newUser);
-    // make request to API...
     // redirects based on role...
   };
   return (

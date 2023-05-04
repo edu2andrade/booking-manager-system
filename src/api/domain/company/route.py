@@ -25,6 +25,7 @@ def get_companies_list():
 @api.route('/<int:company_id>', methods=['GET'])
 def get_company_by_id(company_id):
     company = Controller.get_company_by_id(company_id)
+    print(company, "este es el comopany EDE LA RUTA")
     return company.serialize()
 
 @api.route('/<int:company_id>', methods=['PUT'])
