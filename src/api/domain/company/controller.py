@@ -1,5 +1,6 @@
 import api.domain.company.repository as Repository 
 from api.models.index import db, Company, User
+import api.domain.users.controller as UserController
 
 def create_company(body):
     cif = body['cif']
@@ -15,7 +16,9 @@ def create_company(body):
     if company_name: 
         return {'msg': 'Company name already exists in database', 'status': 400}
     
-    return Repository.create_company(body)
+    new_user = UserController.create_new_user(body, 'admin')
+
+    return Repository.create_company(body, new_user.id)
 
 def get_companies_list():
 
@@ -33,6 +36,7 @@ def get_company_by_id(company_id):
 
 def update_company(update_company, company_id, current_user_id):
     company = Company.query.get(company_id)
+    print(company)
 
     company_user_id = company.user_id
     

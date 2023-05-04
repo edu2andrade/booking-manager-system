@@ -23,6 +23,7 @@ const RegisterPage = () => {
     e.preventDefault();
     await registerUser(newUser);
     // make request to API...
+    await registerUser(newUser);
     // redirects based on role...
   };
   return (
