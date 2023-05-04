@@ -11,7 +11,7 @@ api = Blueprint("api/workers", __name__)
 @api.route("/add_work/<int:company_id>", methods=["POST"])
 def create_work(company_id):
     body = request.get_json()
-    new_work = Controller.create_work(body, company_id)
+    new_work = Controller.create_worker(body, company_id)
     return jsonify(new_work.serialize()), 201
 
 
