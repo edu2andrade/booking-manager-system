@@ -32,9 +32,8 @@ def list_worker_in_company(company_id):
 def delete_worker(worker_id):
     current_user = get_jwt_identity()
     current_user_id = current_user["id"]
-   
     worker = Workers.query.get(worker_id)
-   
+
     if worker is None:
         return Response.response_error("Worker is not found", 400)
 
