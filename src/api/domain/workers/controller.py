@@ -6,10 +6,12 @@ import api.domain.company.controller as CompanyController
 
 def create_work(data, company_id):
     company = CompanyController.get_company_by_id(company_id)
+    print('comp++++++', company)
     if company is None:
         return "Company not found"
 
     new_user = UserController.create_new_user(data)
+    print('new+++',new_user)
     return Repository.create_work(company.id, new_user.id, data["working_schedule"])
 
 
