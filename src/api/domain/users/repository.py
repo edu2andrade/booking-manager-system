@@ -2,12 +2,8 @@ from api.models.index import db, User, Roles
 from flask import jsonify
 
 
-def create_new_user(user):
-    # role = Roles.query.filter_by(type='client').first()
-    new_user = User(user['username'], user['firstname'], user['lastname'], user['email'], user['password'], user['role_id'])
 def create_new_user(user, role_type):
     role = Roles.query.filter_by(type=role_type).first()
-    print(role)
     new_user = User(user['username'], user['firstname'], user['lastname'], user['email'], user['password'], role.id)
     db.session.add(new_user)
     db.session.commit()
