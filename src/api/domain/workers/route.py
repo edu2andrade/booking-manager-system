@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from api.models.index import db, Company, Workers
 import api.utilities.handle_response as Response
 
+print("w", Company)
 api = Blueprint("api/workers", __name__)
 
 
@@ -37,12 +38,15 @@ def delete_worker(worker_id):
 
     if worker is None:
         return Response.response_error("Worker is not found", 400)
-    user_id = worker.user_id
 
+    company = worker.company
+    user_id = company.user_id
+    print("user_id", user_id)
     if current_worker_id != user_id:
         return Response.response_error(
             "You do not have permission to delete this worker", 401
         )
+
     eliminated = Controller.delete_worker(worker_id)
     if eliminated:
         return Response.response_ok(
