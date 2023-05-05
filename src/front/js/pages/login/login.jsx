@@ -21,8 +21,10 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginUser(newLogin);
+    console.log(newLogin);
     // redirects based on role
   };
+
   return (
     <main className="mainContainer">
       <header>
