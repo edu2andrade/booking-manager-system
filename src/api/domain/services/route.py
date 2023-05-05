@@ -14,7 +14,7 @@ def create_new_service(company_id):
     
     body = request.get_json()
 
-    new_service = Controller.create_new_service(company_id, current_user_id, current_user_role_id, body)
+    new_service = Controller.create_new_service(company_id, current_user_id, body)
 
     if isinstance(new_service, Services):
         return Response.response_ok('New service created successfully!', new_service.serialize())
