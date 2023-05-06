@@ -24,7 +24,7 @@ const HomePage = () => {
           </Link>
           <Link to={"/register"}>
             <p className="btnregister">
-              Don’t have an account yet? Register h ere!
+              Don’t have an account yet? Register here!
             </p>
           </Link>
         </div>

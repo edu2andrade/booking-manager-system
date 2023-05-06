@@ -24,13 +24,9 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await registerUser(newUser);
-    console.log(newUser);
-    // redirects based on role...
+    navigate("/");
+    // redirects to dashboard
   };
-
-  // const handleClick = () => {
-  //   navigate("/");
-  // };
 
   return (
     <main className="mainContainer">
