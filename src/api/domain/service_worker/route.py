@@ -10,7 +10,21 @@ api = Blueprint("api/service_worker", __name__)
 
 @api.route("/", methods=["GET"])
 def get_all_servicesWorkers():
-    return Controller.get_all_servicesWorkers()
+    serialized_workers = Controller.get_all_servicesWorkers()
+    return serialized_workers
+
+@api.route("/<int:id>", methods=["GET"])
+def get_service_worker(id):
+    return Controller.get_service_worker_by_id(id)
+
+@api.route('/by_company/<int:company_id>', methods=['GET'])
+def get_services_workers_by_company(company_id):
+    services_worker_by_company = Controller.get_services_workers_by_company(company_id)
+    if isinstance(services_worker_by_company, list):
+        serialized_services_by_company_id = list(map(lambda service: service.serialize(), services_worker_by_company))
+        return Response.response_ok(f'List of all services workers of the company with id: {company_id}', serialized_services_by_company_id)
+    else:
+        return Response.response_error(services_worker_by_company['msg'], services_worker_by_company['status'])
 
 
 @api.route("<int:service_id>", methods=["POST"])
