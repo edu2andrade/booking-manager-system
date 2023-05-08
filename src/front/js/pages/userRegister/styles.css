@@ -14,34 +14,16 @@ section {
   flex: 1;
 }
 
-.btnWrapper {
-  margin: 3rem 0;
-  max-width: 18rem;
-}
-
-.registerLink {
-  margin-top: 0.75rem;
-  font-weight: var(--font-semibold);
-  font-size: 13px;
-  line-height: 1;
-  text-decoration: underline;
-  text-align: center;
-  color: var(--text-900);
-}
-
-.calendarWrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.calendar {
-  z-index: 10;
-  object-fit: contain;
+.title {
+  font-weight: var(--font-extrabold);
+  font-size: 2rem;
+  margin: 2rem 0;
 }
 
 .bgImg {
   position: absolute;
   bottom: 0px;
+  z-index: 0;
   width: 100vw;
   height: 300px;
   clip-path: polygon(0% 30%, 100% 0%, 100% 100%, 0% 100%);
@@ -64,30 +46,16 @@ section {
 }
 
 @media (max-width: 678px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  section form {
+    width: 300px;
+  }
+
   .bgImg {
     height: 220px;
     clip-path: polygon(0% 20%, 100% 0%, 100% 100%, 0% 100%);
   }
-  .calendar {
-    max-width: 22rem;
-    z-index: 10;
-    object-fit: contain;
-  }
-}
-
-.loginBtn {
-  border: none;
-  border-radius: var(--border-md);
-  background-color: var(--text-900);
-  color: var(--text-100);
-  font-weight: var(--font-semibold);
-  margin-block: 6px;
-  padding: 12px;
-  width: 100%;
-  transition: 0.2s ease-in-out;
-}
-
-.loginBtn:hover {
-  background-color: var(--purple-500);
-  color: var(--text-900);
 }

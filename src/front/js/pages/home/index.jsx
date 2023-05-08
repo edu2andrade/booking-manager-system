@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import logoDetail from "../../../../assets/logo_detail.png";
 import calendarBox from "../../../../assets/calendar_box.png";
-import "./styles.css";
 import { Link } from "react-router-dom";
+import Header from "../../components/header/index.jsx";
+import "./styles.css";
 
 const HomePage = () => {
   return (
     <main className="mainContainer">
-      <header>
-        <h1 className="logoTitle">Booking Manager.</h1>
-        <span className="logoSubtitle">
-          A complete booking management software that allows your business to
-          manage their bookings effectively.
-        </span>
-        <img src={logoDetail} alt="purple square design used as logo" />
-      </header>
+      <Header />
       <section>
         <div className="btnWrapper">
           <Link to={"/login"}>
@@ -22,7 +15,7 @@ const HomePage = () => {
               Login
             </button>
           </Link>
-          <Link to={"/register"}>
+          <Link to={"/user-register"}>
             <p className="registerLink">
               Don’t have an account yet? Register here!
             </p>

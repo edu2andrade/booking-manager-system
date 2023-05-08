@@ -1,13 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ScrollToTop from "./component/scrollToTop";
-import { BackendURL } from "./component/backendURL";
-
+import ScrollToTop from "./components/scrollToTop";
+import { BackendURL } from "./components/backendURL";
 
 import injectContext from "./store/appContext";
-import HomePage from "./pages/home/home.jsx";
-import RegisterPage from "./pages/register/register.jsx";
-import LoginPage from "./pages/login/login.jsx";
+import HomePage from "./pages/home/index.jsx";
+import UserRegisterPage from "./pages/userRegister/index.jsx";
+import LoginPage from "./pages/login/index.jsx";
 
 //create your first component
 const Layout = () => {
@@ -24,7 +23,7 @@ const Layout = () => {
         <ScrollToTop>
           <Routes>
             <Route element={<HomePage />} path="/" />
-            <Route element={<RegisterPage />} path="/register" />
+            <Route element={<UserRegisterPage />} path="/user-register" />
             <Route element={<LoginPage />} path="/login" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>

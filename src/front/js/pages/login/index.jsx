@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logoDetail from "../../../../assets/logo_detail.png";
-import "./styles.css";
-import Input from "../../component/input/input.jsx";
+import Input from "../../components/input/index.jsx";
+import Header from "../../components/header/index.jsx";
 import { loginUser } from "../../service";
+import "./styles.css";
 
 const initialState = {
   email: "",
@@ -27,14 +27,7 @@ const LoginPage = () => {
 
   return (
     <main className="mainContainer">
-      <header>
-        <h1 className="logoTitle">Booking Manager.</h1>
-        <span className="logoSubtitle">
-          A complete booking management software that allows your business to
-          manage their bookings effectively.
-        </span>
-        <img src={logoDetail} alt="purple square design used as logo" />
-      </header>
+      <Header />
       <section>
         <h2 className="title">Login</h2>
         {/* Form */}
