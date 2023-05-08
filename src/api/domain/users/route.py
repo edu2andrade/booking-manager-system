@@ -1,19 +1,24 @@
 from flask import Flask, request, jsonify, Blueprint
+import api.utilities.handle_response as Response
 import api.domain.users.controller as Controller
+from api.models.index import User
+from flask_jwt_extended import jwt_required, get_jwt_identity
 import bcrypt
 
 api = Blueprint('api/users', __name__)
 
 @api.route("/register", methods=["POST"])
 def create_new_user():
-    new_user = request.get_json()
-    user = Controller.create_new_user(new_user, 'client')
-    return jsonify({
-        "msg": "user has been created successfully!",
-        "data": user.serialize()
-    }), 201
+    body = request.get_json()
+    
+    user = Controller.create_new_user(body, 'client')
+    
+    if isinstance(user, User):
+        return Response.response_ok('User has been created in database.', user.serialize())
+    else:
+        return Response.response_error(user['msg'], user['status'])
 
-@api.route('/', methods=['GET'])
+@api.route('/', methods=["GET"])
 def get_users_list():
     return Controller.get_users_list()
 

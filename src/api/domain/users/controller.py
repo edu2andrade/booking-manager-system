@@ -1,27 +1,26 @@
-from flask import Flask, request, jsonify
 import api.domain.users.repository as Repository
 import api.utilities.handle_response as Response
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, get_jwt
 import bcrypt
 
 
-def create_new_user(user, role_type):
-    if user['email'] is None or user['email'] == "":
+def create_new_user(body, role_type):
+    if body['email'] is None or body['email'] == "":
         return Response.response_error('Email is not valid', 400)
     
-    if user['username'] is None or user['username'] == "":
+    if body['username'] is None or body['username'] == "":
         return Response.response_error('Username is not valid', 400)
 
-    hashed = bcrypt.hashpw(user['password'].encode(), bcrypt.gensalt())
-    user['password'] = hashed.decode()
-    new_user = Repository.create_new_user(user, role_type)
-    return new_user
-
+    hashed = bcrypt.hashpw(body['password'].encode(), bcrypt.gensalt())
+    body['password'] = hashed.decode()
+    
+    return Repository.create_new_user(body, role_type)
 
 
 def get_users_list():
+
 	all_users = Repository.get_users_list()
-	return Response.response_ok('List of all users', all_users)
+	return all_users
 
 def get_single_user(user_id):
     user = Repository.get_single_user(user_id)
