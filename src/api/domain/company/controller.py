@@ -34,6 +34,12 @@ def get_company_by_id(company_id):
     company = Repository.get_company_by_id(company_id)
     return company
 
+def get_company_by_user_id(user_id):
+    company_by_user_id = Repository.get_company_by_user_id(user_id)
+    if company_by_user_id == []:
+        return Response.response_error("Company list by user is is empty", 404)
+    return company_by_user_id
+
 def update_company(update_company, company_id, current_user_id):
     company = Company.query.get(company_id)
     print(company)

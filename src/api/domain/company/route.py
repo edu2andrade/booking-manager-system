@@ -31,6 +31,11 @@ def get_company_by_id(company_id):
     print(company, "este es el comopany EDE LA RUTA")
     return company.serialize()
 
+@api.route("/by_user/<int:user_id>")
+def get_company_by_user_id(user_id):
+    company_by_user_id = Controller.get_company_by_user_id(user_id)
+    return jsonify(company_by_user_id)
+
 
 @api.route("/<int:company_id>", methods=["PUT"])
 @jwt_required()

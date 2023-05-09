@@ -1,6 +1,7 @@
 import api.domain.service_worker.repository as Repository
 import api.domain.services.controller as ServiceController
 import api.domain.workers.controller as WorkerController
+import api.domain.company.controller as CompanyController
 import api.utilities.handle_response as Response
 from api.models.index import Company
 
@@ -19,8 +20,18 @@ def get_services_workers_by_company(company_id):
     services_worker = Repository.get_services_workers_by_company(company_id)
     return services_worker
 
-def create_service_worker(body, service_id, current_user_id):
+def create_service_worker(body, current_user_id):
+    
+    # Verificar que el usuario actual tiene permisos para crear servicio a un trabajador
+    company = CompanyController.get_company_by_user_id(current_user_id)
+    if company is None:
+        return {
+            "msg": "You do not have permission to create a service worker!",
+            "status": 403,
+        }
+    
     # Verificar si el servicio existe
+    service_id = body["service_id"]
     service = ServiceController.get_single_service(service_id)
     if service is None:
         return {
@@ -38,32 +49,89 @@ def create_service_worker(body, service_id, current_user_id):
         }
     
     # Verificar que el trabajador y el servicio pertenecen a la misma compañía
-    if service.company_id != worker["company_id"]:
+    if company.id == worker.company_id and company.id == service.company_id:
+        Repository.create_service_worker(service_id, worker_id)
         return {
-        "msg": "Worker and Service are from different companies!",
-        "status": 403,
-        }
-    
-    # Verificar que el usuario actual tiene permisos para crear un trabajador de servicio
-    company = Company.query.get(service.company_id)
-    if current_user_id != company.user_id:
-        return {
-            "msg": "You do not have permission to create a service worker!",
-            "status": 403,
-        }
-    
-    # Crear el trabajador de servicio
-    Repository.create_service_worker(service_id, worker_id)
-    return {
         "msg": "Service worker created successfully!",
         "status": 201,
+        }
+    
+    
+    # Si las condiciones no se cumplen quiere decir que hay 
+    # conflictos y no se esta pasando lo que corresponde.
+    return {
+        "msg": "Service worker have conflicts ",
+        "status": 409,
     }
 
-def delete_service_worker(service_id):
-    if not Repository.get_service_worker_by_id(service_id):
-        return Response.response_error(
-            f"Worker Service with id: {service_id}, not found in database.", 404
-        )
+
+
+# def create_service_worker(body, service_id, current_user_id):
+#     # Verificar si el servicio existe
+#     service = ServiceController.get_single_service(service_id)
+#     if service is None:
+#         return {
+#             "msg": f"The Service with id: {service_id}, does not exist in this database.",
+#             "status": 404,
+#         }
+    
+#     # Verificar si el trabajador existe
+#     worker_id = body["worker_id"]
+#     worker = WorkerController.get_worker_by_id(worker_id)
+#     if worker is None:
+#         return {
+#             "msg": f"The Worker with id: {worker_id}, does not exist in this database.",
+#             "status": 404,
+#         }
+    
+#     # Verificar que el trabajador y el servicio pertenecen a la misma compañía
+#     if service.company_id != worker["company_id"]:
+#         return {
+#         "msg": "Worker and Service are from different companies!",
+#         "status": 403,
+#         }
+    
+#     # Verificar que el usuario actual tiene permisos para crear un trabajador de servicio
+#     company = Company.query.get(service.company_id)
+#     if current_user_id != company.user_id:
+#         return {
+#             "msg": "You do not have permission to create a service worker!",
+#             "status": 403,
+#         }
+    
+#     # Crear el trabajador de servicio
+#     Repository.create_service_worker(service_id, worker_id)
+#     return {
+#         "msg": "Service worker created successfully!",
+#         "status": 201,
+#     }
+
+
+# def delete_service_worker(service_id):
+
+#     if Repository.delete_service_worker(service_id):
+#         return Response.response_ok(
+#             {"msg": f"Worker Service with id: {service_id}, has been deleted from database."},
+#             200,
+#         )
+#     if not Repository.get_service_worker_by_id(service_id):
+#         return Response.response_error(
+#             f"Worker Service with id: {service_id}, not found in database.", 404
+#         )
+#     else:
+#         return Response.response_error(
+#             f"Worker Service with id: {service_id}, not found in database.", 404
+#         )
+
+
+def delete_service_worker(service_id, current_user_id):
+    # Verificar que el usuario actual tiene permisos para eliminar la asignacion de un servicio
+    company = CompanyController.get_company_by_user_id(current_user_id)
+    if company is None:
+        return {
+            "msg": "You do not have permission to delete a service worker!",
+            "status": 403,
+        }
     Repository.delete_service_worker(service_id)
     return Response.response_ok(
             {"msg": f"Worker Service with id: {service_id}, has been deleted from database."},

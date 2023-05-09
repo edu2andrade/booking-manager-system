@@ -16,6 +16,14 @@ def get_company_by_id(company_id):
     print(company.user.roles.type)
     return company
 
+def get_company_by_user_id(user_id):
+    company_by_user = Company.query.filter_by(user_id=user_id).first()
+    if company_by_user:
+        return company_by_user.serialize()
+    else:
+        return None
+     
+
 def update_company(update_company, company_id, company):
     if company:
         company.name = update_company['name']
