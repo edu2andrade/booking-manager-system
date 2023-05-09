@@ -16,17 +16,7 @@ def get_single_user(user_id):
     user = User.query.get(user_id)
     return user
 
-def delete_user(user_id):
-    user = User.query.get(user_id)
-    if user:
-        db.session.delete(user)
-        db.session.commit()
-        return True
-    else:
-        return False
-
-def update_user(update_user, user_id):
-    user = User.query.get(user_id)
+def update_user(update_user, user_id, user):
     if user:
         user.username = update_user['username']
         user.firstname = update_user['firstname']
@@ -36,7 +26,15 @@ def update_user(update_user, user_id):
         return user
     else:
         return None
-    
+
+def delete_user(user):
+    if user: 
+        user.is_active = False
+        db.session.commit()
+    else:
+        return None
+    return user
+
 def get_user_by_email(email):
     user = User.query.filter_by(email=email).first()
     return user

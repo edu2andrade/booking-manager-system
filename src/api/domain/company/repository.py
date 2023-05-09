@@ -13,8 +13,11 @@ def get_companies_list():
 
 def get_company_by_id(company_id):
     company = Company.query.get(company_id)
-    print(company.user.roles.type)
     return company
+
+def get_company_by_user_id(user_id):
+    company = Company.query.get(user_id)
+    return company 
 
 def update_company(update_company, company_id, company):
     if company:

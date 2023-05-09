@@ -23,18 +23,36 @@ def get_users_list():
     return Controller.get_users_list()
 
 @api.route('/<int:user_id>', methods=['GET'])
-#make it a private route
 def get_single_user(user_id):
-    return Controller.get_single_user(user_id)
-
-@api.route('/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id):
-    return Controller.delete_user(user_id)
+    user = Controller.get_single_user(user_id)
+    return user.serialize()
 
 @api.route('/<int:user_id>', methods=['PUT'])
-def update(user_id):
+@jwt_required()
+def update_user(user_id):
     update_user = request.get_json()
-    return Controller.update_user(update_user, user_id)
+    current_user = get_jwt_identity()
+    current_user_id = current_user["id"]
+
+    user = Controller.update_user(update_user, user_id, current_user_id)
+
+    if isinstance(user, User):
+        return Response.response_ok(f'User with id: {user_id}, has been updated in database.', user.serialize())
+    else:
+        return Response.response_error(user['msg'], user['status']) 
+
+@api.route('/<int:user_id>', methods=['PUT'])
+@jwt_required()
+def delete_user(user_id):
+    current_user = get_jwt_identity()
+    current_user_id = current_user["id"]
+
+    user = Controller.delete_user(user_id, current_user_id)
+    
+    if isinstance(user, User):
+        return Response.response_ok(f'User with id: {user_id}, was deleted from database.', user.serialize())
+    else:
+        return Response.response_error(user['msg'], user['status'])
 
 @api.route('/login', methods=['POST'])
 def login():
@@ -44,5 +62,6 @@ def login():
     if token.get('token'):
         return jsonify(token), 200
     return jsonify(token), token['status']
+
 
 

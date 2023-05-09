@@ -21,16 +21,17 @@ def create_company():
 
 
 @api.route("/all", methods=["GET"])
-def get_company_list():
-    return Controller.get_company_list()
-
+def get_companies_list():
+    return Controller.get_companies_list()
 
 @api.route("/<int:company_id>", methods=["GET"])
 def get_company_by_id(company_id):
     company = Controller.get_company_by_id(company_id)
-    print(company, "este es el comopany EDE LA RUTA")
     return company.serialize()
 
+def get_company_by_user_id(user_id):
+    company = Controller.get_company_by_user_id(user_id)
+    return company.serialize()
 
 @api.route("/<int:company_id>", methods=["PUT"])
 @jwt_required()
@@ -38,9 +39,6 @@ def update_company(company_id):
     update_company = request.get_json()
     current_user = get_jwt_identity()
     current_user_id = current_user["id"]
-
-    company = Company.query.get(company_id)
-    company_user_id = company.user_id
 
     company = Controller.update_company(update_company, company_id, current_user_id)
     
