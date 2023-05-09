@@ -8,11 +8,6 @@ import api.domain.services.controller as ServiceController
 api = Blueprint("api/service_worker", __name__)
 
 
-@api.route("/", methods=["GET"])
-def get_all_servicesWorkers():
-    serialized_workers = Controller.get_all_servicesWorkers()
-    return serialized_workers
-
 @api.route("/<int:id>", methods=["GET"])
 def get_service_worker(id):
     return Controller.get_service_worker_by_id(id)
@@ -53,7 +48,10 @@ def create_service_worker(service_id):
 def delete_service_worker(service_id):
     current_user = get_jwt_identity()
     current_user_id = current_user["id"]
-    service = Services_workers.query.get(service_id)
-    if current_user_id != service:
-        return Controller.delete_service_worker(service_id)
-    return Response.response_error("User is not the company admin", 400)
+    current_role_id = current_user["role_id"]
+    user_id = Services_workers.query.get(service_id)
+    if not current_role_id == 3:
+        return Response.response_error(f"Worker Service with id: {service_id}, not permission to be eliminated.", 400)
+    if current_user_id != user_id.services.company_id:
+        return Response.response_error("User is not the company admin", 400)
+    return  Controller.delete_service_worker(service_id)

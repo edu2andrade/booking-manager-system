@@ -22,7 +22,7 @@ def create_company():
 
 @api.route("/all", methods=["GET"])
 def get_company_list():
-    return Controller.get_company_list()
+    return Controller.get_companies_list()
 
 
 @api.route("/<int:company_id>", methods=["GET"])
