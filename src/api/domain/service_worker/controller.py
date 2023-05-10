@@ -33,6 +33,7 @@ def create_service_worker(service_id, current_user_id, body):
     # Verificar si el servicio existe
     # service_id = body["service_id"]
     service = ServiceController.get_single_service(service_id)
+    
     if service is None:
         return {
             "msg": f"The Service with id: {service_id}, does not exist in this database.",
@@ -62,7 +63,7 @@ def create_service_worker(service_id, current_user_id, body):
         "status": 409,
     }
 
-def delete_service_worker(service_id, current_user_id):
+def delete_worker_service_id(service_id, current_user_id):
 
 
     # Verificar que el usuario actual tiene permisos para crear servicio a un trabajador
@@ -75,12 +76,12 @@ def delete_service_worker(service_id, current_user_id):
     service = Repository.get_service_worker_by_id(service_id)
     if service is None:
         return {
-            "msg": f"The Service with id: {service_id}, does not exist in this database.",
+            "msg": f"The Worker service with id: {service_id}, does not exist in this database.",
             "status": 404,
         }
     # aqui obtendia una comparacion entre la compañia y el servicio
     if company["id"] == service["service_id"]:
-        Repository.delete_service_worker(service_id)
+        Repository.delete_worker_service_id(service_id)
         return Response.response_ok(
             {"msg": f"Worker Service with id: {service_id}, has been deleted from database."},
             200,

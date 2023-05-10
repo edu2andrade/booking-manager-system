@@ -19,10 +19,10 @@ def create_service_worker(service_id, worker_id):
     return new_service_worker
 
 
-def delete_service_worker(service_id):
-    service_worker = Services_workers.query.get(service_id)
-    if service_worker is not None:
-        db.session.delete(service_worker)
+def delete_worker_service_id(service_id):
+    worker_service_id = Services_workers.query.get(service_id)
+    if worker_service_id is not None:
+        db.session.delete(worker_service_id)
         db.session.commit()
         return True
     else:

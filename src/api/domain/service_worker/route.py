@@ -41,9 +41,9 @@ def create_service_worker(service_worker_id):
             assign_service_worker["msg"], assign_service_worker["status"]
         )
 
-@api.route("/<int:service_id>", methods=["DELETE"])
+@api.route("/<int:service_worker_id>", methods=["DELETE"])
 @jwt_required()
-def delete_service_worker(service_id):
+def delete_worker_service_id(service_worker_id):
     current_user = get_jwt_identity()
     current_user_id = current_user["id"]
-    return Controller.delete_service_worker(service_id, current_user_id)
+    return Controller.delete_worker_service_id(service_worker_id, current_user_id)
