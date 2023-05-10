@@ -48,7 +48,7 @@ def delete_user(user_id):
     current_user_id = current_user["id"]
 
     user = Controller.delete_user(user_id, current_user_id)
-    
+    print(user)
     if isinstance(user, User):
         return Response.response_ok(f'User with id: {user_id}, was deleted from database.', user.serialize())
     else:
@@ -57,11 +57,11 @@ def delete_user(user_id):
 @api.route('/login', methods=['POST'])
 def login():
     body = request.get_json()
-    token = Controller.login(body)
+    token_and_role_type = Controller.login(body)
 
-    if token.get('token'):
-        return jsonify(token), 200
-    return jsonify(token), token['status']
+    if token_and_role_type.get('token'):
+        return Response.response_ok('This is a valid token', token_and_role_type)
+    return Response.response_error(token_and_role_type['msg'], token_and_role_type['status'])
 
 
 

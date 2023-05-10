@@ -9,9 +9,9 @@ def create_new_user(body, role_type):
     email = body['email']
     username = body['username']
 
-    email = User.query.filter_by(email=email).all()
+    email = User.query.filter_by(email=email).first()
 
-    username = User.query.filter_by(username=username).all()
+    username = User.query.filter_by(username=username).first()
 
     if email:
         return {'msg': 'Email already exists in database', 'status': 400}
@@ -38,7 +38,7 @@ def get_single_user(user_id):
 
 def update_user(update_user, user_id, current_user_id):
     user = User.query.get(user_id)
-    
+
     user_id = user.id
 
     if current_user_id == user_id: 
@@ -79,9 +79,11 @@ def login(body):
 
     if user is None: 
         return {"msg": "User not found", "status": 404 }
+
+    user_role_type = user.roles.type
     
     if bcrypt.checkpw(body['password'].encode(), user.password.encode()):
         new_token = create_access_token(identity=user.serialize())
-        return {"token": new_token}
+        return {"token": new_token, "role": user_role_type}
 
     return user 

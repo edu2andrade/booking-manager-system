@@ -6,9 +6,9 @@ def create_company(body):
     cif = body['cif']
     name = body['name']
 
-    company_cif = Company.query.filter_by(cif=cif).all()
+    company_cif = Company.query.filter_by(cif=cif).first()
 
-    company_name = Company.query.filter_by(name=name).all()
+    company_name = Company.query.filter_by(name=name).first()
 
     if company_cif: 
         return {'msg': 'Company CIF already exists in database', 'status': 400}
@@ -32,6 +32,8 @@ def get_company_by_id(company_id):
 
 def get_company_by_user_id(user_id):
     company = Repository.get_company_by_user_id(user_id)
+    if company is None:
+        return {'msg': f'Company with id: {user_id}, do not exists in this database.', 'status': 404}
     return company
 
 def update_company(update_company, company_id, current_user_id):

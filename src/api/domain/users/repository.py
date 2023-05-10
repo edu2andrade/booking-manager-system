@@ -33,6 +33,7 @@ def delete_user(user):
         db.session.commit()
     else:
         return None
+
     return user
 
 def get_user_by_email(email):

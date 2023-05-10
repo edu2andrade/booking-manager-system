@@ -11,7 +11,6 @@ api = Blueprint("api/company", __name__)
 @api.route("/register", methods=["POST"])
 def create_company():
     body = request.get_json()
-    
     new_company = Controller.create_company(body)
 
     if isinstance(new_company, Company):
@@ -29,6 +28,7 @@ def get_company_by_id(company_id):
     company = Controller.get_company_by_id(company_id)
     return company.serialize()
 
+@api.route("/<int:user_id>", methods=["GET"])
 def get_company_by_user_id(user_id):
     company = Controller.get_company_by_user_id(user_id)
     return company.serialize()
