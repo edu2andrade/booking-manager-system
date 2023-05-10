@@ -28,10 +28,10 @@ def get_company_by_id(company_id):
     company = Controller.get_company_by_id(company_id)
     return company.serialize()
 
-@api.route("/<int:user_id>", methods=["GET"])
+@api.route("/user/<int:user_id>", methods=["GET"])
 def get_company_by_user_id(user_id):
-    company = Controller.get_company_by_user_id(user_id)
-    return company.serialize()
+    company_by_user_id = Controller.get_company_by_user_id(user_id)
+    return company_by_user_id
 
 @api.route("/<int:company_id>", methods=["PUT"])
 @jwt_required()

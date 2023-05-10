@@ -16,8 +16,12 @@ def get_company_by_id(company_id):
     return company
 
 def get_company_by_user_id(user_id):
-    company = Company.query.get(user_id)
-    return company 
+    company_by_user_id = Company.query.filter_by(user_id=user_id).first()
+    
+    if company_by_user_id:
+        return company_by_user_id.serialize()
+    else:
+        return None 
 
 def update_company(update_company, company_id, company):
     if company:

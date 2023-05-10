@@ -27,14 +27,18 @@ def get_companies_list():
 def get_company_by_id(company_id):
     company = Repository.get_company_by_id(company_id)
     if company is None:
-        return {'msg': f'Company with id: {company_id}, do not exists in this database.', 'status': 404}
+        return {'msg': f'Company with id: {company_id}, does not exist in this database.', 'status': 404}
     return company
 
 def get_company_by_user_id(user_id):
-    company = Repository.get_company_by_user_id(user_id)
-    if company is None:
-        return {'msg': f'Company with id: {user_id}, do not exists in this database.', 'status': 404}
-    return company
+    user = User.query.get(user_id)
+    if user is None: 
+        return {'msg': f'The User with id: {user_id}, does not exist in this database.', 'status': 404}
+    
+    company_by_user_id = Repository.get_company_by_user_id(user_id)
+    if company_by_user_id == []:
+        return {'msg': f'The user: {user_id}, has no existing companies in this database.', 'status': 404}
+    return company_by_user_id
 
 def update_company(update_company, company_id, current_user_id):
     company = Company.query.get(company_id)
