@@ -5,10 +5,9 @@ import api.domain.users.controller as UserController
 def create_company(body):
     cif = body['cif']
     name = body['name']
-    print('CIF ---------->', cif)
-    print('Name ---------->', name)
-    
+
     company_cif = Company.query.filter_by(cif=cif).first()
+
     company_name = Company.query.filter_by(name=name).first()
 
     if company_cif: 
@@ -22,22 +21,28 @@ def create_company(body):
     return Repository.create_company(body, new_user.id)
 
 def get_companies_list():
-
 	all_companies = Repository.get_companies_list()
 	return all_companies
 
 def get_company_by_id(company_id):
-    
-    company_by_id = Repository.get_company_by_id(company_id)
-    if company_by_id is None:
-        return {'msg': f'Company with id: {company_id}, do not exists in this database.', 'status': 404}
-    
     company = Repository.get_company_by_id(company_id)
+    if company is None:
+        return {'msg': f'Company with id: {company_id}, does not exist in this database.', 'status': 404}
     return company
+
+def get_company_by_user_id(user_id):
+    user = User.query.get(user_id)
+    if user is None: 
+        return {'msg': f'The User with id: {user_id}, does not exist in this database.', 'status': 404}
+    
+    company_by_user_id = Repository.get_company_by_user_id(user_id)
+    if company_by_user_id == []:
+        return {'msg': f'The user: {user_id}, has no existing companies in this database.', 'status': 404}
+
+    return company_by_user_id
 
 def update_company(update_company, company_id, current_user_id):
     company = Company.query.get(company_id)
-    print(company)
 
     company_user_id = company.user_id
     
@@ -46,7 +51,6 @@ def update_company(update_company, company_id, current_user_id):
         return updated_company
     else: 
         return {'msg': 'You do not have rights to update this company!', 'status': 403}  
-
 
 def delete_company(company_id, current_user_id):
     company = Company.query.get(company_id)
