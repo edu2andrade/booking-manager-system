@@ -60,6 +60,6 @@ def delete_company(company_id, current_user_id):
     if current_user_id != company_user_id:
         return {'msg': 'You do not have rights to delete this company!', 'status': 403}
 
-    deleted_company = Repository.delete_company(company_id) 
+    deleted_company = Repository.delete_company(company) 
     return deleted_company
     
