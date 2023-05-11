@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../../components/input/index.jsx";
 import Header from "../../components/header/index.jsx";
 import { loginUser } from "../../service";
 import "./styles.css";
+import LoginForm from "../../components/loginForm/index.jsx";
 
 const initialState = {
   email: "",
@@ -20,9 +20,11 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginUser(newLogin);
-    navigate("/");
-    // navigate should redirect to dashboard company, client or worker
+    const data = await loginUser(newLogin);
+
+    if (data.role_type === "admin") navigate("/admin-dashboard");
+    if (data.role_type === "client") navigate("/user-dashboard");
+    if (data.role_type === "worker") navigate("/worker-dashboard");
   };
 
   return (
@@ -30,24 +32,7 @@ const LoginPage = () => {
       <Header />
       <section>
         <h2 className="title">Login</h2>
-        {/* Form */}
-        <form onChange={handleChange} onSubmit={handleSubmit}>
-          <Input
-            icon={<i className="fa-solid fa-envelope"></i>}
-            type="email"
-            placeholder="Email"
-            name="email"
-          />
-          <Input
-            icon={<i className="fa-solid fa-lock"></i>}
-            type="password"
-            placeholder="Password"
-            name="password"
-          />
-          <button type="submit" className="boxShadow">
-            Login
-          </button>
-        </form>
+        <LoginForm handleSubmit={handleSubmit} handleChange={handleChange} />
         <div className="bgImg"></div>
       </section>
     </main>

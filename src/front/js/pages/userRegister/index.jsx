@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../service";
 import "./styles.css";
 import UserForm from "../../components/userForm/index.jsx";
 import Header from "../../components/header/index.jsx";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   username: "",
@@ -13,9 +13,9 @@ const initialState = {
   password: "",
 };
 
-const RegisterPage = () => {
-  const navigate = useNavigate();
+const UserRegister = () => {
   const [newUser, setNewUser] = useState(initialState);
+  const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     setNewUser({ ...newUser, [target.name]: target.value });
@@ -23,20 +23,23 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await registerUser(newUser);
-    console.log(`new user ---> ${data}`);
-    // if (data.role_id === 3) navigate("/");
+    await registerUser(newUser);
+    navigate("/user-dashboard");
   };
 
   return (
     <main className="mainContainer">
       <Header />
       <section>
-        <h2 className="title">Register</h2>
-        <UserForm handleChange={handleChange} handleSubmit={handleSubmit} />
+        <h2 className="title">User Register</h2>
+        <UserForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          textBtn="Register"
+        />
         <div className="bgImg"></div>
       </section>
     </main>
   );
 };
-export default RegisterPage;
+export default UserRegister;

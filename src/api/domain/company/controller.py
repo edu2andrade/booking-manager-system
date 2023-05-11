@@ -5,10 +5,11 @@ import api.domain.users.controller as UserController
 def create_company(body):
     cif = body['cif']
     name = body['name']
-
-    company_cif = Company.query.filter_by(cif=cif).all()
-
-    company_name = Company.query.filter_by(name=name).all()
+    print('CIF ---------->', cif)
+    print('Name ---------->', name)
+    
+    company_cif = Company.query.filter_by(cif=cif).first()
+    company_name = Company.query.filter_by(name=name).first()
 
     if company_cif: 
         return {'msg': 'Company CIF already exists in database', 'status': 400}

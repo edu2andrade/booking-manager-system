@@ -13,7 +13,22 @@ export const registerUser = async (user) => {
     });
     const data = await res.json();
     console.log("Success:", data);
-    return data;
+    return data.data;
+  } catch (err) {
+    console.log("Error Register User", err);
+  }
+};
+
+export const registerCompany = async (company) => {
+  try {
+    const res = await fetch(`${URL}/company/register`, {
+      method: "POST",
+      headers: HEADERS,
+      body: JSON.stringify(company),
+    });
+    const data = await res.json();
+    console.log("Success:", data);
+    return data.data;
   } catch (err) {
     console.log("Error Register User", err);
   }
@@ -27,7 +42,8 @@ export const loginUser = async (user) => {
       body: JSON.stringify(user),
     });
     const data = await res.json();
-    localStorage.setItem("token", data.token);
+    localStorage.setItem("token", data.data.token);
+    return data.data;
   } catch (err) {
     console.log("Error Login User", err);
   }

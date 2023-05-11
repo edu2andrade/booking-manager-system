@@ -20,6 +20,9 @@ const HomePage = () => {
               Don’t have an account yet? Register here!
             </p>
           </Link>
+          <Link to={"/company-register"}>
+            <p className="registerLink">Register your company here!</p>
+          </Link>
         </div>
         <div className="calendarWrapper">
           <img

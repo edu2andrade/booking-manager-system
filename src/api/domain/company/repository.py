@@ -1,7 +1,7 @@
 from api.models.index import db, Company
 
-def create_company(body, new_user):
-    new_company = Company(new_user, body['cif'], body['name'], body['description'], body['address'], body['working_schedule'])
+def create_company(body, new_user_id):
+    new_company = Company(new_user_id, body['cif'], body['name'], body['description'], body['address'], body['working_schedule'])
     db.session.add(new_company)
     db.session.commit()
     return new_company

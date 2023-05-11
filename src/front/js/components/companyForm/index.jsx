@@ -2,37 +2,37 @@ import React from "react";
 import Input from "../input/index.jsx";
 import "./styles.css";
 
-const UserForm = ({ handleChange, handleSubmit, textBtn }) => (
+const CompanyForm = ({ handleChange, handleSubmit, textBtn }) => (
   <form onChange={handleChange} onSubmit={handleSubmit}>
     <Input
       icon={<i className="fa-solid fa-circle-user"></i>}
       type="text"
-      placeholder="Username"
-      name="username"
+      placeholder="Name"
+      name="name"
     />
     <Input
       icon={<i className="fa-solid fa-circle-user"></i>}
       type="text"
-      placeholder="First Name"
-      name="firstname"
+      placeholder="CIF"
+      name="cif"
     />
     <Input
       icon={<i className="fa-solid fa-circle-user"></i>}
-      type="text"
-      placeholder="Last Name"
-      name="lastname"
+      type="textarea"
+      placeholder="Description"
+      name="description"
     />
     <Input
       icon={<i className="fa-solid fa-envelope"></i>}
-      type="email"
-      placeholder="Email"
-      name="email"
+      type="text"
+      placeholder="Address"
+      name="address"
     />
     <Input
-      icon={<i className="fa-solid fa-lock"></i>}
-      type="password"
-      placeholder="Password"
-      name="password"
+      icon={<i className="fa-solid fa-calendar-days"></i>}
+      type="text"
+      placeholder="Working Schedule"
+      name="working_schedule"
     />
     <button type="submit" className="submitBtn boxShadow">
       {textBtn}
@@ -40,4 +40,4 @@ const UserForm = ({ handleChange, handleSubmit, textBtn }) => (
   </form>
 );
 
-export default UserForm;
+export default CompanyForm;
