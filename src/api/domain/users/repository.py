@@ -39,3 +39,22 @@ def delete_user(user):
 def get_user_by_email(email):
     user = User.query.filter_by(email=email).first()
     return user
+
+
+def insert_img(username, email, password, lastname, firstname, avatar):
+    user = User.query.get(1)
+    if user:
+        user.username = username
+        user.email = email
+        user.password = password
+        user.lastname = lastname
+        user.firstname = firstname
+        user.avatar = avatar
+        db.session.commit()
+        return user
+    else:
+        return None
+
+def get_user_by_email(email):
+    return User.query.filter_by(email=email).first()
+

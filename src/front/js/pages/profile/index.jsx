@@ -3,7 +3,62 @@ import calendarBox from "../../../../assets/calendar_box.png";
 import { Link } from "react-router-dom";
 import Header from "../../components/header/index.jsx";
 import "./styles.css";
+import { insertImg } from "../../service";
 const Profile = () => {
+  const [file, setFile] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
+
+  const [user, setUser] = useState({
+    username: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = ({ target }) => {
+    console.log(target.files);
+    if (target.files) {
+      setFile(target.files[0]);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (reader.readyState === 2) {
+          console.log("result", reader.result);
+          setFileUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(target.files[0]);
+    }
+  };
+
+  // const handleClick = () => {
+  //   const form = new FormData();
+  //   form.append("avatar", file);
+  //   form.append("user", JSON.stringify(user));
+  //   insertImg(form);
+  // };
+  const handleClick = () => {
+    const form = new FormData();
+    form.append("avatar", file);
+    form.append("email", user.email);
+    form.append("username", user.username);
+    form.append("firstname", user.firstname);
+    form.append("lastname", user.lastname);
+    form.append("password", user.password);
+
+    insertImg(form);
+    setFile("");
+    setFileUrl("");
+    setUser({
+      username: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+    });
+  };
+  console.log(user, "user");
+
   return (
     <main className="mainContainer">
       <Header />
@@ -24,11 +79,57 @@ const Profile = () => {
           </Link>
         </div>
         <div className="calendarWrapper">
-          <img
-            className="calendar"
-            src={calendarBox}
-            alt="Purple calendar image with a schedule of worker"
-          />
+          <div className="calendar">
+            <h1>Añadiendo la img</h1>
+            <input type="file" onChange={handleChange} />
+
+            <input
+              type="text"
+              value={user.username}
+              onChange={({ target }) =>
+                setUser((prevUser) => ({ ...prevUser, username: target.value }))
+              }
+              placeholder="username"
+            />
+            <input
+              type="text"
+              value={user.firstname}
+              onChange={({ target }) =>
+                setUser((prevUser) => ({
+                  ...prevUser,
+                  firstname: target.value,
+                }))
+              }
+              placeholder="firstname"
+            />
+            <input
+              type="text"
+              value={user.lastname}
+              onChange={({ target }) =>
+                setUser((prevUser) => ({ ...prevUser, lastname: target.value }))
+              }
+              placeholder="lastname"
+            />
+
+            <input
+              type="email"
+              value={user.email}
+              onChange={({ target }) =>
+                setUser((prevUser) => ({ ...prevUser, email: target.value }))
+              }
+              placeholder="email"
+            />
+            <input
+              type="password"
+              value={user.password}
+              onChange={({ target }) =>
+                setUser((prevUser) => ({ ...prevUser, password: target.value }))
+              }
+              placeholder="password"
+            />
+            {fileUrl && <img src={fileUrl} alt="Avatar" height={120} />}
+            <button onClick={handleClick}>enviar</button>
+          </div>
         </div>
         <div className="bgImg"></div>
       </section>

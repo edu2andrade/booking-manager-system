@@ -3,6 +3,9 @@ from api.models.index import User
 import api.utilities.handle_response as Response
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, get_jwt
 import bcrypt
+from cloudinary.uploader import upload
+import json
+
 
 
 def create_new_user(body, role_type):
@@ -87,3 +90,15 @@ def login(body):
         return {"token": new_token, "role": user_role_type}
 
     return user 
+
+def insert_img(username, email, password, lastname,firstname, avatar):
+    img = upload(avatar)
+    url_avatar = img['secure_url']
+    print('URL IMAGE', img['secure_url'])
+    return Repository.insert_img(username, email,  password, lastname,firstname, url_avatar)
+
+def get_user(user):
+    user = Repository.get_user_by_email(user['email'])
+    if user is None: 
+        return {"msg": "User not found", "error": True, "status": 404 }
+    return user
