@@ -4,10 +4,13 @@ import { Link } from "react-router-dom";
 import Header from "../../components/header/index.jsx";
 import "./styles.css";
 import { insertImg } from "../../service";
+import { useParams } from "react-router-dom";
+import UserDashboard from "../userDashboard/index.jsx";
 const Profile = () => {
+  const { userId } = useParams();
+
   const [file, setFile] = useState("");
   const [fileUrl, setFileUrl] = useState("");
-
   const [user, setUser] = useState({
     username: "",
     firstname: "",
@@ -62,6 +65,8 @@ const Profile = () => {
   return (
     <main className="mainContainer">
       <Header />
+      <p>User ID: {userId}</p>
+      <UserDashboard></UserDashboard>
       <section>
         <div className="btnWrapper">
           <Link to={"/login"}>
