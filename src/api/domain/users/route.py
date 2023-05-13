@@ -41,7 +41,7 @@ def update_user(user_id):
     else:
         return Response.response_error(user['msg'], user['status']) 
 
-@api.route('/delete/<int:user_id>', methods=['PUT'])
+@api.route('/delete/<int:user_id>', methods=['PATCH'])
 @jwt_required()
 def delete_user(user_id):
     current_user = get_jwt_identity()

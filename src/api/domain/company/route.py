@@ -52,14 +52,15 @@ def update_company(company_id):
         return Response.response_error(company['msg'], company['status'])
 
 
-@api.route("/delete/<int:company_id>", methods=["PUT"])
+@api.route("/delete/<int:company_id>", methods=["PATCH"])
 @jwt_required()
 def delete_company(company_id):
     current_user = get_jwt_identity()
-    current_user_id = current_user["id"]
+    current_user_id = current_user["id"] 
 
     company = Controller.delete_company(company_id, current_user_id)
     if isinstance(company, Company):
         return Response.response_ok(f'Company with id: {company_id}, was deleted from database.', company.serialize())
     else:
         return Response.response_error(company['msg'], company['status'])
+#agregar delete user, si no el user aun está activo

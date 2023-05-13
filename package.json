@@ -75,7 +75,9 @@
 	"dependencies": {
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
+		"react-calendar": "^4.2.1",
 		"react-dom": "^16.8.4",
+		"react-google-calendar-api": "^2.2.2",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0"
 	}
