@@ -5,7 +5,7 @@ import "../../components/calendar/styles.css";
 const Calendar = () => {
   return (
     <div>
-      <ReactCalendar />
+      <ReactCalendar className="calendar" />
     </div>
   );
 };
