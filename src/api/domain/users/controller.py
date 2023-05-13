@@ -52,9 +52,8 @@ def delete_user(user_id, current_user_id):
 
     if user is None:
         return {'msg': f'The user with id: {user_id}, does not exists in this database.', 'status': 404}
-
     model_user_id = user.id
-
+    
     if model_user_id == current_user_id:
         deleted_user = Repository.delete_user(user)
         return deleted_user
@@ -86,4 +85,16 @@ def login(body):
         new_token = create_access_token(identity=user.serialize())
         return {"token": new_token, "role": user_role_type}
 
-    return user 
+    return user
+
+def update_profile(username, firstname, lastname, email, avatar, current_user_id):
+    img = upload(avatar)
+    url_avatar = img['secure_url']
+    print('URL IMAGE', img['secure_url'])
+    return Repository.update_profile(username, firstname, lastname, email, avatar, url_avatar, current_user_id)
+
+def get_user_profile(user):
+    user = Repository.get_user_by_email(user['email'])
+    if user is None: 
+        return {"msg": "User not found", "error": True, "status": 404 }
+    return user
