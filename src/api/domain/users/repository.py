@@ -40,13 +40,13 @@ def get_user_by_email(email):
     user = User.query.filter_by(email=email).first()
     return user
 
-def update_profile(username, firstname, lastname, email, avatar, url_avatar, current_user_id):
+def update_profile(username, firstname, lastname, email, url_avatar, current_user_id):
     user = User.query.get(current_user_id) #token user_id
     if user:
         user.username = username
-        user.email = email
-        user.lastname = lastname
         user.firstname = firstname
+        user.lastname = lastname
+        user.email = email
         user.avatar = url_avatar
         db.session.commit()
         return user
