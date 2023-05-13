@@ -8,7 +8,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await obtainInfo();
-      console.log(userData, "data");
+      console.log(userData, "datauserdash");
       setUser(userData);
     };
 

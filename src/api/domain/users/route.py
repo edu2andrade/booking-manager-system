@@ -89,4 +89,3 @@ def get_user():
     if isinstance(user_response, User):
         return jsonify(user_response.serialize()), 200
     return jsonify(user_response), user_response['status']
-

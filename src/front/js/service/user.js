@@ -66,36 +66,36 @@ export const getInfoUser = async () => {
   }
 };
 
-// export const insertImg = async (body) => {
-//   try {
-//     const res = await fetch(`${URL}/users/update`, {
-//       method: "PUT",
-//       body: body,
-//     });
-//     const data = await res.json();
-//     console.log(data);
-//   } catch (err) {
-//     console.log("Error Update User", err);
-//   }
-// };
 export const insertImg = async (body) => {
   try {
-    const token = localStorage.getItem("token"); // Obtén el token de alguna forma (por ejemplo, desde el estado o el almacenamiento local)
-
     const res = await fetch(`${URL}/users/update`, {
       method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       body: body,
     });
-
     const data = await res.json();
     console.log(data);
   } catch (err) {
     console.log("Error Update User", err);
   }
 };
+// export const insertImg = async (body) => {
+//   try {
+//     const token = localStorage.getItem("token"); // Obtén el token de alguna forma (por ejemplo, desde el estado o el almacenamiento local)
+
+//     const res = await fetch(`${URL}/users/update`, {
+//       method: "PUT",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: body,
+//     });
+
+//     const data = await res.json();
+//     console.log(data);
+//   } catch (err) {
+//     console.log("Error Update User", err);
+//   }
+// };
 
 export const obtainInfo = async () => {
   try {

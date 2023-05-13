@@ -6,6 +6,7 @@ import "./styles.css";
 import { insertImg } from "../../service";
 import { useParams } from "react-router-dom";
 import UserDashboard from "../userDashboard/index.jsx";
+import { ProfileForm } from "../../components/profileForm/index.jsx";
 const Profile = () => {
   const { userId } = useParams();
 
@@ -67,7 +68,7 @@ const Profile = () => {
       <Header />
       <p>User ID: {userId}</p>
       <UserDashboard></UserDashboard>
-      <section>
+      {/* <section>
         <div className="btnWrapper">
           <Link to={"/login"}>
             <button type="button" className="loginBtn boxShadow">
@@ -133,11 +134,12 @@ const Profile = () => {
               placeholder="password"
             />
             {fileUrl && <img src={fileUrl} alt="Avatar" height={120} />}
-            <button onClick={handleClick}>enviar</button>
-          </div>
-        </div>
-        <div className="bgImg"></div>
-      </section>
+            <button onClick={handleClick}>enviar</button> */}
+      {/* </div> */}
+      {/* </div> */}
+      <div className="bgImg"></div>
+      <ProfileForm />
+      {/* </section> */}
     </main>
   );
 };
