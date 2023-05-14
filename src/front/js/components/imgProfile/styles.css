@@ -1,0 +1,31 @@
+.mainContainerimg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.parent {
+  background-color: red;
+  width: 948px;
+  height: 283px;
+  position: relative;
+  margin-top: 3rem;
+}
+
+.child {
+  background-color: green;
+  width: 948px;
+  height: 97px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.child img {
+  max-width: 100%;
+  max-height: 100%;
+}

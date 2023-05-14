@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import calendarBox from "../../../../assets/calendar_box.png";
 import { Link } from "react-router-dom";
-import Header from "../../components/header/index.jsx";
 import "./styles.css";
 import { insertImg } from "../../service";
 import { useParams } from "react-router-dom";
 import UserDashboard from "../userDashboard/index.jsx";
 import { ProfileForm } from "../../components/profileForm/index.jsx";
+import { Navbar } from "../../components/navbar/index.jsx";
 const Profile = () => {
   const { userId } = useParams();
 
@@ -64,10 +64,17 @@ const Profile = () => {
   console.log(user, "user");
 
   return (
-    <main className="mainContainer">
-      <Header />
+    <main className="">
+      <Navbar />
       <p>User ID: {userId}</p>
-      <UserDashboard></UserDashboard>
+
+      <main className="mainContainer">
+        <div className="background">
+          <h2 className="title">Profile update</h2>
+          <ProfileForm />
+        </div>
+      </main>
+      {/* <UserDashboard></UserDashboard> */}
       {/* <section>
         <div className="btnWrapper">
           <Link to={"/login"}>
@@ -137,8 +144,7 @@ const Profile = () => {
             <button onClick={handleClick}>enviar</button> */}
       {/* </div> */}
       {/* </div> */}
-      <div className="bgImg"></div>
-      <ProfileForm />
+
       {/* </section> */}
     </main>
   );
