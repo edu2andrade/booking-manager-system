@@ -25,7 +25,11 @@ def get_users_list():
 @api.route('/<int:user_id>', methods=['GET'])
 def get_single_user(user_id):
     user = Controller.get_single_user(user_id)
-    return user.serialize()
+    
+    if isinstance(user, User):
+        return Response.response_ok(f'User with id: {user_id}, has been retrieved from database.', user.serialize())
+    else:
+        return Response.response_error(user['msg'], user['status']) 
 
 @api.route('/<int:user_id>', methods=['PUT'])
 @jwt_required()
