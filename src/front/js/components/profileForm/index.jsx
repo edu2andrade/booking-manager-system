@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../input/index.jsx";
 export const ProfileForm = () => {
   return (
-    <div className="bac">
+    <div>
       <form>
         <Input
           icon={<i className="fa-solid fa-circle-user"></i>}

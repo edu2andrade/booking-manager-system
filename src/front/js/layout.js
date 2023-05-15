@@ -13,7 +13,7 @@ import UserDashboard from "./pages/userDashboard/index.jsx";
 import AdminDashboard from "./pages/adminDashboard/index.jsx";
 import WorkerDashboard from "./pages/workerDashboard/index.jsx";
 import Profile from "./pages/profile/index.jsx";
-import { ImgProfile } from "./components/imgProfile/index.jsx";
+import { UpdatePassword } from "./pages/updatePassword/index.jsx";
 
 //create your first component
 const Layout = () => {
@@ -41,7 +41,8 @@ const Layout = () => {
             <Route element={<UserDashboard />} path="/user-dashboard" />
             <Route element={<WorkerDashboard />} path="/worker-dashboard" />
             <Route element={<Profile />} path="/profile/:userId" />
-            <Route element={<ImgProfile />} path="/form" />
+            <Route element={<UpdatePassword />} path="/update" />
+            <Route element={<UpdatePassword />} path="/update" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
