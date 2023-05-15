@@ -3,18 +3,20 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  margin-bottom: 12px;
 }
 
 .parent {
-  background-color: red;
   width: 948px;
-  height: 283px;
+  height: 200px;
   position: relative;
   margin-top: 3rem;
+  background: #f5f4ff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
 }
 
 .child {
-  background-color: green;
   width: 948px;
   height: 97px;
   position: absolute;
@@ -23,9 +25,48 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(90deg, #00ffff 0%, #37cfff 100%);
+  border-radius: 12px 12px 0px 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .child img {
+  width: 105px;
+  height: 105px;
+  margin-top: 11rem;
+
   max-width: 100%;
   max-height: 100%;
+  cursor: pointer;
+
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 250px;
+}
+.btnPhoto {
+  border: none;
+  border-radius: var(--border-md);
+  background-color: var(--text-900);
+  color: var(--text-100);
+  font-weight: var(--font-semibold);
+  margin-block: 6px;
+  padding: 6px;
+  width: 129px;
+  transition: 0.2s ease-in-out;
+}
+
+.btnPhoto:hover {
+  background-color: var(--purple-500);
+  color: var(--text-900);
+}
+.nametitle {
+  font-weight: var(--font-extrabold);
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  color: var(--text-900);
+}
+.nametitle2 {
+  line-height: 19px;
+  letter-spacing: -0.03em;
 }

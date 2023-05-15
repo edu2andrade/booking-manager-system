@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import UserDashboard from "../userDashboard/index.jsx";
 import { ProfileForm } from "../../components/profileForm/index.jsx";
 import { Navbar } from "../../components/navbar/index.jsx";
+import { ImgProfile } from "../../components/imgProfile/index.jsx";
 const Profile = () => {
   const { userId } = useParams();
 
@@ -66,9 +67,11 @@ const Profile = () => {
   return (
     <main className="">
       <Navbar />
-      <p>User ID: {userId}</p>
+      {/* <p>User ID: {userId}</p> */}
 
-      <main className="mainContainer">
+      <ImgProfile />
+
+      <main className="mainContainerProfile">
         <div className="background">
           <h2 className="title">Profile update</h2>
           <ProfileForm />
