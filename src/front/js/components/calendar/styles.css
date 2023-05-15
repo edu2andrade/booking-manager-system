@@ -63,7 +63,7 @@
   background-color: #e6e6e6;
 }
 .react-calendar__month-view__weekdays {
-  color: #4f46e5;
+  color: black;
   text-align: center;
   text-transform: uppercase;
   font-weight: 700;

@@ -20,14 +20,6 @@
   border-radius: 12px;
 }
 
-.calendar {
-  border: none;
-  width: 298px;
-  height: 401px;
-  left: 352px;
-  top: 311px;
-}
-
 img {
   margin: 20px;
   width: 44.76px;
@@ -51,5 +43,5 @@ h2 {
 }
 
 .calendar {
-  margin: 47px 59px 47px -50px;
+  padding-right: 10px;
 }

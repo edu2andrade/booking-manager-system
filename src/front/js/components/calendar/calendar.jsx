@@ -2,10 +2,10 @@ import React from "react";
 import ReactCalendar from "react-calendar";
 import "../../components/calendar/styles.css";
 
-const Calendar = () => {
+const Calendar = ({ onChange, value }) => {
   return (
     <div>
-      <ReactCalendar className="calendar" />
+      <ReactCalendar onChange={onChange} value={value} />
     </div>
   );
 };

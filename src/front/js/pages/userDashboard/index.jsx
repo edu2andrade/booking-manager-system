@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Calendar from "../../components/calendar/calendar.jsx";
+// import Calendar from "react-calendar";
 import "../../pages/userDashboard/styles.css";
 
 const UserDashboard = () => {
   const [date, setDate] = useState(new Date());
 
-  const onChange = (date) => {
-    console.log(date);
-    setDate(date);
+  const onDateChange = (newDate) => {
+    console.log(newDate);
   };
 
   return (
@@ -23,8 +23,9 @@ const UserDashboard = () => {
           </div>
           <div></div>
         </div>
-        <Calendar className="calendar" onChange={onChange} value={date} />
-        {console.log(date)}
+        <div className="calendar">
+          <Calendar onChange={onDateChange} value={date} />
+        </div>
       </div>
     </div>
   );
