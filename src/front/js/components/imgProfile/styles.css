@@ -70,3 +70,45 @@
   line-height: 19px;
   letter-spacing: -0.03em;
 }
+/* input file */
+
+.file-select {
+  position: relative;
+  display: inline-block;
+}
+
+.file-select::before {
+  background-color: var(--text-900);
+  color: var(--text-100);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-md);
+  content: "Seleccionar"; /* testo por defecto */
+  position: absolute;
+  font-weight: var(--font-semibold);
+  transition: 0.2s ease-in-out;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 129px;
+  height: 29px;
+  padding: 16px;
+  display: inline-block;
+  cursor: pointer;
+}
+.file-select:hover::before {
+  background-color: var(--purple-500);
+  color: var(--text-900);
+}
+
+.file-select:hover::before {
+  content: "Change Photo";
+  background-color: var(--purple-500);
+  color: var(--text-900);
+}

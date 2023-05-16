@@ -1,26 +1,28 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Context } from "../../store/appContext";
 import "./styles.css";
-export const ImgProfile = () => {
-  const navigate = useNavigate();
-  const handlesubmit = () => {
-    navigate("/");
-  };
+export const ImgProfile = ({ img, handleChange }) => {
+  const { store } = useContext(Context);
+  console.log(store, "store++");
+  const userData = store.userProfileData.userData;
+
   return (
     <main className="mainContainerimg">
       <div className="parent">
         <div className="child">
-          <img
-            src="https://pbs.twimg.com/profile_images/1243475459125456896/e-zIQiFY_400x400.jpg"
-            alt="Daenerys Targaryen"
-            onClick={handlesubmit}
-          />
-
-          <h5 className="nametitle">Danny Targaryen</h5>
-          <p className="nametitle2">danny@email.com</p>
-          <button type="submit" className="btnPhoto">
-            Change Photo
-          </button>
+          <div className="profile-image-container ">
+            <img src={img} alt="Daenerys Targaryen" />
+          </div>
+          <h5 className="nametitle">{userData.username}</h5>
+          <p className="nametitle2">{userData.email}</p>
+          <div class="file-select" id="src-file1">
+            <input
+              type="file"
+              name="src-file1"
+              aria-label="Archivo"
+              onChange={handleChange}
+            />
+          </div>
         </div>
       </div>
     </main>

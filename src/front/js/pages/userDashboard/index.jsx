@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../../store/appContext";
 import { obtainInfo } from "../../service";
 import { useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const { actions } = useContext(Context);
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await obtainInfo();
       console.log(userData, "datauserdash");
       setUser(userData);
+      actions.saveUserProfileData(userData);
     };
 
     fetchUser();

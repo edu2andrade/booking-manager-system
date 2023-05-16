@@ -8,6 +8,7 @@ import UserDashboard from "../userDashboard/index.jsx";
 import { ProfileForm } from "../../components/profileForm/index.jsx";
 import { Navbar } from "../../components/navbar/index.jsx";
 import { ImgProfile } from "../../components/imgProfile/index.jsx";
+
 const Profile = () => {
   const { userId } = useParams();
 
@@ -18,9 +19,8 @@ const Profile = () => {
     firstname: "",
     lastname: "",
     email: "",
-    password: "",
   });
-
+  console.log(user, "userrr++++");
   const handleChange = ({ target }) => {
     console.log(target.files);
     if (target.files) {
@@ -33,6 +33,8 @@ const Profile = () => {
         }
       };
       reader.readAsDataURL(target.files[0]);
+    } else {
+      setUser({ ...user, [target.name]: target.value });
     }
   };
 
@@ -42,15 +44,14 @@ const Profile = () => {
   //   form.append("user", JSON.stringify(user));
   //   insertImg(form);
   // };
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     const form = new FormData();
     form.append("avatar", file);
     form.append("email", user.email);
     form.append("username", user.username);
     form.append("firstname", user.firstname);
     form.append("lastname", user.lastname);
-    form.append("password", user.password);
-
     insertImg(form);
     setFile("");
     setFileUrl("");
@@ -69,86 +70,83 @@ const Profile = () => {
       <Navbar />
       {/* <p>User ID: {userId}</p> */}
 
-      <ImgProfile />
+      <ImgProfile img={fileUrl} handleChange={handleChange} />
 
       <main className="mainContainerProfile">
         <div className="background">
           <h2 className="title">Profile update</h2>
-          <ProfileForm />
+          <ProfileForm handleChange={handleChange} handleClick={handleClick} />
+          {/* <section>
+            <form>
+              <div className="inputs">
+                <input type="file" onChange={handleChange} placeholder="File" />
+              </div>
+
+              <div className="inputs">
+                <input
+                  type="text"
+                  value={user.username}
+                  onChange={({ target }) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      username: target.value,
+                    }))
+                  }
+                  placeholder="Username"
+                />
+              </div>
+
+              <div className="inputs">
+                <input
+                  type="text"
+                  value={user.firstname}
+                  onChange={({ target }) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      firstname: target.value,
+                    }))
+                  }
+                  placeholder="First name"
+                />
+              </div>
+
+              <div className="inputs">
+                <input
+                  type="text"
+                  value={user.lastname}
+                  onChange={({ target }) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      lastname: target.value,
+                    }))
+                  }
+                  placeholder="Last name"
+                />
+              </div>
+
+              <div className="inputs">
+                <input
+                  type="email"
+                  value={user.email}
+                  onChange={({ target }) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      email: target.value,
+                    }))
+                  }
+                  placeholder="Email"
+                />
+              </div>
+
+              {fileUrl && <img src={fileUrl} alt="Avatar" height={120} />}
+              <button type="button" onClick={handleClick}>
+                Enviar
+              </button>
+            </form>
+          </section> */}
         </div>
       </main>
       {/* <UserDashboard></UserDashboard> */}
-      {/* <section>
-        <div className="btnWrapper">
-          <Link to={"/login"}>
-            <button type="button" className="loginBtn boxShadow">
-              Login
-            </button>
-          </Link>
-          <Link to={"/user-register"}>
-            <p className="registerLink">
-              Don’t have an account yet? Register here!
-            </p>
-          </Link>
-          <Link to={"/company-register"}>
-            <p className="registerLink">Register your company here!</p>
-          </Link>
-        </div>
-        <div className="calendarWrapper">
-          <div className="calendar">
-            <h1>Añadiendo la img</h1>
-            <input type="file" onChange={handleChange} />
-
-            <input
-              type="text"
-              value={user.username}
-              onChange={({ target }) =>
-                setUser((prevUser) => ({ ...prevUser, username: target.value }))
-              }
-              placeholder="username"
-            />
-            <input
-              type="text"
-              value={user.firstname}
-              onChange={({ target }) =>
-                setUser((prevUser) => ({
-                  ...prevUser,
-                  firstname: target.value,
-                }))
-              }
-              placeholder="firstname"
-            />
-            <input
-              type="text"
-              value={user.lastname}
-              onChange={({ target }) =>
-                setUser((prevUser) => ({ ...prevUser, lastname: target.value }))
-              }
-              placeholder="lastname"
-            />
-
-            <input
-              type="email"
-              value={user.email}
-              onChange={({ target }) =>
-                setUser((prevUser) => ({ ...prevUser, email: target.value }))
-              }
-              placeholder="email"
-            />
-            <input
-              type="password"
-              value={user.password}
-              onChange={({ target }) =>
-                setUser((prevUser) => ({ ...prevUser, password: target.value }))
-              }
-              placeholder="password"
-            />
-            {fileUrl && <img src={fileUrl} alt="Avatar" height={120} />}
-            <button onClick={handleClick}>enviar</button> */}
-      {/* </div> */}
-      {/* </div> */}
-
-      {/* </section> */}
     </main>
   );
 };
