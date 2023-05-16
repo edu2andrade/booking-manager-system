@@ -18,4 +18,3 @@ class Workers(db.Model):
             "company_id": self.company_id,
             "user": self.user.serialize()
         }
-
