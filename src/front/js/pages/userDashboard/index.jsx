@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Calendar from "../../components/calendar/calendar.jsx";
-// import Calendar from "react-calendar";
 import "../../pages/userDashboard/styles.css";
+import Time from "../../components/time/time.jsx";
 
 const UserDashboard = () => {
   const [date, setDate] = useState(new Date());
-
-  const onDateChange = (newDate) => {
-    console.log(newDate);
-  };
+  const [showTime, setShowTime] = useState(false);
 
   return (
     <div>
@@ -24,8 +21,18 @@ const UserDashboard = () => {
           <div></div>
         </div>
         <div className="calendar">
-          <Calendar onChange={onDateChange} value={date} />
+          <Calendar
+            onChange={setDate}
+            value={date}
+            onClickDay={() => setShowTime(true)}
+          />
+          <div className="selected-date text-center">
+            Selected Date: {date.toDateString()}
+          </div>
         </div>
+      </div>
+      <div>
+        <Time className="selected-time" showTime={showTime} date={date} />
       </div>
     </div>
   );
