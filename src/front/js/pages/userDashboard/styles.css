@@ -2,19 +2,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 854px;
-  height: 495px;
+  width: 1054px;
+  height: 595px;
   margin: 264px 293px 10px 293px;
+  background: #e3e3fc;
   filter: box-shadow(
     0px 4.973333835601807px 12.433333396911621px 0px #0000001a
   );
-  background: #e3e3fc;
   border-radius: 12px;
 }
 
 .bg {
-  width: 298px;
-  height: 401px;
+  width: 370px;
+  height: 480px;
   margin-left: 59px;
   background: #ffffff;
   border-radius: 12px;
@@ -43,5 +43,5 @@ h2 {
 }
 
 .calendar {
-  padding-right: 10px;
+  padding-right: 40px;
 }
