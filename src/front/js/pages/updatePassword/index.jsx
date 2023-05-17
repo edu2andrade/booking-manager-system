@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../../store/appContext";
 import "./styles.css";
 import { Navbar } from "../../components/navbar/index.jsx";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/input/index.jsx";
 
 export const UpdatePassword = () => {
+  const { store } = useContext(Context);
+  console.log(store, "storeupdate");
   const navigate = useNavigate();
   const handlesubmit = () => {
     navigate("/");

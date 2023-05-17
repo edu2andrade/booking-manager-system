@@ -66,19 +66,7 @@ export const getInfoUser = async () => {
   }
 };
 
-// export const insertImg = async (body) => {
-//   try {
-//     const res = await fetch(`${URL}/users/profile`, {
-//       method: "PUT",
-//       body: body,
-//     });
-//     const data = await res.json();
-//     console.log(data);
-//   } catch (err) {
-//     console.log("Error Update User", err);
-//   }
-// };
-export const insertImg = async (body) => {
+export const updateUser = async (body) => {
   try {
     const token = localStorage.getItem("token");
 
@@ -91,7 +79,6 @@ export const insertImg = async (body) => {
     });
 
     const data = await res.json();
-    // console.log(data);
   } catch (err) {
     console.log("Error Update User", err);
   }

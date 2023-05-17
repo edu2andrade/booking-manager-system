@@ -3,7 +3,6 @@ import { Context } from "../../store/appContext";
 import "./styles.css";
 export const ImgProfile = ({ img, handleChange }) => {
   const { store } = useContext(Context);
-  console.log(store, "store++");
   const userData = store.userProfileData.userData;
 
   return (
@@ -11,7 +10,7 @@ export const ImgProfile = ({ img, handleChange }) => {
       <div className="parent">
         <div className="child">
           <div className="profile-image-container ">
-            <img src={img} alt="Daenerys Targaryen" />
+            <img src={userData.avatar} alt="Daenerys Targaryen" />
           </div>
           <h5 className="nametitle">{userData.username}</h5>
           <p className="nametitle2">{userData.email}</p>
