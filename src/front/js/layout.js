@@ -44,7 +44,7 @@ const Layout = () => {
             <Route element={<Profile />} path="/profile/:userId" />
             <Route element={<UpdatePassword />} path="/update" />
             <Route element={<RecoveryPassword />} path="/recovery" />
-            <Route element={<h1>Not found!</h1>} />
+            <Route path="*" element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
