@@ -53,17 +53,6 @@ def get_services_by_worker(worker_id):
     
     return services_by_worker
 
-# ******** ESTA FUNCION NO TIENE SENTIDO, YA QUE NO NECESITAMOS LOS SERVICE_WORKERS POR COMPANY******
-# def get_services_workers_by_company(company_id):
-#     company = CompanyController.get_company_by_id(company_id)
-
-#     if worker.company_id == company.id:
-#         services_worker = Repository.get_services_workers_by_company(company_id)
-#         return services_worker
-#     else: 
-#         return { 'msg': 'This worker does not belong to this company!', 'status': 403 }
-
-
 def delete_service_worker(service_worker_id, current_user_id):
     service_worker = Services_workers.query.get(service_worker_id)
     

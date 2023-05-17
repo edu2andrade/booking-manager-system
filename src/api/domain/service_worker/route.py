@@ -44,15 +44,6 @@ def get_services_by_worker(worker_id):
     else:
         return Response.response_error(services_by_worker['msg'], services_by_worker['status'])
 
-# @api.route('/company/<int:company_id>', methods=['GET'])
-# def get_services_workers_by_company(company_id):
-
-#     services_worker = Controller.get_services_workers_by_company(company_id)
-#     if isinstance(services_worker, list):
-#         return Response.response_ok(f'List of all services workers of the company with id: {company_id}', serialized_services_by_company_id)
-#     else:
-#         return Response.response_error(services_worker['msg'], services_worker['status'])
-
 @api.route("/<int:service_worker_id>", methods=["DELETE"])
 @jwt_required()
 def delete_service_worker(service_worker_id):
