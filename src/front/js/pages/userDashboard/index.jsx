@@ -31,8 +31,8 @@ const UserDashboard = () => {
           </div>
         </div>
       </div>
-      <div>
-        <Time className="selected-time" showTime={showTime} date={date} />
+      <div className="selected-time">
+        <Time showTime={showTime} date={date} />
       </div>
     </div>
   );

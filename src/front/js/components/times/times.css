@@ -17,5 +17,8 @@ button:hover {
   background-color: #e3e3fc;
   width: 300px;
   border-radius: 12px;
-  margin-left: 600px;
+}
+
+.selected-time {
+  margin-left: 700px;
 }
