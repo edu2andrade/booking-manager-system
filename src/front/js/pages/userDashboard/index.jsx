@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
 import { obtainInfo } from "../../service";
@@ -66,6 +65,3 @@ const UserDashboard = () => {
       
 
   );
-};
-
-export default UserDashboard;
