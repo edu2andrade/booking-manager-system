@@ -2,18 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
 import { obtainInfo } from "../../service";
 import { useNavigate } from "react-router-dom";
-import Calendar from "../../components/calendar/calendar.jsx";
+
 import "../../pages/userDashboard/styles.css";
-import Time from "../../components/time/time.jsx";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
   const [date, setDate] = useState(new Date());
   const [showTime, setShowTime] = useState(false);
-  
+
   const navigate = useNavigate();
   const { actions } = useContext(Context);
-  
+
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await obtainInfo();
@@ -32,8 +31,7 @@ const UserDashboard = () => {
     navigate(`/profile/${user.id}`);
   };
   return (
-    
-     <div>
+    <div>
       <div className="services-box">
         <div className="bg">
           <div className="d-flex align-items-center">
@@ -59,9 +57,8 @@ const UserDashboard = () => {
       <div>
         <Time className="selected-time" showTime={showTime} date={date} />
       </div>
-<button onClick={handleSubmit}>profile</button>
+      <button onClick={handleSubmit}>profile</button>
     </div>
-    
-      
-
   );
+};
+export default UserDashboard;
