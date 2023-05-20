@@ -11,6 +11,7 @@ class Booking(db.Model):
     created_at = db.Column(DateTime, default=datetime.datetime.utcnow())
     start_service = db.Column(DateTime, nullable=False)
     description = db.Column(db.Text)
+    
     user = db.relationship("User")
     services_workers = db.relationship("Services_workers")
 

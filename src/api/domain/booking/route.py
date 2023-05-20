@@ -38,13 +38,13 @@ def admin_create_new_booking(company_id):
         return Response.response_error(new_booking['msg'], new_booking['status'])
 
 
-@api.route('/<int:company_id>/<int:booking_id>', methods=['GET'])
+@api.route('/<int:booking_id>', methods=['GET'])
 @jwt_required()
-def get_booking(company_id, booking_id):
+def get_booking(booking_id):
     current_user = get_jwt_identity()
     current_user_id = current_user['id']
 
-    booking = Controller.get_booking(company_id, booking_id, current_user_id)
+    booking = Controller.get_booking(booking_id, current_user_id)
 
     if isinstance(booking, Booking):
         return Response.response_ok(f'Booking with id: {booking_id}, was found in database.', booking.serialize())
@@ -66,7 +66,29 @@ def get_bookings_by_company(company_id):
     else:
         return Response.response_error(bookings_by_company['msg'], bookings_by_company['status'])
 
+@api.route('/user/<int:user_id>', methods=['GET'])
+@jwt_required()
+def get_bookings_by_user_id(user_id):
+    current_user = get_jwt_identity()
+    current_user_id = current_user['id']
 
-# get_bookings_client - validations: if client
-# get_bookings_worker - validations: if worker or admin
-# delete_booking - validations: if admin or worker
+    bookings_by_user_id = Controller.get_bookings_by_user_id(user_id, current_user_id)
+
+    if isinstance(bookings_by_user_id, list):
+        serialized_bookings = list(map(lambda booking: booking.serialize(), bookings_by_user_id))
+        return Response.response_ok(f'List of all bookings of the user with id: {user_id}.', serialized_bookings)
+    else:
+        return Response.response_error(bookings_by_user_id['msg'], bookings_by_user_id['status'])
+
+@api.route('/<int:booking_id>', methods=['DELETE'])
+@jwt_required()
+def delete_booking(booking_id):
+    current_user = get_jwt_identity()
+    current_user_id = current_user['id']
+
+    deleted_booking = Controller.delete_booking(booking_id, current_user_id)
+
+    if isinstance(deleted_booking, Booking):
+        return Response.response_ok('This booking has been deleted', deleted_booking.serialize())
+    else:
+        return Response.response_error(deleted_booking['msg'], deleted_booking['status'])
