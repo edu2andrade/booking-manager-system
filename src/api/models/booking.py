@@ -13,7 +13,7 @@ class Booking(db.Model):
     description = db.Column(db.Text)
     
     user = db.relationship("User")
-    services_workers = db.relationship("Services_workers")
+    services_workers = db.relationship("Services_workers", lazy="joined")
 
     def __init__(self, user_id, company_id, service_workers_id, start_service, description):
         self.user_id = user_id
