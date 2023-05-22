@@ -1,27 +1,23 @@
 import api.domain.workers.repository as Repository
 import api.domain.company.controller as CompanyController
 import api.domain.users.controller as UserController
-from api.models.index import Company, Workers
+from api.models.index import Company, Workers, User
 
 def create_worker(body, company_id, current_user_id):
 
-    email = body['email']
-
-    # recoger el user, y con el id le paso al worker
-
-    worker = Workers.query.filter_by(email=email).first()
-
-    if worker: 
-        return {'msg': 'Worker already exists in database', 'status': 400}
-
     company = CompanyController.get_company_by_id(company_id)
+
+    if current_user_id != company.user_id:
+        return {'msg': 'You do not have rights to delete this worker!', 'status': 403}
     
     worker = UserController.create_new_user(body, 'worker')
 
-    if current_user_id == company.user_id:
+    if isinstance(worker, User):
         return Repository.create_worker(company_id, worker.id)
-    else: 
-        return {'msg': 'You do not have rights to create a worker!', 'status': 403}
+    else:
+        return worker
+
+    
 
 def get_workers_by_company(company_id):
     company = Company.query.get(company_id)
