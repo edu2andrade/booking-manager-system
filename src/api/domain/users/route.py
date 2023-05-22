@@ -65,29 +65,3 @@ def login():
     if token_and_role_type.get('token'):
         return Response.response_ok('This is a valid token', token_and_role_type)
     return Response.response_error(token_and_role_type['msg'], token_and_role_type['status'])
-
-
-# @api.route('/update', methods=['PUT'])
-# def insert_img():
-#     try:
-#         avatar = request.files['avatar']
-#         print('avatar', avatar)
-#         body = request.form.to_dict()
-#         print('bodyaaa', body)
-#         insert = Controller.insert_img(body['username'], body['email'], body["password"], body["lastname"], body['firstname'], avatar)
-#         print(insert,"insertr")
-#         return jsonify(insert.serialize()), 200
-#     except Exception as error:
-#         print("error", error)
-#         return jsonify("error  interno"), 500
-
-# @api.route('/update', methods=['GET'])
-# @jwt_required()
-# def get_user():
-#     info_token = get_jwt()
-#     user = info_token['sub']
-#     user_response = Controller.get_user(user)
-    
-#     if isinstance(user_response, User):
-#         return jsonify(user_response.serialize()), 200
-#     return jsonify(user_response), user_response['status']

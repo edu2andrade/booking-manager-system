@@ -3,13 +3,25 @@ import api.domain.company.controller as CompanyController
 import api.domain.users.controller as UserController
 from api.models.index import Company, Workers
 
-def create_worker(body, company_id):
+def create_worker(body, company_id, current_user_id):
+
+    email = body['email']
+
+    # recoger el user, y con el id le paso al worker
+
+    worker = Workers.query.filter_by(email=email).first()
+
+    if worker: 
+        return {'msg': 'Worker already exists in database', 'status': 400}
 
     company = CompanyController.get_company_by_id(company_id)
     
     worker = UserController.create_new_user(body, 'worker')
 
-    return Repository.create_worker(company_id, worker.id)
+    if current_user_id == company.user_id:
+        return Repository.create_worker(company_id, worker.id)
+    else: 
+        return {'msg': 'You do not have rights to create a worker!', 'status': 403}
 
 def get_workers_by_company(company_id):
     company = Company.query.get(company_id)
