@@ -80,6 +80,23 @@ export const getInfoUser = async () => {
     console.log("Error Get User", err);
   }
 };
+export const getInfoUserId = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${URL}/users/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...HEADERS,
+      },
+    });
+    const data = await res.json();
+    console.log(data, "datauserid");
+    return data;
+  } catch (err) {
+    console.log("Error to get user id");
+  }
+};
 
 export const updateUser = async (body) => {
   try {

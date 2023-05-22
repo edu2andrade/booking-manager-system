@@ -3,12 +3,8 @@ import { Context } from "../../store/appContext";
 import { obtainInfo } from "../../service";
 import { useNavigate } from "react-router-dom";
 
-import "../../pages/userDashboard/styles.css";
-
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
-  const [date, setDate] = useState(new Date());
-  const [showTime, setShowTime] = useState(false);
 
   const navigate = useNavigate();
   const { actions } = useContext(Context);
@@ -24,9 +20,9 @@ const UserDashboard = () => {
     fetchUser();
   }, []);
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  // if (!user) {
+  //   return <div>Loading...</div>;
+  // }
   const handleSubmit = () => {
     navigate(`/profile/${user.id}`);
   };
@@ -43,20 +39,8 @@ const UserDashboard = () => {
           </div>
           <div></div>
         </div>
-        <div className="calendar">
-          <Calendar
-            onChange={setDate}
-            value={date}
-            onClickDay={() => setShowTime(true)}
-          />
-          <div className="selected-date text-center">
-            Selected Date: {date.toDateString()}
-          </div>
-        </div>
       </div>
-      <div>
-        <Time className="selected-time" showTime={showTime} date={date} />
-      </div>
+
       <button onClick={handleSubmit}>profile</button>
     </div>
   );

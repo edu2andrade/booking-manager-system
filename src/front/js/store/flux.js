@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       companyData: {},
       userProfileData: {},
+      userDashboardAdmin: {},
     },
     actions: {
       saveCompanyData: (data) => {
@@ -13,6 +14,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       saveUserProfileData: (userData) => {
         const store = getStore();
         setStore({ userProfileData: { ...store.userProfileData, userData } });
+        console.log("Saved in Flux -->", store);
+      },
+      saveUserAdmin: (userAdminData) => {
+        const store = getStore();
+        setStore({
+          userDashboardAdmin: { ...store.userDashboardAdmin, userAdminData },
+        });
+        console.log("Saved in Flux -->", store);
       },
 
       getMessage: async () => {
