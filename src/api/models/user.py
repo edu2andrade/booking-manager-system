@@ -12,7 +12,7 @@ class User(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
 
     roles = db.relationship("Roles")
-
+    avatar = db.Column(db.String(250))
     def __init__(self, username, firstname, lastname, email, password, role_id):
         self.username = username
         self.firstname = firstname
@@ -29,6 +29,7 @@ class User(db.Model):
             "lastname": self.lastname, 
             "email": self.email,
             "role_id": self.role_id,
-            "is_active": self.is_active
+            "is_active": self.is_active,
+            "avatar": self.avatar
         }
     

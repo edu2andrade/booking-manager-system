@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, Blueprint
 import api.utilities.handle_response as Response
 import api.domain.users.controller as Controller
 from api.models.index import User
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 import bcrypt
 
 api = Blueprint('api/users', __name__)
@@ -66,7 +66,6 @@ def login():
         return Response.response_ok('This is a valid token', token_and_role_type)
     return Response.response_error(token_and_role_type['msg'], token_and_role_type['status'])
 
-
 @api.route('/profile', methods=['PUT'])
 @jwt_required()
 def update_profile():
@@ -93,3 +92,4 @@ def get_user_profile():
         return Response.response_ok('User exists in this database.', verified_user.serialize())
     else:
         return Response.response_error(verified_user['msg'], verified_user['status'])
+
