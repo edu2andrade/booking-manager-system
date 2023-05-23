@@ -49,21 +49,6 @@ export const loginUser = async (user) => {
   }
 };
 
-export const createService = async (companyID, data) => {
-  try {
-    const res = await fetch(`${URL}/services/${companyID}`, {
-      method: "POST",
-      headers: HEADERS,
-      body: JSON.stringify(data),
-    });
-    const resData = await res.json();
-    console.log(resData, "resdata,Services");
-    return resData;
-  } catch (err) {
-    console.log("Error to create service", err);
-  }
-};
-
 export const getInfoUser = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -80,7 +65,7 @@ export const getInfoUser = async () => {
     console.log("Error Get User", err);
   }
 };
-export const getInfoUserId = async (id) => {
+export const getInfoUserId = async () => {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(`${URL}/users/${id}`, {
@@ -115,7 +100,7 @@ export const updateUser = async (body) => {
     console.log("Error Update User", err);
   }
 };
-
+// quitar esta funcion -------------------->
 export const obtainInfo = async () => {
   try {
     const token = localStorage.getItem("token");

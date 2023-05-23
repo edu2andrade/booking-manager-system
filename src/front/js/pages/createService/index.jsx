@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Navbar } from "../../components/navbar/index.jsx";
 import Input from "../../components/input/index.jsx";
 import "./styles.css";
-import { createService } from "../../service/user.js";
+import { createService } from "../../service/service.js";
+import { useParams } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -12,16 +13,18 @@ const initialState = {
 };
 
 export const CreateService = () => {
+  const params = useParams();
+
   const [newService, setNewService] = useState(initialState);
-  // console.log(newService, "new");
+
   const handleChange = ({ target }) => {
     setNewService({ ...newService, [target.name]: target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createService(companyID, newService);
+    await createService(params.companyID, newService);
+    setNewService(initialState);
   };
-  handleSubmit();
 
   return (
     <>
@@ -37,26 +40,30 @@ export const CreateService = () => {
                   type="text"
                   placeholder="Name"
                   name="name"
+                  value={newService.name}
                 />
                 <Input
                   icon={<i className="fa-solid fa-pen-to-square"></i>}
                   type="text"
                   placeholder="Description"
                   name="description"
+                  value={newService.description}
                 />
                 <Input
                   icon={<i className="fa-regular fa-clock"></i>}
                   type="text"
                   placeholder="Service duration"
-                  name="serviceduration"
+                  name="service_duration"
+                  value={newService.service_duration}
                 />
                 <Input
                   icon={<i className="fa-solid fa-coins"></i>}
                   type="text"
                   placeholder="Price"
                   name="price"
+                  value={newService.price}
                 />
-                <button type="button" className="loginBtn boxShadow">
+                <button type="submit" className="loginBtn boxShadow">
                   Create
                 </button>
               </form>

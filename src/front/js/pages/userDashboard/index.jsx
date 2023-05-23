@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
-import { obtainInfo } from "../../service";
+import { obtainInfo } from "../../service/user";
 import { useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
