@@ -39,8 +39,6 @@ const Profile = () => {
     form.append("firstname", user.firstname);
     form.append("lastname", user.lastname);
     updateUser(form);
-    setFile("");
-    setFileUrl("");
     setUser({
       username: "",
       firstname: "",
