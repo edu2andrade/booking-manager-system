@@ -30,7 +30,6 @@ const Profile = () => {
       setUser({ ...user, [target.name]: target.value });
     }
   };
-  console.log(user, "user");
   const handleClick = (e) => {
     e.preventDefault();
     const form = new FormData();

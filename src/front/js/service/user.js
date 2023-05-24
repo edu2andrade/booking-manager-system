@@ -66,7 +66,7 @@ export const getInfoUserId = async () => {
     console.log("Error to get user id");
   }
 };
-
+//don't change this petition!
 export const updateUser = async (body) => {
   try {
     const token = localStorage.getItem("token");
@@ -74,12 +74,11 @@ export const updateUser = async (body) => {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
-        ...HEADERS,
       },
-      body: JSON.stringify(body),
+      body: body,
     });
     const data = await res.json();
-    console.log(data, "update data");
+    return data;
   } catch (err) {
     console.log("Error Update User", err);
   }
