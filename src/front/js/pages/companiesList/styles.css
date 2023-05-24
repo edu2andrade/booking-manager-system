@@ -1,5 +1,6 @@
 .main-container {
   display: flex;
+  border: 1px solid red;
   flex-direction: column;
   align-items: center;
   margin-top: 60px;
@@ -14,4 +15,9 @@ h1 {
   margin-bottom: 16px;
   font-size: var(--subheading-md);
   font-weight: var(--font-extrabold);
+}
+
+.list-container {
+  width: 90%;
+  overflow-y: auto;
 }

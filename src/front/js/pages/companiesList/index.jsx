@@ -24,13 +24,15 @@ const CompaniesList = () => {
       <Logotipo className="logo" />
       <BigContainer>
         <h1>Companies repository</h1>
-        {companiesList.map((company) => (
-          <ItemContainer
-            key={company.id}
-            title={company.name}
-            onClick={() => navigate(`/company/${company.id}`)}
-          />
-        ))}
+        <div className="list-container">
+          {companiesList.map((company) => (
+            <ItemContainer
+              key={company.id}
+              title={company.name}
+              onClick={() => navigate(`/company/${company.id}`)}
+            />
+          ))}
+        </div>
       </BigContainer>
     </main>
   );
