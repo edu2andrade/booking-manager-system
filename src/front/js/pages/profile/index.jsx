@@ -30,6 +30,7 @@ const Profile = () => {
       setUser({ ...user, [target.name]: target.value });
     }
   };
+  console.log(user, "user");
   const handleClick = (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -55,7 +56,11 @@ const Profile = () => {
       <main className="mainContainerProfile">
         <div className="background">
           <h2 className="title">Profile update</h2>
-          <ProfileForm handleChange={handleChange} handleClick={handleClick} />
+          <ProfileForm
+            handleChange={handleChange}
+            handleClick={handleClick}
+            user={user}
+          />
         </div>
       </main>
     </main>

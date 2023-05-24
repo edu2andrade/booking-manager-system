@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
-import { obtainInfo } from "../../service/user";
+import { getInfoUser } from "../../service/user";
 import { useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
@@ -11,7 +11,7 @@ const UserDashboard = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userData = await obtainInfo();
+      const userData = await getInfoUser();
       console.log(userData, "datauserdash");
       setUser(userData);
       actions.saveUserProfileData(userData);

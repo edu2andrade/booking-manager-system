@@ -49,22 +49,6 @@ export const loginUser = async (user) => {
   }
 };
 
-export const getInfoUser = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const res = await fetch(`${URL}/users/`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        ...HEADERS,
-      },
-    });
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    console.log("Error Get User", err);
-  }
-};
 export const getInfoUserId = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -86,22 +70,22 @@ export const getInfoUserId = async () => {
 export const updateUser = async (body) => {
   try {
     const token = localStorage.getItem("token");
-
     const res = await fetch(`${URL}/users/profile`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
+        ...HEADERS,
       },
-      body: body,
+      body: JSON.stringify(body),
     });
-
     const data = await res.json();
+    console.log(data, "update data");
   } catch (err) {
     console.log("Error Update User", err);
   }
 };
-// quitar esta funcion -------------------->
-export const obtainInfo = async () => {
+
+export const getInfoUser = async () => {
   try {
     const token = localStorage.getItem("token");
 
