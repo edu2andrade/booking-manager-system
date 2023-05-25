@@ -34,3 +34,19 @@ export const listServiceByCompany = async (companyID) => {
     console.log("Error to looking for Service List ByCompany", err);
   }
 };
+export const deleteServiceList = async (companyID) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${URL}/services/${companyID}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...HEADERS,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("Error deleting service by company", err);
+  }
+};
