@@ -1,27 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
 import "../../pages/userDashboard/styles.css";
-import { Context } from "../../store/appContext";
-import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/navbar/index.jsx";
 import BookingCard from "../../components/bookingCard/index.jsx";
-import { getInfoUser } from "../../service/user";
 import { getInfoBooking } from "../../service/booking";
 import { deleteBooking } from "../../service/booking";
 import BigContainer from "../../components/bigContainer/index.jsx";
+import { es } from "date-fns/locale";
 
 const UserDashboard = () => {
-  const [user, setUser] = useState(null);
-
-  const navigate = useNavigate();
   const [bookingList, setBookingList] = useState([]);
-  const { actions } = useContext(Context);
   const [deletedBooking, setDeletedBooking] = useState({});
-
-  const fetchUser = async () => {
-    const userData = await getInfoUser();
-    setUser(userData);
-    actions.saveUserProfileData(userData);
-  };
 
   const getBooking = async () => {
     const bookingData = await getInfoBooking();
@@ -34,9 +23,10 @@ const UserDashboard = () => {
   };
 
   useEffect(() => {
-    fetchUser();
     getBooking();
   }, [deletedBooking]);
+
+  console.log(bookingList);
 
   return (
     <div>
@@ -45,14 +35,20 @@ const UserDashboard = () => {
         <BigContainer>
           <h1>List of Reservations</h1>
           <div className="list-container">
-            {bookingList.map((booking) => (
-              <BookingCard
-                key={booking.id}
-                date={booking.created_at}
-                service={booking.services_workers.services.name}
-                deleteReservation={() => deleteReservation(booking.id)}
-              />
-            ))}
+            {bookingList.map((booking) => {
+              return (
+                <BookingCard
+                  key={booking.id}
+                  date={format(
+                    new Date(booking.start_service),
+                    "MMM do yyyy 'at' hh:mm"
+                  )}
+                  service={booking.services_workers.services.name}
+                  worker={booking.services_workers.workers.user.username}
+                  deleteReservation={() => deleteReservation(booking.id)}
+                />
+              );
+            })}
           </div>
         </BigContainer>
       </main>

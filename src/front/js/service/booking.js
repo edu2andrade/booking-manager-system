@@ -16,6 +16,7 @@ export const getInfoBooking = async () => {
             },
         });
         const data = await res.json();
+        console.log(data);
         return data.data;
     } catch (err) {
         console.log("Error Get Booking", err);

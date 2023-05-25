@@ -1,11 +1,11 @@
 import React from "react";
 import "./styles.css";
 
-const BookingCard = ({ service, date, deleteReservation }) => {
+const BookingCard = ({ service, date, worker, deleteReservation }) => {
   return (
     <div className="booking-container boxShadow">
       <span>
-        {date} | {service}
+        {date} | {service} with {worker}
       </span>
       <button className="button" onClick={deleteReservation}>
         x
