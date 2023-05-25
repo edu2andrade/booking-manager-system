@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/index.jsx";
+<<<<<<< HEAD
 import { loginUser } from "../../service/user.js";
+=======
+import { loginUser } from "../../service/user";
+>>>>>>> 9e02085e0982d4b8458da57ebe0f6cdb6231227f
 import "./styles.css";
 import LoginForm from "../../components/loginForm/index.jsx";
 
