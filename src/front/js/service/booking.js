@@ -4,6 +4,7 @@ const HEADERS = {
     "Content-Type": "application/json",
 };
 
+
 export const getInfoBooking = async () => {
     try {
         const token = localStorage.getItem("token");

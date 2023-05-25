@@ -1,45 +1,33 @@
 .booking-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 120px;
-  width: 258px;
-  border-radius: 12px;
-  background: #fff61e;
   position: relative;
-}
-
-button {
-  background: #f72585;
-  border-radius: 50%;
+  width: 100%;
+  padding: 12px;
+  margin-block: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  width: 24px;
+  border-radius: var(--border-md);
+  background-color: var(--white);
+  color: var(--gray-900);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-align: center;
+  cursor: pointer;
 }
 
-.button-container {
+.button {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: 0px;
+  right: 0px;
+  width: 23px;
+  height: 23px;
+  background-color: #f72585;
+  border: none;
+  border-radius: 50%;
 }
 
-h1 {
-  font-family: Inter;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 19px;
-  letter-spacing: -0.03em;
-  text-align: left;
-}
-
-p {
-  font-family: Inter;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 17px;
-  letter-spacing: -0.03em;
-  text-align: left;
-}
-
-.service-information {
-  padding-left: 10px;
+.button:hover {
+  background-color: var(--gray-600);
+  color: var(--gray-100);
 }

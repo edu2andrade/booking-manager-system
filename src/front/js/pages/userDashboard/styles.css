@@ -1,89 +1,18 @@
-.services-calendar-container {
+.main-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  width: 1054px;
-  height: 595px;
-  margin: 264px 293px 100px 293px;
-  background: #e3e3fc;
-  border-radius: 12px;
-}
-
-.services-container {
-  width: 370px;
-  height: 480px;
-  margin-left: 59px;
-  background: #ffffff;
-  border-radius: 12px;
-}
-
-img {
-  width: 44.76px;
-  height: 44.76px;
-  border-radius: 50%;
-  object-fit: cover;
+  margin-top: 60px;
 }
 
 h1 {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24.08px;
+  margin-top: 110px;
+  margin-bottom: 16px;
+  font-size: var(--subheading-md);
+  font-weight: var(--font-extrabold);
 }
 
-h2 {
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.03em;
-}
-
-.calendar-container {
-  padding-right: 50px;
-}
-
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.profile-services {
-  display: flex;
-  flex-direction: column;
-  padding-top: 20px;
-  gap: 20px;
-}
-
-.bookings {
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-ul {
-  padding-left: 0px;
-  list-style-type: none;
-}
-
-@media (max-width: 678px) {
-  .services-calendar-container {
-    width: 654px;
-    height: 1095px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 120px 0px 100px 0px;
-  }
-
-  .services-container {
-    width: 370px;
-    height: 480px;
-    margin: 0px;
-  }
-
-  .calendar-container {
-    margin: 0px;
-    padding: 0px;
-  }
+.list-container {
+  width: 90%;
+  overflow-y: auto;
 }
