@@ -49,7 +49,7 @@ export const loginUser = async (user) => {
   }
 };
 
-export const getInfoUser = async () => {
+export const getInfoUserId = async () => {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(`${URL}/users/profile`, {
@@ -63,14 +63,14 @@ export const getInfoUser = async () => {
     console.log(data.data)
     return data.data;
   } catch (err) {
-    console.log("Error Get User", err);
+    console.log("Error to get user id");
   }
 };
 
+//don't change this petition!
 export const updateUser = async (body) => {
   try {
     const token = localStorage.getItem("token");
-
     const res = await fetch(`${URL}/users/profile`, {
       method: "PUT",
       headers: {
@@ -78,8 +78,8 @@ export const updateUser = async (body) => {
       },
       body: body,
     });
-
     const data = await res.json();
+    return data;
   } catch (err) {
     console.log("Error Update User", err);
   }

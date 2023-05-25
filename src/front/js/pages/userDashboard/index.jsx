@@ -27,7 +27,7 @@ const UserDashboard = () => {
   }, [deletedBooking]);
 
   console.log(bookingList);
-
+  
   return (
     <div>
       <Navbar />
