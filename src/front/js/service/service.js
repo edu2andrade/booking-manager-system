@@ -21,3 +21,17 @@ export const createService = async (companyID, data) => {
     console.log("Error to create service", err);
   }
 };
+
+export const listServices = async (company_id) => {
+  try {
+    const res = await fetch(`${URL}/services/company/${company_id}`, {
+      method: "GET",
+      headers: HEADERS,
+    });
+    const data = await res.json();
+    return data.data;
+  } catch (err) {
+    console.log("Error To List Services", err);
+  }
+};
+
