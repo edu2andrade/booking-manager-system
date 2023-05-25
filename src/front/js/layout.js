@@ -52,7 +52,7 @@ const Layout = () => {
               path="/create-service/:companyID"
             />
             <Route element={<CompaniesList />} path="/companies-list" />
-            <Route element={<ListService />} path="/service-list/:listID" />
+            <Route element={<ListService />} path="/service-list/:companyID" />
             <Route path="*" element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
