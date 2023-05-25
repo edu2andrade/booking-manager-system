@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./components/scrollToTop";
 import { BackendURL } from "./components/backendURL";
-
 import injectContext from "./store/appContext";
+
 import HomePage from "./pages/home/index.jsx";
 import UserRegisterPage from "./pages/userRegister/index.jsx";
 import CompanyRegisterPage from "./pages/companyRegister/index.jsx";
@@ -16,6 +16,8 @@ import Profile from "./pages/profile/index.jsx";
 import { UpdatePassword } from "./pages/updatePassword/index.jsx";
 import { RecoveryPassword } from "./pages/RecoveryPassword/index.jsx";
 import { CreateService } from "./pages/createService/index.jsx";
+import CompaniesList from "./pages/companiesList/index.jsx";
+
 
 //create your first component
 const Layout = () => {
@@ -49,6 +51,7 @@ const Layout = () => {
               element={<CreateService />}
               path="/create-service/:companyID"
             />
+            <Route element={<CompaniesList />} path="/companies-list" />
             <Route path="*" element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
