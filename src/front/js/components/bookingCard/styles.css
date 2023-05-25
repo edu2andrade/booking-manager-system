@@ -1,0 +1,45 @@
+.booking-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 120px;
+  width: 258px;
+  border-radius: 12px;
+  background: #fff61e;
+  position: relative;
+}
+
+button {
+  background: #f72585;
+  border-radius: 50%;
+  border: none;
+  width: 24px;
+}
+
+.button-container {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+h1 {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+
+p {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+
+.service-information {
+  padding-left: 10px;
+}

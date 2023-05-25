@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../times/times.css";
+import "../times/styles.css";
 
 const time = ["08:00", "09:00", "10:00", "14:00", "15:00"];
 
