@@ -29,7 +29,7 @@ const CompaniesList = () => {
             <ItemContainer
               key={company.id}
               title={company.name}
-              onClick={() => navigate(`/company/${company.id}`)}
+              onClick={() => navigate(`/company-details/${company.id}`)}
             />
           ))}
         </div>

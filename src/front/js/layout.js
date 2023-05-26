@@ -17,7 +17,7 @@ import { UpdatePassword } from "./pages/updatePassword/index.jsx";
 import { RecoveryPassword } from "./pages/RecoveryPassword/index.jsx";
 import { CreateService } from "./pages/createService/index.jsx";
 import CompaniesList from "./pages/companiesList/index.jsx";
-
+import CompanyDetails from "./pages/companyDetails/index.jsx";
 
 //create your first component
 const Layout = () => {
@@ -52,6 +52,10 @@ const Layout = () => {
               path="/create-service/:companyID"
             />
             <Route element={<CompaniesList />} path="/companies-list" />
+            <Route
+              element={<CompanyDetails />}
+              path="/company-details/:companyId"
+            />
             <Route path="*" element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>

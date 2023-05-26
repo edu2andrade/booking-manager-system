@@ -52,6 +52,10 @@ body {
   color: var(--text-900);
 }
 
+a {
+  text-decoration: none;
+}
+
 .boxShadow {
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
