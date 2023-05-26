@@ -11,15 +11,16 @@ import { ServiceCard } from "../../components/serviceCard/index.jsx";
 export const ListService = () => {
   const [list, setList] = useState([]);
 
-  const params = useParams();
+  const { companyID } = useParams();
+
+  const getList = async () => {
+    const serviceList = await listServiceByCompany(companyID);
+    setList(serviceList);
+  };
 
   useEffect(() => {
-    const getList = async () => {
-      const serviceList = await listServiceByCompany(params.companyID);
-      setList(serviceList);
-    };
     getList();
-  }, [params.companyID]);
+  }, []);
 
   const handleDelete = async (service_id) => {
     const isDelete = window.confirm(

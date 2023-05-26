@@ -8,6 +8,7 @@ export const ServiceCard = ({ service, handleDelete }) => {
         <p className="text-servic">{service}</p>
       </div>
       <button className="btn-list-service me-4">Edit</button>
+
       <button className="btn-list-service" onClick={handleDelete}>
         Delete
       </button>

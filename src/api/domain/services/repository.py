@@ -22,7 +22,7 @@ def delete_service(service):
         return None
     return service
 
-def update_service(update_service, service_id, service):
+def update_service( update_service, service):
     if service:
         service.name = update_service['name']
         service.description = update_service['description']

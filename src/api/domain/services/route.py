@@ -56,11 +56,11 @@ def delete_service(service_id):
 @api.route('/<int:service_id>', methods=['PUT'])
 @jwt_required()
 def update_service(service_id):
-    update_service = request.get_json()
     current_user = get_jwt_identity()
     current_user_id = current_user["id"]
+    update_service = request.get_json()
 
-    service = Controller.update_service(update_service, service_id, current_user_id )
+    service = Controller.update_service(service_id, update_service,  current_user_id )
     if isinstance(service, Services):
         return Response.response_ok(f'Service with id: {service_id}, has been updated in database.', service.serialize())
     else:
