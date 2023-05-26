@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/navbar/index.jsx";
-import "./styles.css";
+import BigContainer from "../../components/bigContainer/index.jsx";
+
 import {
   deleteServiceList,
   listServiceByCompany,
 } from "../../service/service.js";
 import { useParams } from "react-router-dom";
+import { ServiceCard } from "../../components/serviceCard/index.jsx";
 
 export const ListService = () => {
   const [list, setList] = useState([]);
+
   const params = useParams();
+
   useEffect(() => {
     const getList = async () => {
       const serviceList = await listServiceByCompany(params.companyID);
@@ -18,51 +22,32 @@ export const ListService = () => {
     getList();
   }, [params.companyID]);
 
-  const handleDelete = async (companyID) => {
-    const deleteList = await deleteServiceList(params.companyID);
-    if (deleteList && deleteList.success) {
-      console.log(
-        `Service with ID ${params.companyID} was deleted successfully`
-      );
-      setList((prevList) => prevList.filter((item) => item.id !== companyID));
+  const deleteList = async (service_id) => {
+    const deleted = await deleteServiceList(service_id);
+    if (deleted && deleted.success) {
+      console.log(`Service with ID ${service_id} was deleted successfully`);
+      setList((prevList) => prevList.filter((item) => item.id !== service_id));
     } else {
-      console.log(`Failed to delete service with ID ${params.companyID}`);
+      console.log(`Failed to delete service with ID ${service_id}`);
     }
   };
-  // const handleDelete = async () => {
-  //   const deleteList = await deleteServiceList(params.companyID);
-  //   setList(deleteList)
-  // };
-
   return (
     <>
       <Navbar />
+
       <main className="mainContainerimg">
-        <div className="parenttwo">
-          <div className="childtwo">
-            <div className="form-div">
-              <h2 className="titleService">List Services</h2>
-              <div className="scroll-container">
-                {list.map((todo, index) => {
-                  return (
-                    <div className="list-service " key={index}>
-                      <div className="text-list-service">
-                        <p className="text-servic">{todo.name}</p>
-                      </div>
-                      <button className="btn-list-service me-4">Edit</button>
-                      <button
-                        className="btn-list-service"
-                        onClick={() => handleDelete(index)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+        <BigContainer>
+          <h2 className="titleService">List Services</h2>
+          {list.map((service) => {
+            return (
+              <ServiceCard
+                key={service.id}
+                service={service.name}
+                deleteList={() => deleteList(service.id)}
+              />
+            );
+          })}
+        </BigContainer>
       </main>
     </>
   );
