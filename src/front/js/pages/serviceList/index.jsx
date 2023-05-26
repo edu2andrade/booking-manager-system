@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/navbar/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
-
 import {
   deleteServiceList,
   listServiceByCompany,
@@ -22,28 +21,43 @@ export const ListService = () => {
     getList();
   }, [params.companyID]);
 
-  const deleteList = async (service_id) => {
-    const deleted = await deleteServiceList(service_id);
-    if (deleted && deleted.success) {
-      console.log(`Service with ID ${service_id} was deleted successfully`);
-      setList((prevList) => prevList.filter((item) => item.id !== service_id));
-    } else {
-      console.log(`Failed to delete service with ID ${service_id}`);
+  const handleDelete = async (service_id) => {
+    const isDelete = window.confirm(
+      `¿Deseas eliminar el servicio con ID ${service_id}?`
+    );
+    if (isDelete) {
+      try {
+        const deleted = await deleteServiceList(service_id);
+        if (deleted.is_active && deleted.is_active.success) {
+          console.log(`Service with ID ${service_id} was deleted successfully`);
+          setList((prevList) =>
+            prevList.filter((item) => item.id !== service_id)
+          );
+        } else {
+          console.log(`Failed to delete service with ID ${service_id}`);
+        }
+      } catch (error) {
+        console.log(`Error deleting service with ID ${service_id}:`, error);
+      }
     }
   };
+
   return (
     <>
       <Navbar />
-
       <main className="mainContainerimg">
         <BigContainer>
           <h2 className="titleService">List Services</h2>
+
           {list.map((service) => {
+            if (!service.is_active) {
+              return null;
+            }
             return (
               <ServiceCard
                 key={service.id}
                 service={service.name}
-                deleteList={() => deleteList(service.id)}
+                handleDelete={() => handleDelete(service.id)}
               />
             );
           })}
