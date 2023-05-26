@@ -36,9 +36,7 @@ export const listServiceByCompany = async (companyID) => {
 };
 export const deleteServiceList = async (service_id) => {
   try {
-    console.log(service_id, "id petition");
     const token = localStorage.getItem("token");
-    console.log(token, "the token");
     const res = await fetch(`${URL}/services/${service_id}`, {
       method: "PATCH",
       headers: {
@@ -47,7 +45,6 @@ export const deleteServiceList = async (service_id) => {
       },
     });
     const data = await res.json();
-    console.log(data.data, "data petition");
     return data.data;
   } catch (err) {
     console.log("Error deleting service by company", err);

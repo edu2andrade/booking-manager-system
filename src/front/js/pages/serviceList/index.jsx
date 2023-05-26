@@ -27,19 +27,11 @@ export const ListService = () => {
       `¿Deseas eliminar el servicio con ID ${service_id}?`
     );
     if (isDelete) {
-      try {
-        const deleted = await deleteServiceList(service_id);
-        if (deleted.is_active && deleted.is_active.success) {
-          console.log(`Service with ID ${service_id} was deleted successfully`);
-          setList((prevList) =>
-            prevList.filter((item) => item.id !== service_id)
-          );
-        } else {
-          console.log(`Failed to delete service with ID ${service_id}`);
-        }
-      } catch (error) {
-        console.log(`Error deleting service with ID ${service_id}:`, error);
-      }
+      const deleted = await deleteServiceList(service_id);
+      getList();
+      deleted.is_active && deleted.is_active.success;
+      console.log(`Service with ID ${service_id} was deleted successfully`);
+      setList((prevList) => prevList.filter((item) => item.id !== service_id));
     }
   };
 
@@ -51,10 +43,7 @@ export const ListService = () => {
           <h2 className="titleService">List Services</h2>
 
           {list.map((service) => {
-            if (!service.is_active) {
-              return null;
-            }
-            return (
+            return !service.is_active ? null : (
               <ServiceCard
                 key={service.id}
                 service={service.name}
