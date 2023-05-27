@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Navbar } from "../../components/navbar/index.jsx";
 import Input from "../../components/input/index.jsx";
 import "./styles.css";
-import { createService } from "../../service/service.js";
-import { useParams } from "react-router-dom";
+import { createService } from "../../service/services.js";
+import { useNavigate, useParams } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -14,7 +14,7 @@ const initialState = {
 
 export const CreateService = () => {
   const params = useParams();
-
+  const navigate = useNavigate();
   const [newService, setNewService] = useState(initialState);
 
   const handleChange = ({ target }) => {
@@ -23,6 +23,7 @@ export const CreateService = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createService(params.companyID, newService);
+    navigate(`/service-list/${params.companyID}`);
     setNewService(initialState);
   };
 
