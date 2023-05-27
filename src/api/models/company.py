@@ -9,6 +9,7 @@ class Company(db.Model):
     address = db.Column(db.String(200), nullable=False)
     working_schedule = db.Column(db.String(120), nullable=False)
     is_active = db.Column(db.Boolean(), nullable=False, default=True)
+
     user = db.relationship("User")
     services = db.relationship("Services")
     workers = db.relationship("Workers")

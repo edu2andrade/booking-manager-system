@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./styles.css";
 import { Link, useParams } from "react-router-dom";
 import { getCompanyById } from "../../service/company";
 import Logotipo from "../../components/logotipo/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
 import Avatar from "../../components/avatar/index.jsx";
 
+import styles from "./company-details.module.css";
+
 const CompanyDetails = () => {
   const [company, setCompany] = useState({});
-
   const { companyId } = useParams();
 
   const getCompany = async (companyId) => {
@@ -20,49 +20,49 @@ const CompanyDetails = () => {
     getCompany(companyId);
   }, []);
 
-  console.log("Data coming from local state ---->", company);
-
   return (
-    <div className="main-container">
-      <Logotipo className="logo" />
+    <div className={styles._mainContainer}>
+      <Logotipo className={styles._logo} />
       <BigContainer>
         <h1>{company.name}</h1>
-        <article className="content-container">
-          <div className="services-container">
-            <span className="service-title">Services:</span>
-            <div>
+        <article className={styles._contentContainer}>
+          <div className={styles._servicesContainer}>
+            <span className={styles._serviceTitle}>Services:</span>
+            <div className={`${styles._smallContainer} _boxShadow`}>
               {company.services?.map((service) => (
-                <p key={service.id}>{service.name}</p>
+                <Link key={service.id} to="/">
+                  <p>{service.name}</p>
+                </Link>
               ))}
             </div>
           </div>
-          <div className="info-container">
-            <div className="row">
+          <div className={styles._infoContainer}>
+            <div className={styles._row}>
               <span>Name:</span>
               <p>{company.name}</p>
             </div>
-            <div className="row">
+            <div className={styles._row}>
               <span>CIF:</span>
               <p>{company.cif}</p>
             </div>
-            <div className="row">
+            <div className={styles._row}>
               <span>Description:</span>
               <p>{company.description}</p>
             </div>
-            <div className="row">
+            <div className={styles._row}>
               <span>Address:</span>
               <p>{company.address}</p>
             </div>
-            <div className="row">
+            <div className={styles._row}>
               <span>Opening:</span>
               <p>{company.working_schedule}</p>
             </div>
-            <div className="workers">
+            <div className={styles._workers}>
               <span>Workers:</span>
-              <div className="workers-images-container">
+              <div className={styles._workersImagesContainer}>
                 {company.workers?.map((worker) => (
                   <Link key={worker.id} to="/">
-                    <div className="worker-img">
+                    <div className={styles._workerImg}>
                       <Avatar />
                       <p>{worker.user?.username}</p>
                     </div>

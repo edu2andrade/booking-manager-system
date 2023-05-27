@@ -3,7 +3,7 @@ import "./styles.css";
 
 const BigContainer = ({ children }) => {
   return (
-    <section className="big-container boxShadow">
+    <section className="big-container _boxShadow">
       <span className="bg-color" />
       {children}
     </section>
