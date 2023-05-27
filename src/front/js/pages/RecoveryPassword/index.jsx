@@ -23,21 +23,20 @@ export const RecoveryPassword = () => {
 
             <h5 className="nametitle">Danny Targaryen</h5>
             <p className="nametitle2">danny@email.com</p>
-            <div className="form-div">
-              <h2 className="title">Password recovery</h2>
-              <form action="">
-                <Input
-                  icon={<i className="fa-solid fa-envelope"></i>}
-                  type="email"
-                  placeholder="E-mail"
-                  name="meil"
-                />
 
-                <button type="button" className="loginBtn boxShadow">
-                  Send
-                </button>
-              </form>
-            </div>
+            <h2 className="title">Password recovery</h2>
+            <form action="">
+              <Input
+                icon={<i className="fa-solid fa-envelope"></i>}
+                type="email"
+                placeholder="E-mail"
+                name="meil"
+              />
+
+              <button type="button" className="loginBtn boxShadow">
+                Send
+              </button>
+            </form>
           </div>
         </div>
       </main>
