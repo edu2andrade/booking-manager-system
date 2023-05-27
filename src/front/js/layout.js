@@ -21,6 +21,7 @@ import CompanyDetails from "./pages/companyDetails/index.jsx";
 import ServicesWorkers from "./pages/servicesWorkers/index.jsx";
 import { ListService } from "./pages/serviceList/index.jsx";
 import { UpdateService } from "./pages/updateService/index.jsx";
+import { ServiceDetail } from "./pages/serviceDetail/index.jsx";
 
 //create your first component
 const Layout = () => {
@@ -67,6 +68,10 @@ const Layout = () => {
             <Route
               element={<UpdateService />}
               path="/update-service/:serviceID"
+            />
+            <Route
+              element={<ServiceDetail />}
+              path="/service-detail/:serviceID"
             />
             <Route path="*" element={<h1>Not found!</h1>} />
           </Routes>
