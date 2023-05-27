@@ -30,7 +30,6 @@ export const ListService = () => {
       const deleted = await deleteServiceList(service_id);
       getList();
       deleted.is_active && deleted.is_active.success;
-      console.log(`Service with ID ${service_id} was deleted successfully`);
       setList((prevList) => prevList.filter((item) => item.id !== service_id));
     }
   };
@@ -41,16 +40,7 @@ export const ListService = () => {
       <main className="mainContainerimg">
         <BigContainer>
           <h2 className="titleService">List Services</h2>
-
-          {list.map((service) => {
-            return !service.is_active ? null : (
-              <ServiceCard
-                key={service.id}
-                service={service.name}
-                handleDelete={() => handleDelete(service.id)}
-              />
-            );
-          })}
+          <ServiceCard services={list} handleDelete={handleDelete} />
         </BigContainer>
       </main>
     </>
