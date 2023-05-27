@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/navbar/index.jsx";
+
 import BigContainer from "../../components/bigContainer/index.jsx";
 import {
   deleteServiceList,
   listServiceByCompany,
 } from "../../service/service.js";
+
+import "./styles.css";
+
 import { useParams } from "react-router-dom";
 import { ServiceCard } from "../../components/serviceCard/index.jsx";
 

@@ -22,7 +22,7 @@ export const createService = async (companyID, data) => {
   }
 };
 
-export const listServiceByCompany = async (companyID) => {
+export const listServicesByCompany = async (companyID) => {
   try {
     const res = await fetch(`${URL}/services/company/${companyID}`, {
       method: "GET",
@@ -35,10 +35,23 @@ export const listServiceByCompany = async (companyID) => {
   }
 };
 
-export const deleteServiceList = async (service_id) => {
+export const getSingleService = async (serviceID) => {
+  try {
+    const res = await fetch(`${URL}/services/${serviceID}`, {
+      method: "GET",
+      headers: HEADERS,
+    });
+    const data = await res.json();
+    return data.data;
+  } catch (err) {
+    console.log("Error To List Service", err);
+  }
+};
+
+export const deleteService = async (serviceID) => {
   try {
     const token = localStorage.getItem("token");
-    const res = await fetch(`${URL}/services/${service_id}`, {
+    const res = await fetch(`${URL}/booking/delete/${serviceID}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -48,7 +61,9 @@ export const deleteServiceList = async (service_id) => {
     const data = await res.json();
     return data.data;
   } catch (err) {
-    console.log("Error deleting service by company", err);
+    console.log("Error to Delete Service", err);
   }
 };
+
+
 
