@@ -1,10 +1,12 @@
-.list-service {
+._listService {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
 }
-.text-list-service {
+
+._textService {
+  padding: 9px;
+  font-weight: var(--font-bold);
+  font-size: 18px;
+  text-align: center;
   width: 344px;
   height: 40px;
   background: var(--white);
@@ -13,33 +15,26 @@
   letter-spacing: -0.03em;
   margin-right: 32px;
 }
-p.text-servic {
-  padding: 9px;
-  font-weight: var(--font-bold);
-  font-size: 18px;
-  text-align: center;
-}
 
-.btn-list-service {
+._btnListService {
   border: none;
   border-radius: var(--border-md);
   background-color: var(--black);
   color: var(--white);
   font-weight: var(--font-semibold);
-  margin-block: 6px;
   width: 129px;
   height: 40px;
   transition: 0.2s ease-in-out;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.btn-list-service:hover {
+._btnListService:hover {
   background-color: var(--purple-500);
   color: var(--text-900);
 }
 
 @media (max-width: 767px) {
-  .list-service {
+  ._listService {
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
