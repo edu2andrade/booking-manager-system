@@ -1,3 +1,4 @@
+export const URL = `${process.env.BACKEND_URL}/api`;
 export const URL =
   "https://3000-edu2andrade-bookingmana-8wzoec2h0y3.ws-eu98.gitpod.io/api";
 
