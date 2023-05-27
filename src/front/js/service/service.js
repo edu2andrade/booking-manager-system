@@ -22,9 +22,9 @@ export const createService = async (companyID, data) => {
   }
 };
 
-export const listServices = async (company_id) => {
+export const listServiceByCompany = async (companyID) => {
   try {
-    const res = await fetch(`${URL}/services/company/${company_id}`, {
+    const res = await fetch(`${URL}/services/company/${companyID}`, {
       method: "GET",
       headers: HEADERS,
     });

@@ -4,7 +4,6 @@ const HEADERS = {
   "Content-Type": "application/json",
 };
 
-
 export const getInfoCompanyByUserId = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -27,7 +26,6 @@ export const listCompanies = async () => {
     const res = await fetch(`${URL}/company/all`, {
       method: "GET",
       headers: HEADERS,
-
     });
     const data = await res.json();
     return data;
