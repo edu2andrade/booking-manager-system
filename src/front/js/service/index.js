@@ -1,5 +1,4 @@
-export const URL =
-  "https://3001-edu2andrade-bookingmana-8wzoec2h0y3.ws-eu98.gitpod.io/api";
+export const URL = `${process.env.BACKEND_URL}/api`;
 
 export * as user from "./user";
 export * as services from "./services";

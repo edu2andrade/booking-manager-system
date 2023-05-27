@@ -74,7 +74,7 @@ export const updateCompany = async (company_id, body) => {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log("Error Update User", err);
+    console.log("Error Update Company", err);
   }
 };
 

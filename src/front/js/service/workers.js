@@ -4,6 +4,7 @@ const HEADERS = {
     "Content-Type": "application/json",
 };
 
+
 export const createWorker = async (company_id, new_worker) => {
     try {
         const token = localStorage.getItem("token");
@@ -19,7 +20,7 @@ export const createWorker = async (company_id, new_worker) => {
     } catch (err) {
         console.log("Error to Create Worker", err);
     }
-}
+}; 
 
 export const listWorkers = async (company_id) => {
     try {
@@ -33,6 +34,7 @@ export const listWorkers = async (company_id) => {
         console.log("Error to List Workers", err);
     }
 };
+
 
 export const getSingleWorker = async (worker_id) => {
     try {
@@ -63,10 +65,4 @@ export const deleteWorker = async (worker_id) => {
         console.log("Error to Delete User", err);
     }
 };
-
-
-
-
-
-
 
