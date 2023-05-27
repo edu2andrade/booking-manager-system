@@ -4,8 +4,28 @@ const HEADERS = {
     "Content-Type": "application/json",
 };
 
+export const createBooking = async (company_id) => {
+    try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`${URL}/booking/${company_id}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ...HEADERS,
+            },
+        });
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.log("Error Create Booking", err);
+    }
+}
 
-export const getInfoBooking = async () => {
+export const adminCreateBooking = (company_id) => {
+
+}
+
+export const getBookingByUser = async () => {
     try {
         const token = localStorage.getItem("token");
         const res = await fetch(`${URL}/booking/user`, {
@@ -16,7 +36,6 @@ export const getInfoBooking = async () => {
             },
         });
         const data = await res.json();
-        console.log(data);
         return data.data;
     } catch (err) {
         console.log("Error Get Booking", err);
