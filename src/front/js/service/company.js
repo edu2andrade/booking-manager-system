@@ -73,7 +73,6 @@ export const updateCompany = async (company_id, body) => {
       body: JSON.stringify(body),
     });
     const data = await res.json();
-    console.log("From fetch -->", data);
     return data;
   } catch (err) {
     console.log("Error Update Company", err);

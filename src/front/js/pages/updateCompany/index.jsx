@@ -47,7 +47,6 @@ const UpdateCompany = () => {
     setIsLoading(false);
     responseToast(data.msg);
   };
-  console.log("send to update company --->", updatedCompany);
 
   return (
     <div className={styles._mainContainer}>
