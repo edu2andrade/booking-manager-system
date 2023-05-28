@@ -40,6 +40,8 @@ def get_single_service(service_id):
     else:
         return Response.response_error(service['msg'], service['status'])
 
+
+
 @api.route('/<int:service_id>', methods=['PATCH'])
 @jwt_required()
 def delete_service(service_id):
