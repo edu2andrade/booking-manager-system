@@ -52,7 +52,7 @@ export const getInfoCompanyByUserId = async () => {
       headers: {
         Authorization: `Bearer ${token}`,
         ...HEADERS,
-      }
+      },
     });
     const data = await res.json();
     return data;
@@ -68,10 +68,12 @@ export const updateCompany = async (company_id, body) => {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
+        ...HEADERS,
       },
-      body: body,
+      body: JSON.stringify(body),
     });
     const data = await res.json();
+    console.log("From fetch -->", data);
     return data;
   } catch (err) {
     console.log("Error Update Company", err);
@@ -94,4 +96,3 @@ export const deleteCompany = async (company_id) => {
     console.log("Error to Delete Company", err);
   }
 };
-

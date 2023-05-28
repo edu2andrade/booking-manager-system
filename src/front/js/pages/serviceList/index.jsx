@@ -7,7 +7,7 @@ import {
   listServiceByCompany,
 } from "../../service/service.js";
 
-import "./styles.css";
+// import "./styles.css";
 
 import { useParams } from "react-router-dom";
 import { ServiceCard } from "../../components/serviceCard/index.jsx";
