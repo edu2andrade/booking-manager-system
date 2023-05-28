@@ -3,7 +3,7 @@ import logo from "../../../../assets/logotipo-detail.png";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-export const Logotipo = ({ ...rest }) => (
+const Logotipo = ({ ...rest }) => (
   <Link to="/">
     <div id="logo-container" {...rest}>
       <img src={logo} alt="Double purple squares design used as logo" />
