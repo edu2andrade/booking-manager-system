@@ -14,7 +14,7 @@ import AdminDashboard from "./pages/adminDashboard/index.jsx";
 import WorkerDashboard from "./pages/workerDashboard/index.jsx";
 import Profile from "./pages/profile/index.jsx";
 import { UpdatePassword } from "./pages/updatePassword/index.jsx";
-import { RecoveryPassword } from "./pages/RecoveryPassword/index.jsx";
+import RecoveryPassword from "./pages/RecoveryPassword/index.jsx";
 import { CreateService } from "./pages/createService/index.jsx";
 import CompaniesList from "./pages/companiesList/index.jsx";
 import CompanyDetails from "./pages/companyDetails/index.jsx";

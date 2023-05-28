@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "./styles.css";
-import { Navbar } from "../../components/navbar/index.jsx";
+import Navbar from "../../components/navbar/index.jsx";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/input/index.jsx";
 

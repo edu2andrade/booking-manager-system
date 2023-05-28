@@ -1,10 +1,10 @@
 import React from "react";
 import "./styles.css";
-import { Navbar } from "../../components/navbar/index.jsx";
+import Navbar from "../../components/navbar/index.jsx";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/input/index.jsx";
 
-export const RecoveryPassword = () => {
+const RecoveryPassword = () => {
   const navigate = useNavigate();
   const handlesubmit = () => {
     navigate("/");
@@ -43,3 +43,5 @@ export const RecoveryPassword = () => {
     </>
   );
 };
+
+export default RecoveryPassword;
