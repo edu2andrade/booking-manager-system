@@ -65,5 +65,20 @@ export const deleteService = async (serviceID) => {
   }
 };
 
-
-
+export const updateService = async (serviceID, body) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${URL}/services/${serviceID}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...HEADERS,
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("Error to update this service", err);
+  }
+};
