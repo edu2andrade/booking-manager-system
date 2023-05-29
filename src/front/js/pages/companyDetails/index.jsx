@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { Link, useParams } from "react-router-dom";
+=======
+import { Link, useNavigate, useParams } from "react-router-dom";
+>>>>>>> f92b64a96b1d7c55cca3ea36f55108ee5f8f5ece
 import { getInfoCompanyById } from "../../service/company";
 import Logotipo from "../../components/logotipo/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
 import Avatar from "../../components/avatar/index.jsx";
 
 import styles from "./company-details.module.css";
+import Button from "../../components/button/index.jsx";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState({});
   const { companyId } = useParams();
+  const navigate = useNavigate();
 
   const getCompany = async (companyId) => {
     const data = await getInfoCompanyById(companyId);
@@ -23,6 +29,13 @@ const CompanyDetails = () => {
   return (
     <div className={styles._mainContainer}>
       <Logotipo className={styles._logo} />
+      <div className={styles._btnWrapper}>
+        <Button
+          type="button"
+          title="Booking now"
+          onClick={() => navigate("/")}
+        />
+      </div>
       <BigContainer>
         <h1>{company.name}</h1>
         <article className={styles._contentContainer}>
