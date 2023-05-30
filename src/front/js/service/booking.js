@@ -1,7 +1,7 @@
 import { URL } from ".";
 
 const HEADERS = {
-  "Content-Type": "application/json",
+    "Content-Type": "application/json",
 };
 
 export const createBooking = async (company_id) => {
@@ -32,6 +32,7 @@ export const adminCreateBooking = async (company_id) => {
             },
         });
         const data = await res.json();
+        console.log("fetch admin create booking =====>", data);
         return data;
     } catch (err) {
         console.log("Error to Create Booking by Company", err);

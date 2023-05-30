@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
-import { Link, useParams } from "react-router-dom";
-=======
 import { Link, useNavigate, useParams } from "react-router-dom";
->>>>>>> f92b64a96b1d7c55cca3ea36f55108ee5f8f5ece
 import { getInfoCompanyById } from "../../service/company";
 import Logotipo from "../../components/logotipo/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";

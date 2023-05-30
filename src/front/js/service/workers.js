@@ -20,7 +20,7 @@ export const createWorker = async (company_id, new_worker) => {
     } catch (err) {
         console.log("Error to Create Worker", err);
     }
-}; 
+};
 
 export const listWorkers = async (company_id) => {
     try {
