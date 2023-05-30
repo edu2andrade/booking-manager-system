@@ -24,6 +24,7 @@ import UpdateCompany from "./pages/updateCompany/index.jsx";
 import { UpdateService } from "./pages/updateService/index.jsx";
 import { ServiceDetail } from "./pages/serviceDetail/index.jsx";
 import CreateWorker from "./pages/createWorker/index.jsx";
+import { ToastContainer } from "react-toastify";
 
 
 //create your first component
@@ -77,10 +78,10 @@ const Layout = () => {
               path="/update-service/:serviceID"
             />
 
-            <Route
+            {/* <Route
               element={<ServiceDetail />}
               path="/service-detail/:serviceID"
-            />
+            /> */}
 
             <Route
               element={<CreateWorker />}
@@ -90,6 +91,7 @@ const Layout = () => {
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
+      <ToastContainer position="bottom-center" />
     </div>
   );
 };
