@@ -11,7 +11,7 @@ const initialState = {
   price: "",
 };
 
-export const UpdateService = () => {
+const UpdateService = () => {
   const { serviceID } = useParams();
   const [list, setList] = useState(initialState);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -41,3 +41,5 @@ export const UpdateService = () => {
     </>
   );
 };
+
+export default UpdateService;

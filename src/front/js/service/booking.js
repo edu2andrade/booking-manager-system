@@ -83,9 +83,26 @@ export const deleteBooking = async (bookingID) => {
       },
     });
     const data = await res.json();
-    console.log(data, "dataa");
     return data;
   } catch (err) {
     console.log("Error to Delete Booking", err);
+  }
+};
+
+export const updateBooking = async (bookingID, body) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${URL}/booking/${bookingID}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...HEADERS,
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("Error to update this service", err);
   }
 };

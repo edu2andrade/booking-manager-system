@@ -106,3 +106,4 @@ def delete_booking(booking_id):
         return Response.response_ok(f'This booking with id: {booking_id}, was deleted from database', deleted_booking.serialize_admin_booking())
     else:
         return Response.response_error(deleted_booking['msg'], deleted_booking['status'])
+        

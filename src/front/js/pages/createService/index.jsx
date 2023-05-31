@@ -11,7 +11,7 @@ const initialState = {
   price: "",
 };
 
-export const CreateService = () => {
+const CreateService = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [newService, setNewService] = useState(initialState);
@@ -38,3 +38,5 @@ export const CreateService = () => {
     </>
   );
 };
+
+export default CreateService;

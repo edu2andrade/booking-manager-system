@@ -86,7 +86,7 @@ const UserDashboard = () => {
             </p>
 
             <p>
-              <strong> reservation identifier : </strong>
+              <strong> Reservation identifier : </strong>
               {selectedBooking?.id}
             </p>
 
@@ -101,7 +101,7 @@ const UserDashboard = () => {
 
             <div className={styles._modalFooter}>
               <p>
-                <strong>Do you want to update or delete this booking?</strong>
+                <strong>Do you want to change your appointment??</strong>
               </p>
               <div className={styles._btnWrapper}>
                 <Button
@@ -115,7 +115,7 @@ const UserDashboard = () => {
                   onClick={() =>
                     toast.error(
                       <DeleteToastBooking
-                        msg="Delete this booking"
+                        msg="Delete this booking?"
                         action={() => deleteReservation(selectedBooking?.id)}
                       />,
                       { autoClose: false }

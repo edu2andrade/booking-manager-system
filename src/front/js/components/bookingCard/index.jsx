@@ -1,6 +1,13 @@
 import React from "react";
 import styles from "./bookingCard.module.css";
-const BookingCard = ({ service, date, worker, setIsOpen, handleDelete }) => {
+const BookingCard = ({
+  service,
+  date,
+  worker,
+  setIsOpen,
+  handleDelete,
+  id,
+}) => {
   return (
     <div className={`${styles._bookingContainer} _boxShadow`}>
       <span onClick={setIsOpen}>
