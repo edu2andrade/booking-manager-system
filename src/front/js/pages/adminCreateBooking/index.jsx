@@ -53,7 +53,7 @@ const AdminCreateBooking = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setNewBooking({});
     const data = await adminCreateBooking(company_id, transformData());
 
     console.log("DATA =======>", data);
