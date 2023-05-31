@@ -6,18 +6,17 @@ import BookingCard from "../../components/bookingCard/index.jsx";
 import { getBookingByUser } from "../../service/booking";
 import { deleteBooking } from "../../service/booking";
 import BigContainer from "../../components/bigContainer/index.jsx";
-import ModalBooking from "../../components/modalBooking/index.jsx";
+import Modal from "../../components/modal/index.jsx";
 import Button from "../../components/button/index.jsx";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import DeleteToastBooking from "../../components/deleteToastBooking/index.jsx";
+import DeleteToast from "../../components/deleteToast/index.jsx";
 
 const UserDashboard = () => {
   const [bookingList, setBookingList] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState({});
-
   const navigate = useNavigate();
 
   const getBooking = async () => {
@@ -57,7 +56,7 @@ const UserDashboard = () => {
                   }}
                   handleDelete={() =>
                     toast.error(
-                      <DeleteToastBooking
+                      <DeleteToast
                         msg="Delete this booking?"
                         action={() => deleteReservation(booking.id)}
                       />,
@@ -69,7 +68,7 @@ const UserDashboard = () => {
             })}
           </div>
         </BigContainer>
-        <ModalBooking
+        <Modal
           title="Booking Details"
           isOpen={isOpen}
           close={() => setIsOpen(false)}
@@ -114,7 +113,7 @@ const UserDashboard = () => {
                   title="Delete"
                   onClick={() =>
                     toast.error(
-                      <DeleteToastBooking
+                      <DeleteToast
                         msg="Delete this booking?"
                         action={() => deleteReservation(selectedBooking?.id)}
                       />,
@@ -125,7 +124,7 @@ const UserDashboard = () => {
               </div>
             </div>
           </div>
-        </ModalBooking>
+        </Modal>
       </main>
     </div>
   );

@@ -17,11 +17,9 @@ const UpdateBooking = () => {
   const [isUpdated, setIsUpdated] = useState(false);
   const [workerList, setWorkerList] = useState([]);
   const [serviceList, setServiceList] = useState([]);
-  const [bookingList, setBookingList] = useState([]);
 
   const getBooking = async () => {
     const bookingData = await getBookingByUser();
-    setBookingList(bookingData);
 
     // Filtrar trabajadores únicos
     const uniqueWorkers = bookingData.reduce((workers, booking) => {

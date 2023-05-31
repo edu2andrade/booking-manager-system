@@ -28,20 +28,37 @@ const UpdateBookingList = ({
               onSubmit={handleSubmit}
               onChange={handleChange}
             >
-              <Input
-                icon={<i className="fa-solid fa-circle-user"></i>}
-                type="number"
-                placeholder="Worker"
-                name="worker"
-                value={list.worker}
-              />
-              <Input
-                icon={<i className="fa-solid fa-circle-user"></i>}
-                type="number"
-                placeholder="Service"
-                name="service"
-                value={list.service}
-              />
+              <div className={styles._inputContainer}>
+                <i className="fa-solid fa-circle-user"></i>
+                <select
+                  className="_boxShadow"
+                  value={list.worker}
+                  name="worker"
+                >
+                  <option>Select Worker ID</option>
+                  {workerList.map((workerId) => (
+                    <option key={workerId} value={workerId}>
+                      {workerId}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className={styles._inputContainer}>
+                <i className="fa-solid fa-circle-user"></i>
+                <select
+                  className="_boxShadow"
+                  value={list.service}
+                  name="service"
+                >
+                  <option>Select service ID</option>
+                  {serviceList.map((serviceId) => (
+                    <option key={serviceId} value={serviceId}>
+                      {serviceId}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <Input
                 icon={<i className="fa-regular fa-clock"></i>}
                 type="text"
@@ -66,22 +83,6 @@ const UpdateBookingList = ({
             </button>
           </div>
         </div>
-        <select value={list.worker} onChange={handleChange} name="worker">
-          <option value="">Select Worker ID</option>
-          {workerList.map((workerId) => (
-            <option key={workerId} value={workerId}>
-              {workerId}
-            </option>
-          ))}
-        </select>
-        <select value={list.service} onChange={handleChange} name="service">
-          <option value="">Select service ID</option>
-          {serviceList.map((serviceId) => (
-            <option key={serviceId} value={serviceId}>
-              {serviceId}
-            </option>
-          ))}
-        </select>
       </main>
     </>
   );
