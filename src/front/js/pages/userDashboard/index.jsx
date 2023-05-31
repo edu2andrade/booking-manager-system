@@ -15,7 +15,6 @@ import DeleteToastBooking from "../../components/deleteToastBooking/index.jsx";
 const UserDashboard = () => {
   const [bookingList, setBookingList] = useState([]);
 
-  const [deletedBooking, setDeletedBooking] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState({});
 
@@ -32,9 +31,7 @@ const UserDashboard = () => {
   const deleteReservation = async (bookingID) => {
     const resMsg = await deleteBooking(bookingID);
     await getBooking();
-    resMsg.data // if data exists inside resMsg, then the object was successfully deleted.
-      ? toast.success(resMsg?.msg)
-      : toast.error(resMsg?.msg);
+    resMsg.data ? toast.success(resMsg?.msg) : toast.error(resMsg?.msg);
   };
 
   return (
@@ -113,7 +110,18 @@ const UserDashboard = () => {
                     navigate(`/update-booking/${selectedBooking?.id}`)
                   }
                 />
-                <Button title="Delete" />
+                <Button
+                  title="Delete"
+                  onClick={() =>
+                    toast.error(
+                      <DeleteToastBooking
+                        msg="Delete this booking"
+                        action={() => deleteReservation(selectedBooking?.id)}
+                      />,
+                      { autoClose: false }
+                    )
+                  }
+                />
               </div>
             </div>
           </div>

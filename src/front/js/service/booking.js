@@ -83,6 +83,7 @@ export const deleteBooking = async (bookingID) => {
       },
     });
     const data = await res.json();
+    console.log(data, "dataa");
     return data;
   } catch (err) {
     console.log("Error to Delete Booking", err);

@@ -1,5 +1,5 @@
 from api.models.index import db, Booking
-
+# from sqlalchemy.orm import load_only
 def create_new_booking(body, current_user_id, company_id, service_workers_id):
     new_booking = Booking(current_user_id, company_id, service_workers_id, body['start_service'], body['description'])
     db.session.add(new_booking)
@@ -37,3 +37,10 @@ def delete_booking(booking):
     db.session.delete(booking)
     db.session.commit()
     return booking
+
+
+# def delete_booking(booking):
+#     db.session.query(Booking).options(load_only('services_workers')).filter_by(id=booking.id).delete()
+#     db.session.commit()
+#     return booking
+    
