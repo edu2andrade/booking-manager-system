@@ -9,9 +9,12 @@ import BigContainer from "../../components/bigContainer/index.jsx";
 import ModalBooking from "../../components/modalBooking/index.jsx";
 import Button from "../../components/button/index.jsx";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import DeleteToastBooking from "../../components/deleteToastBooking/index.jsx";
 
 const UserDashboard = () => {
   const [bookingList, setBookingList] = useState([]);
+
   const [deletedBooking, setDeletedBooking] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState({});
@@ -22,15 +25,17 @@ const UserDashboard = () => {
     const bookingData = await getBookingByUser();
     setBookingList(bookingData);
   };
-
-  const deleteReservation = async (booking_id) => {
-    const deleted = await deleteBooking(booking_id);
-    setDeletedBooking(deleted);
-  };
-
   useEffect(() => {
     getBooking();
-  }, [deletedBooking]);
+  }, []);
+
+  const deleteReservation = async (bookingID) => {
+    const resMsg = await deleteBooking(bookingID);
+    await getBooking();
+    resMsg.data // if data exists inside resMsg, then the object was successfully deleted.
+      ? toast.success(resMsg?.msg)
+      : toast.error(resMsg?.msg);
+  };
 
   return (
     <div>
@@ -53,7 +58,15 @@ const UserDashboard = () => {
                     setSelectedBooking(booking);
                     setIsOpen(true);
                   }}
-                  deleteReservation={() => deleteReservation(booking.id)}
+                  handleDelete={() =>
+                    toast.error(
+                      <DeleteToastBooking
+                        msg="Delete this booking?"
+                        action={() => deleteReservation(booking.id)}
+                      />,
+                      { autoClose: false }
+                    )
+                  }
                 />
               );
             })}
