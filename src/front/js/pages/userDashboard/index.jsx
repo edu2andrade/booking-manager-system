@@ -11,17 +11,33 @@ import Button from "../../components/button/index.jsx";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DeleteToast from "../../components/deleteToast/index.jsx";
+import Spinner from "../../components/spinner/index.jsx";
+
+const initialState = {
+  services_workers: {
+    services: {
+      name: "",
+      created_at: "",
+      service_duration: "",
+      description: "",
+    },
+  },
+};
 
 const UserDashboard = () => {
   const [bookingList, setBookingList] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState({});
+  const [selectedBooking, setSelectedBooking] = useState(initialState);
+  const [Loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const getBooking = async () => {
+    setLoading(true);
     const bookingData = await getBookingByUser();
     setBookingList(bookingData);
+    setLoading(false);
   };
   useEffect(() => {
     getBooking();
@@ -39,35 +55,40 @@ const UserDashboard = () => {
       <main className={styles._mainContainer}>
         <BigContainer>
           <h1 className={styles._title}>List of Reservations</h1>
-          <div className={styles._listContainer}>
-            {bookingList.map((booking) => {
-              return (
-                <BookingCard
-                  key={booking.id}
-                  date={format(
-                    new Date(booking.start_service),
-                    "MMM do yyyy 'at' hh:mm"
-                  )}
-                  service={booking.services_workers.services.name}
-                  worker={booking.services_workers.workers.user.username}
-                  setIsOpen={() => {
-                    setSelectedBooking(booking);
-                    setIsOpen(true);
-                  }}
-                  handleDelete={() =>
-                    toast.error(
-                      <DeleteToast
-                        msg="Delete this booking?"
-                        action={() => deleteReservation(booking.id)}
-                      />,
-                      { autoClose: false }
-                    )
-                  }
-                />
-              );
-            })}
-          </div>
+          {Loading ? (
+            <Spinner />
+          ) : (
+            <div className={styles._listContainer}>
+              {bookingList.map((booking) => {
+                return (
+                  <BookingCard
+                    key={booking.id}
+                    date={format(
+                      new Date(booking.start_service),
+                      "MMM do yyyy 'at' hh:mm"
+                    )}
+                    service={booking.services_workers.services.name}
+                    worker={booking.services_workers.workers.user.username}
+                    setIsOpen={() => {
+                      setSelectedBooking(booking);
+                      setIsOpen(true);
+                    }}
+                    handleDelete={() =>
+                      toast.error(
+                        <DeleteToast
+                          msg="Delete this booking?"
+                          action={() => deleteReservation(booking.id)}
+                        />,
+                        { autoClose: false }
+                      )
+                    }
+                  />
+                );
+              })}
+            </div>
+          )}
         </BigContainer>
+
         <Modal
           title="Booking Details"
           isOpen={isOpen}
@@ -76,26 +97,22 @@ const UserDashboard = () => {
         >
           <div className={styles._modalContent}>
             <p>
-              <strong> Company ID: </strong>
-              {selectedBooking?.company_id}
+              <strong> Service: </strong>
+              {selectedBooking?.services_workers.services.name}
             </p>
             <p>
-              <strong>Worker Service: </strong>
-              {selectedBooking?.service_workers_id}
-            </p>
-
-            <p>
-              <strong> Reservation identifier : </strong>
-              {selectedBooking?.id}
+              <strong>Date and time: </strong>
+              {selectedBooking?.services_workers.services.created_at}
             </p>
 
             <p>
-              <strong>Duration: </strong>
-              {selectedBooking?.start_service} min
+              <strong> Duration: </strong>
+              {selectedBooking?.services_workers.services.service_duration}{" "}
+              hours
             </p>
             <p>
               <strong>Description: </strong>
-              {selectedBooking?.description} min
+              {selectedBooking?.services_workers.services.description}
             </p>
 
             <div className={styles._modalFooter}>

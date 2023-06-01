@@ -21,16 +21,16 @@ const UpdateBooking = () => {
   const getBooking = async () => {
     const bookingData = await getBookingByUser();
 
-    // Filtrar trabajadores únicos
+    // Filter by workers unique
     const uniqueWorkers = bookingData.reduce((workers, booking) => {
-      workers.add(booking.services_workers.workers.id);
+      workers.add(booking.services_workers.workers.user.username);
       return workers;
     }, new Set());
     setWorkerList(Array.from(uniqueWorkers));
 
-    // Filtrar servicios únicos
+    // Filter by services unique
     const uniqueServices = bookingData.reduce((services, booking) => {
-      services.add(booking.services_workers.services.id);
+      services.add(booking.services_workers.services.name);
       return services;
     }, new Set());
     setServiceList(Array.from(uniqueServices));

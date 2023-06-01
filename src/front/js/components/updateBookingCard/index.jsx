@@ -35,7 +35,7 @@ const UpdateBookingList = ({
                   value={list.worker}
                   name="worker"
                 >
-                  <option>Select Worker ID</option>
+                  <option>Select Worker</option>
                   {workerList.map((workerId) => (
                     <option key={workerId} value={workerId}>
                       {workerId}
@@ -51,7 +51,7 @@ const UpdateBookingList = ({
                   value={list.service}
                   name="service"
                 >
-                  <option>Select service ID</option>
+                  <option>Select Service </option>
                   {serviceList.map((serviceId) => (
                     <option key={serviceId} value={serviceId}>
                       {serviceId}
