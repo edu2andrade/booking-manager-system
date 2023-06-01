@@ -4,24 +4,6 @@ const HEADERS = {
   "Content-Type": "application/json",
 };
 
-<<<<<<< HEAD
-
-export const createWorker = async (company_id, new_worker) => {
-    try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(`${URL}/create_worker/${company_id}`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                ...HEADERS,
-            },
-        });
-        const data = await res.json(new_worker);
-        return data;
-    } catch (err) {
-        console.log("Error to Create Worker", err);
-    }
-=======
 export const createWorker = async (companyID, new_worker) => {
   try {
     const token = localStorage.getItem("token");
@@ -38,7 +20,6 @@ export const createWorker = async (companyID, new_worker) => {
   } catch (err) {
     console.log("Error to Create Worker", err);
   }
->>>>>>> 7d982b4405949ebae809af2df4b5c4aa4c7442d5
 };
 
 export const listWorkers = async (company_id) => {

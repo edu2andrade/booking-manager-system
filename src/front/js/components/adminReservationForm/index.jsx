@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./reservationForm.module.css";
+import styles from "./adminReservationForm.module.css";
 import Input from "../input/index.jsx";
 
-const ReservationForm = ({
+const AdminReservationForm = ({
   handleChange,
   handleSubmit,
   workersList,
@@ -51,4 +51,4 @@ const ReservationForm = ({
   );
 };
 
-export default ReservationForm;
+export default AdminReservationForm;
