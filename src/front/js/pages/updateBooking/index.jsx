@@ -3,6 +3,7 @@ import Navbar from "../../components/navbar/index.jsx";
 import UpdateBookingList from "../../components/updateBookingCard/index.jsx";
 import { useParams } from "react-router-dom";
 import { getBookingByUser, updateBooking } from "../../service/booking.js";
+import { toast } from "react-toastify";
 
 const initialState = {
   worker: "",
@@ -13,27 +14,34 @@ const initialState = {
 
 const UpdateBooking = () => {
   const { bookingID } = useParams();
-  const [list, setList] = useState(initialState);
-  const [isUpdated, setIsUpdated] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const [workerList, setWorkerList] = useState([]);
   const [serviceList, setServiceList] = useState([]);
+
+  const responseToast = (msg) => toast(msg);
 
   const getBooking = async () => {
     const bookingData = await getBookingByUser();
 
     // Filter by workers unique
     const uniqueWorkers = bookingData.reduce((workers, booking) => {
-      workers.add(booking.services_workers.workers.user.username);
+      const worker = booking.services_workers.workers;
+      if (!workers.some((w) => w.id === worker.id)) {
+        workers.push(worker);
+      }
       return workers;
-    }, new Set());
-    setWorkerList(Array.from(uniqueWorkers));
+    }, []);
+    setWorkerList(uniqueWorkers);
 
     // Filter by services unique
     const uniqueServices = bookingData.reduce((services, booking) => {
-      services.add(booking.services_workers.services.name);
+      const service = booking.services_workers.services;
+      if (!services.some((s) => s.id === service.id)) {
+        services.push(service);
+      }
       return services;
-    }, new Set());
-    setServiceList(Array.from(uniqueServices));
+    }, []);
+    setServiceList(uniqueServices);
   };
 
   useEffect(() => {
@@ -41,25 +49,23 @@ const UpdateBooking = () => {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setList(initialState);
-    const booking = await updateBooking(bookingID, list);
-
-    setList(booking);
-    setIsUpdated(true);
+    setFormData(initialState);
+    const booking = await updateBooking(bookingID, formData);
+    setFormData(booking);
+    responseToast(booking.msg);
   };
 
   const handleChange = ({ target }) => {
-    setList({ ...list, [target.name]: target.value });
+    setFormData({ ...formData, [target.name]: target.value });
   };
 
   return (
     <>
       <Navbar />
       <UpdateBookingList
-        list={list}
+        formData={formData}
         handleSubmit={handleSubmit}
         handleChange={handleChange}
-        isUpdated={isUpdated}
         textBtn="Update"
         workerList={workerList}
         serviceList={serviceList}

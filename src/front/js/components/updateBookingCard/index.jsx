@@ -2,14 +2,12 @@ import React from "react";
 import styles from "./updateBookingCard.module.css";
 import Input from "../input/index.jsx";
 import Button from "../button/index.jsx";
-import UpdateMessage from "../updateMessage/index.jsx";
 import { useNavigate } from "react-router-dom";
 
 const UpdateBookingList = ({
-  list,
+  formData,
   handleSubmit,
   handleChange,
-  isUpdated,
   textBtn,
   workerList,
   serviceList,
@@ -18,7 +16,6 @@ const UpdateBookingList = ({
 
   return (
     <>
-      {isUpdated && <UpdateMessage />}
       <main className={styles._mainContainerImg}>
         <div className={styles._parentTwo}>
           <div className={styles._childTwo}>
@@ -32,13 +29,13 @@ const UpdateBookingList = ({
                 <i className="fa-solid fa-circle-user"></i>
                 <select
                   className="_boxShadow"
-                  value={list.worker}
+                  value={formData.worker}
                   name="worker"
                 >
-                  <option>Select Worker</option>
+                  <option>Select Worker ID</option>
                   {workerList.map((workerId) => (
-                    <option key={workerId} value={workerId}>
-                      {workerId}
+                    <option key={workerId.id} value={workerId.id}>
+                      {workerId.user.firstname}
                     </option>
                   ))}
                 </select>
@@ -48,13 +45,13 @@ const UpdateBookingList = ({
                 <i className="fa-solid fa-circle-user"></i>
                 <select
                   className="_boxShadow"
-                  value={list.service}
+                  value={formData.service}
                   name="service"
                 >
-                  <option>Select Service </option>
+                  <option>Select Service ID </option>
                   {serviceList.map((serviceId) => (
-                    <option key={serviceId} value={serviceId}>
-                      {serviceId}
+                    <option key={serviceId.id} value={serviceId.id}>
+                      {serviceId.name}
                     </option>
                   ))}
                 </select>
@@ -64,23 +61,23 @@ const UpdateBookingList = ({
                 type="text"
                 placeholder="Booking Time"
                 name="start_service"
-                value={list.start_service}
+                value={formData.start_service}
               />
               <Input
                 icon={<i className="fa-solid fa-pen-to-square"></i>}
                 type="text"
                 placeholder="description"
                 name="description"
-                value={list.description}
+                value={formData.description}
               />
               <Button type="submit" title={textBtn} />
+              <button
+                className={`${styles._loginBtnGoBack} boxShadow`}
+                onClick={() => navigate(-1)}
+              >
+                Go Back
+              </button>
             </form>
-            <button
-              className={`${styles._loginBtnGoBack} boxShadow`}
-              onClick={() => navigate(-1)}
-            >
-              Go Back
-            </button>
           </div>
         </div>
       </main>
