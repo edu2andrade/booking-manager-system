@@ -73,10 +73,26 @@ const AdminCreateBooking = () => {
     setNewBooking({ ...newBooking, [target.name]: target.value });
   };
 
+  const transformedData = () => {
+    const serviceID = servicesList.filter(
+      (service) => service.name === newBooking.service
+    )[0]?.id;
+    const workerID = workersList.filter(
+      (worker) => worker.user.username === newBooking.worker
+    )[0]?.id;
+    const startService = newBooking.start_service;
+    const description = newBooking.description;
+    return {
+      service: serviceID,
+      worker: workerID,
+      start_service: startService,
+      description: description,
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await adminCreateBooking(company_id, newBooking);
-    console.log(adminCreateBooking(company_id, newBooking));
+    await adminCreateBooking(company_id, transformedData());
     // navigate to admin dashboard / worker dashboard
   };
 
