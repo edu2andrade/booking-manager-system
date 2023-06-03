@@ -1,27 +1,32 @@
 import React, { useState } from "react";
-import "./styles.css";
 import { updateUserProfile } from "../../service/user.js";
+import "./styles.css";
+
 import ProfileForm from "../../components/profileForm/index.jsx";
-import Navbar from "../../components/navbar/index.jsx";
+import Header from "../../components/header/index.jsx";
 import ImgProfile from "../../components/imgProfile/index.jsx";
+import { useNavigate } from "react-router-dom";
+
+const initialState = {
+  username: "",
+  firstname: "",
+  lastname: "",
+  email: "",
+};
 
 const Profile = () => {
   const [file, setFile] = useState("");
   const [fileUrl, setFileUrl] = useState("");
-  const [user, setUser] = useState({
-    username: "",
-    firstname: "",
-    lastname: "",
-    email: "",
-  });
+  const [user, setUser] = useState(initialState);
+
+  const navigate = useNavigate();
+
   const handleChange = ({ target }) => {
-    console.log(target.files);
     if (target.files) {
       setFile(target.files[0]);
       const reader = new FileReader();
       reader.onload = (e) => {
         if (reader.readyState === 2) {
-          console.log("result", reader.result);
           setFileUrl(reader.result);
         }
       };
@@ -30,6 +35,7 @@ const Profile = () => {
       setUser({ ...user, [target.name]: target.value });
     }
   };
+
   const handleClick = (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -38,17 +44,19 @@ const Profile = () => {
     form.append("username", user.username);
     form.append("firstname", user.firstname);
     form.append("lastname", user.lastname);
+    console.log(form);
     updateUserProfile(form);
-    setUser({
-      username: "",
-      firstname: "",
-      lastname: "",
-      email: "",
-    });
+    navigate("/");
+    // setUser({
+    //   username: "",
+    //   firstname: "",
+    //   lastname: "",
+    //   email: "",
+    // });
   };
   return (
     <main className="">
-      <Navbar />
+      <Header />
       <ImgProfile img={fileUrl} handleChange={handleChange} />
       <main className="mainContainerProfile">
         <div className="background">
