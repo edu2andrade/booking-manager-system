@@ -95,9 +95,8 @@ def get_bookings_by_company(company_id, current_user_id):
     if user.roles.type == 'client':
         return {'msg': 'You do not have rights to see this bookings!', 'status': 403}
     
-
-    if current_user_id != company.user_id:
-        return {'msg': 'You do not have rights to see this bookings!', 'status': 403}
+    # if current_user_id != company.user.id:
+    #     return {'msg': 'You do not have rights to see this bookings!', 'status': 403}
         
     return bookings_by_company
 
