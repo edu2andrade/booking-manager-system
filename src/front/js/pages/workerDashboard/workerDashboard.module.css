@@ -1,23 +1,36 @@
 ._mainContainer {
   width: 100%;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-._contentContainer {
+._bookingsContainer {
   width: 100%;
-  max-width: var(--max-width);
-  margin-top: 40px;
+  max-width: 400px;
+  height: 380px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+._bookingContainer {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 16px;
   display: flex;
+  border-radius: var(--border-md);
+  background-color: var(--primary-50);
   flex-direction: column;
   align-items: center;
+  scroll-snap-align: start;
 }
 
 ._heading {
-  margin: 0;
-  font-size: var(--heading-lg);
+  margin-top: 110px;
+  margin-bottom: 32px;
+  font-size: var(--heading-md);
   font-weight: var(--font-extrabold);
   line-height: 1;
   text-align: center;

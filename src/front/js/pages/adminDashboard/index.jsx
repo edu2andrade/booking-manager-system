@@ -12,14 +12,11 @@ const AdminDashboard = () => {
   const { store, actions } = useContext(Context);
   const userStoredInContext = store.userProfileData.userData;
 
-  console.log(userStoredInContext);
-
   const { companyId } = useParams();
   const navigate = useNavigate();
 
   const fetchUser = async () => {
     const user = await getUserProfile();
-    console.log(user);
     actions.saveUserProfileData(user);
   };
 

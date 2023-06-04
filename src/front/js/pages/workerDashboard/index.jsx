@@ -10,7 +10,6 @@ import styles from "./workerDashboard.module.css";
 
 import BookingCard from "../../components/bookingCard/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
-import Modal from "../../components/modal/index.jsx";
 import Button from "../../components/button/index.jsx";
 import DeleteToast from "../../components/deleteToast/index.jsx";
 import Spinner from "../../components/spinner/index.jsx";
@@ -31,7 +30,6 @@ const WorkerDashboard = () => {
 
   const fetchUser = async () => {
     const user = await getUserProfile();
-    console.log(user);
     actions.saveUserProfileData(user);
   };
 
@@ -40,27 +38,34 @@ const WorkerDashboard = () => {
     setBookingList(bookings);
   };
 
-  console.log("bookings list", bookingList);
-
-  const data = localStorage.getItem("token/role/company_id");
-  const data_json = JSON.parse(data);
-  console.log(data_json.worker_id);
-
   const getBookingsByWorker = () => {
-    const bookingsByWorkerId = bookingList.filter(
-      (bookings) => bookings?.services_workers.worker_id === data_json.worker_id
+    const localStorageData = JSON.parse(
+      localStorage.getItem("token/role/company_id")
     );
-    console.log("bookings by worker ID", bookingsByWorkerId);
+    const { worker_id } = localStorageData;
+
+    console.log(worker_id);
+
+    const bookingsByWorkerId = bookingList.filter(
+      (booking) => booking?.services_workers?.worker_id === worker_id
+    );
+    console.log("bookings by worker ID -->", bookingsByWorkerId);
     setBookingsByWorker(bookingsByWorkerId);
   };
 
   useEffect(() => {
     fetchUser();
     getBookings();
-    getBookingsByWorker();
   }, []);
 
-  console.log("bookings by worker", bookingsByWorker);
+  useEffect(() => {
+    if (bookingList?.length > 0) {
+      getBookingsByWorker();
+    }
+  }, [bookingList]);
+
+  console.log("bookings list", bookingList);
+  console.log("bookings by worker state", bookingsByWorker);
 
   return (
     <div>
@@ -75,95 +80,43 @@ const WorkerDashboard = () => {
       />
       <main className={styles._mainContainer}>
         <BigContainer>
-          <h1 className={styles._title}>List of Reservations</h1>
-          {Loading ? (
-            <Spinner />
-          ) : bookingsByWorker.length === 0 ? (
-            <p>You have no bookings assigned yet!</p>
-          ) : (
-            <div className={styles._listContainer}>
-              {bookingsByWorker.map((booking) => {
-                return (
-                  <BookingCard
-                    // key={booking.id}
-                    date={format(
-                      // new Date(booking.start_service),
-                      "MMM do yyyy 'at' hh:mm"
-                    )}
-                    // service={booking.services_workers.services.name}
-                    // worker={booking.services_workers.workers.user.username}
-                    setIsOpen={() => {
-                      setSelectedBooking(booking);
-                      setIsOpen(true);
-                    }}
-                    handleDelete={() =>
-                      toast.error(
-                        <DeleteToast
-                          msg="Delete this booking?"
-                          action={() => deleteReservation(booking.id)}
-                        />,
-                        { autoClose: false }
-                      )
-                    }
-                  />
-                );
-              })}
-            </div>
-          )}
-        </BigContainer>
-        {/* <Modal
-          title="Booking Details"
-          isOpen={isOpen}
-          close={() => setIsOpen(false)}
-          selectedBooking={selectedBooking}
-        >
-          <div className={styles._modalContent}>
-            <p>
-              <strong> Service: </strong>
-              {selectedBooking?.services_workers.services.name}
-            </p>
-            <p>
-              <strong>Date and time: </strong>
-              {selectedBooking?.services_workers.services.created_at}
-            </p>
-
-            <p>
-              <strong> Duration: </strong>
-              {selectedBooking?.services_workers.services.service_duration}{" "}
-              hours
-            </p>
-            <p>
-              <strong>Description: </strong>
-              {selectedBooking?.services_workers.services.description}
-            </p>
-
-            <div className={styles._modalFooter}>
-              <p>
-                <strong>Do you want to change your appointment??</strong>
-              </p>
-              <div className={styles._btnWrapper}>
-                <Button
-                  title="Update"
-                  onClick={() =>
-                    navigate(`/update-booking/${selectedBooking?.id}`)
-                  }
-                />
-                <Button
-                  title="Delete"
-                  onClick={() =>
-                    toast.error(
-                      <DeleteToast
-                        msg="Delete this booking?"
-                        action={() => deleteReservation(selectedBooking?.id)}
-                      />,
-                      { autoClose: false }
-                    )
-                  }
-                />
-              </div>
-            </div>
+          <h1 className={styles._heading}>List of Reservations</h1>
+          <div className={styles._bookingsContainer}>
+            {Loading ? (
+              <Spinner />
+            ) : bookingsByWorker.length === 0 ? (
+              <p>You have no bookings assigned yet!</p>
+            ) : (
+              bookingsByWorker.map((booking) => (
+                <div
+                  className={`${styles._bookingContainer} _boxShadow`}
+                  key={booking.id}
+                >
+                  <p>
+                    <strong>Name: </strong>
+                    {booking.services_workers.services.name}
+                  </p>
+                  <p>
+                    <strong>Price: </strong>
+                    {booking.services_workers.services.price}€
+                  </p>
+                  <p>
+                    <strong>Start: </strong>
+                    {format(new Date(booking.start_service), "iii 'at' p")}
+                  </p>
+                  <p>
+                    <strong>Duration: </strong>
+                    {booking.services_workers.services.service_duration}minutes
+                  </p>
+                  <p>
+                    <strong>Description: </strong>
+                  </p>
+                  <p>{booking.services_workers.services.description}</p>
+                </div>
+              ))
+            )}
           </div>
-        </Modal> */}
+        </BigContainer>
       </main>
     </div>
   );
