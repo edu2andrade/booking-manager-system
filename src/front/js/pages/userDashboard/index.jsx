@@ -35,7 +35,7 @@ const UserDashboard = () => {
 
   const { store, actions } = useContext(Context);
   const userStoredInContext = store.userProfileData.userData;
-
+  console.log(store, "use");
   const navigate = useNavigate();
 
   const getBooking = async () => {
