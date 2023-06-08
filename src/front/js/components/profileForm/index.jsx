@@ -18,6 +18,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           defaultValue={user?.username}
           required
         />
+            
         <Input
           icon={<i className="fa-solid fa-circle-user"></i>}
           type="text"
@@ -26,6 +27,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           defaultValue={user?.firstname}
           required
         />
+            
         <Input
           icon={<i className="fa-solid fa-circle-user"></i>}
           type="text"
@@ -34,6 +36,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           defaultValue={user?.lastname}
           required
         />
+            
         <Input
           icon={<i className="fa-solid fa-envelope"></i>}
           type="email"
@@ -42,6 +45,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           defaultValue={user?.email}
           required
         />
+            
         <Button type="submit" title="Update" />
       </form>
     </div>

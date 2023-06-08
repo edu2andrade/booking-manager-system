@@ -45,6 +45,7 @@ const Profile = () => {
     form.append("lastname", userStoredInContext?.lastname);
 
     updateUserProfile(form);
+    actions.saveUserProfileData(user);
     navigate("/");
   };
   return (
@@ -57,9 +58,11 @@ const Profile = () => {
         img={fileUrl === "" ? userStoredInContext?.avatar : fileUrl}
         handleChange={handleChange}
       />
+
       <main className={styles._mainContainerProfile}>
         <div className={styles._subContainer}>
           <h2 className={styles._title}>Profile update</h2>
+
           <ProfileForm
             handleChange={handleChange}
             handleClick={handleClick}
