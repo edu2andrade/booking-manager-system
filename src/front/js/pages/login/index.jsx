@@ -7,6 +7,7 @@ import { bgImg } from "../../../../assets/assets.jsx";
 
 import LoginForm from "../../components/loginForm/index.jsx";
 import Logotipo from "../../components/logotipo/index.jsx";
+import { toast } from "react-toastify";
 
 const initialState = {
   email: "",
@@ -23,12 +24,18 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await loginUser(newLogin);
+    try {
+      const data = await loginUser(newLogin);
 
-    if (data.role === "admin") navigate(`/admin-dashboard/${data.company_id}`);
-    if (data.role === "client") navigate("/user-dashboard");
-    if (data.role === "worker")
-      navigate(`/worker-dashboard/${data.company_id}`);
+      if (data.role === "admin")
+        navigate(`/admin-dashboard/${data.company_id}`);
+      if (data.role === "client") navigate("/user-dashboard");
+      if (data.role === "worker")
+        navigate(`/worker-dashboard/${data.company_id}`);
+      toast.success("Login successfully");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (

@@ -14,12 +14,14 @@ const LoginForm = ({ handleChange, handleSubmit }) => (
       type="email"
       placeholder="Email"
       name="email"
+      required
     />
     <Input
       icon={<i className="fa-solid fa-lock"></i>}
       type="password"
       placeholder="Password"
       name="password"
+      required
     />
     <Button type="submit" title="Login" />
   </form>

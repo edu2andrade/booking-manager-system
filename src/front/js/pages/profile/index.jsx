@@ -43,7 +43,6 @@ const Profile = () => {
     form.append("username", userStoredInContext?.username);
     form.append("firstname", userStoredInContext?.firstname);
     form.append("lastname", userStoredInContext?.lastname);
-
     updateUserProfile(form);
     actions.saveUserProfileData(user);
     navigate("/");
