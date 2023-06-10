@@ -35,8 +35,7 @@ const Profile = () => {
     }
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleClick = async () => {
     const form = new FormData();
     form.append("avatar", file);
     form.append("email", userStoredInContext?.email);
@@ -46,9 +45,7 @@ const Profile = () => {
 
     await updateUserProfile(form);
 
-    navigate("/login");
-    localStorage.removeItem("token/role/company_id");
-    localStorage.removeItem("token");
+    navigate("/");
   };
   return (
     <main className="">
