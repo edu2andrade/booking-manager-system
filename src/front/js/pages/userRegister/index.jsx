@@ -30,8 +30,7 @@ const UserRegister = () => {
     const resMsg = await registerUser(newUser);
     if (resMsg) {
       toast.success(resMsg?.msg);
-      // when I navigate to user dashboard it gives me an error, as it doesn't recognize booking list
-      // navigate("/user-dashboard");
+      navigate("/user-dashboard");
     } else {
       toast.error(resMsg?.msg);
     }
