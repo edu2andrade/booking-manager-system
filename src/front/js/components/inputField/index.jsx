@@ -8,6 +8,7 @@ const InputField = ({
   name,
   defaultValue,
   registerOptions,
+  register,
   errors,
 }) => {
   return (
@@ -22,16 +23,16 @@ const InputField = ({
         {...register(name, registerOptions)}
       />
       {errors[name]?.type === "required" && (
-        <small className={styles._fail}>El campo no puede estar vacío</small>
+        <small className={styles._fail}>The field cannot be empty</small>
       )}
       {errors[name]?.type === "maxLength" && (
         <small className={styles._fail}>
-          El máximo de caracteres es {registerOptions.maxLength}
+          The maximum characters is {registerOptions.maxLength}
         </small>
       )}
       {errors[name]?.type === "minLength" && (
         <small className={styles._fail}>
-          El mínimo de caracteres es {registerOptions.minLength}
+          The minimum of characters is {registerOptions.minLength}
         </small>
       )}
     </div>
