@@ -12,7 +12,7 @@ const Header = ({ imgProfile, settings, settingsTitle, updateProfile }) => {
   const handleLogOut = () => {
     localStorage.removeItem("token/role/company_id");
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   const handleDashboard = () => {
@@ -44,13 +44,6 @@ const Header = ({ imgProfile, settings, settingsTitle, updateProfile }) => {
             alt="User profile img"
             onClick={updateProfile}
           />
-
-          {/* <img
-            className={`${styles._userProfileImg} _boxShadow`}
-            src={avatar}
-            alt="User profile img"
-            onClick={updateProfile}
-          /> */}
         </nav>
       </div>
       <Modal
