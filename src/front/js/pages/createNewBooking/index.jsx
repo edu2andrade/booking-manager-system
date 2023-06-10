@@ -98,8 +98,12 @@ const CreateNewBooking = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const resMsg = await createBooking(company_id, transformedData());
-    resMsg.data ? toast.success(resMsg?.msg) : toast.error(resMsg?.msg);
-    navigate("/user-dashboard");
+    if (resMsg.data) {
+      toast.success(resMsg?.msg);
+      navigate("/user-dashboard");
+    } else {
+      toast.error(resMsg?.msg);
+    }
   };
 
   return (
