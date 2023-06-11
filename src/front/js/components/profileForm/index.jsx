@@ -54,6 +54,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           register={register}
           errors={errors}
         />
+
         <InputField
           icon="fa-solid fa-circle-user"
           type="text"
@@ -63,6 +64,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           register={register}
           errors={errors}
         />
+
         <InputField
           icon="fa-solid fa-circle-user"
           type="text"
@@ -72,6 +74,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           register={register}
           errors={errors}
         />
+            
         <InputField
           icon="fa-solid fa-envelope"
           type="email"
@@ -81,6 +84,7 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
           register={register}
           errors={errors}
         />
+            
         <Button type="submit" title="Update" />
       </form>
     </div>
