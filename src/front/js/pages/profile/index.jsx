@@ -50,7 +50,7 @@ const Profile = () => {
     navigate("/");
   };
   return (
-    <main className="">
+    <>
       <Header
         imgProfile={userStoredInContext?.avatar}
         updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
@@ -59,9 +59,9 @@ const Profile = () => {
         img={fileUrl === "" ? userStoredInContext?.avatar : fileUrl}
         handleChange={handleChange}
       />
-      <main className="mainContainerProfile">
-        <div className="background">
-          <h2 className="title">Profile update</h2>
+      <main className={styles._mainContainerProfile}>
+        <div className={styles._subContainer}>
+          <h2 className={styles._title}>Profile update</h2>
           <ProfileForm
             handleChange={handleChange}
             handleClick={handleClick}
@@ -69,7 +69,7 @@ const Profile = () => {
           />
         </div>
       </main>
-    </main>
+    </>
   );
 };
 export default Profile;
