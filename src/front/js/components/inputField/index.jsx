@@ -7,7 +7,6 @@ const InputField = ({
   placeholder,
   name,
   defaultValue,
-  registerOptions,
   register,
   errors,
 }) => {
@@ -20,20 +19,10 @@ const InputField = ({
         placeholder={placeholder}
         name={name}
         defaultValue={defaultValue}
-        {...register(name, registerOptions)}
+        {...register(name)}
       />
-      {errors[name]?.type === "required" && (
-        <small className={styles._fail}>The field cannot be empty</small>
-      )}
-      {errors[name]?.type === "maxLength" && (
-        <small className={styles._fail}>
-          The maximum characters is {registerOptions.maxLength}
-        </small>
-      )}
-      {errors[name]?.type === "minLength" && (
-        <small className={styles._fail}>
-          The minimum of characters is {registerOptions.minLength}
-        </small>
+      {errors[name] && (
+        <small className={styles._fail}>{errors[name].message}</small>
       )}
     </div>
   );

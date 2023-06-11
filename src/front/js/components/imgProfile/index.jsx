@@ -5,6 +5,7 @@ import Avatar from "../avatar/index.jsx";
 
 const ImgProfile = ({ img, handleChange }) => {
   const { store } = useContext(Context);
+
   const userData = store.userProfileData.userData;
 
   return (

@@ -37,6 +37,7 @@ const Profile = () => {
 
   const handleClick = async () => {
     const form = new FormData();
+
     form.append("avatar", file);
     form.append("email", userStoredInContext?.email);
     form.append("username", userStoredInContext?.username);
