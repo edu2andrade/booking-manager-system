@@ -24,6 +24,7 @@ const validationSchema = Yup.object().shape({
     .email("Invalid email format")
     .max(30, "Email must not exceed 30 characters"),
 });
+
 const ProfileForm = ({ handleChange, handleClick, user }) => {
   const {
     register,

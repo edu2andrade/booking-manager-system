@@ -41,8 +41,12 @@ def get_single_user(user_id, current_user_id):
     return user
 
 def update_profile(username, firstname, lastname, email, avatar, current_user_id):
-    img = upload(avatar)
-    url_avatar = img['secure_url']
+    url_avatar = None
+    
+    if avatar is not None:
+        img = upload(avatar)
+        url_avatar = img['secure_url']
+    
     return Repository.update_profile(username, firstname, lastname, email, url_avatar, current_user_id)
 
 def delete_user(current_user_id):
