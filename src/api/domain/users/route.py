@@ -64,7 +64,6 @@ def update_profile():
         updated_profile = Controller.update_profile(body['username'], body['firstname'], body["lastname"], body['email'], avatar, current_user_id)
         return Response.response_ok('User was successfully updated.', updated_profile.serialize())
     except Exception as error:
-        print("error", error)
         return Response.response_error('Internal error...', 500)
 
 @api.route('/delete/<int:user_id>', methods=['PATCH'])

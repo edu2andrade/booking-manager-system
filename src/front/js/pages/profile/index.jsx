@@ -11,7 +11,6 @@ import { Context } from "../../store/appContext.js";
 const Profile = () => {
   const [file, setFile] = useState("");
   const [fileUrl, setFileUrl] = useState("");
-  const [user, setUser] = useState(userStoredInContext);
 
   const { store, actions } = useContext(Context);
   const userStoredInContext = store.userProfileData.userData;
