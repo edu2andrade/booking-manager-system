@@ -10,11 +10,16 @@ const InputField = ({
   register,
   errors,
 }) => {
+  const hasRequiredError = errors[name] !== undefined;
+
   return (
-    <div className={styles._inputContainer}>
+    <div
+      className={`${styles._inputContainer} ${
+        hasRequiredError ? styles._inputContainerError : ""
+      }`}
+    >
       {icon && <i className={icon}></i>}
       <input
-        className="_boxShadow"
         type={type}
         placeholder={placeholder}
         name={name}
@@ -22,7 +27,10 @@ const InputField = ({
         {...register(name)}
       />
       {errors[name] && (
-        <small className={styles._fail}>{errors[name].message}</small>
+        <small className={styles._fail}>
+          {" "}
+          <i class="fa-solid fa-circle-exclamation"></i> {errors[name].message}
+        </small>
       )}
     </div>
   );
