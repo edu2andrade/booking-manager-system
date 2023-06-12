@@ -11,6 +11,7 @@ import { Context } from "../../store/appContext.js";
 const Profile = () => {
   const [file, setFile] = useState("");
   const [fileUrl, setFileUrl] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const { store, actions } = useContext(Context);
   const userStoredInContext = store.userProfileData.userData;
@@ -35,7 +36,18 @@ const Profile = () => {
     }
   };
 
+  const handleDashboard = () =>{
+    const localStorageData = JSON.parse(
+      localStorage.getItem("token/role/company_id"));
+
+    if (localStorageData.role === "admin") navigate(`/admin-dashboard/${localStorageData.company_id}`);
+    if (localStorageData.role === "client") navigate("/user-dashboard");
+    if (localStorageData.role === "worker") navigate(`/worker-dashboard/${localStorageData.company_id}`);
+
+  }
+
   const handleClick = async () => {
+    setLoading(true);
     const form = new FormData();
 
     form.append("avatar", file);
@@ -45,19 +57,24 @@ const Profile = () => {
     form.append("lastname", userStoredInContext?.lastname);
 
     await updateUserProfile(form);
+    
+    handleDashboard()
+    setLoading(false);
 
-    navigate("/");
   };
+
   return (
     <>
       <Header
         imgProfile={userStoredInContext?.avatar}
         updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
       />
+      
       <ImgProfile
         img={fileUrl === "" ? userStoredInContext?.avatar : fileUrl}
         handleChange={handleChange}
       />
+      
       <main className={styles._mainContainerProfile}>
         <div className={styles._subContainer}>
           <h2 className={styles._title}>Profile update</h2>
@@ -65,6 +82,7 @@ const Profile = () => {
             handleChange={handleChange}
             handleClick={handleClick}
             user={userStoredInContext}
+            loading={loading}
           />
         </div>
       </main>

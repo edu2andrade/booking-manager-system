@@ -5,27 +5,27 @@ import * as Yup from "yup";
 import Button from "../button/index.jsx";
 import InputField from "../inputField/index.jsx";
 import styles from "./profileForm.module.css";
+import Spinner from "../spinner/index.jsx"
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .required("Username is required")
     .min(3, "Username must be at least 3 characters")
-    .max(12, "Username must not exceed 12 characters"),
+    .max(20, "Username must not exceed 20 characters"),
   firstname: Yup.string()
     .required("First name is required")
     .min(3, "First name must be at least 3 characters")
-    .max(12, "First name must not exceed 12 characters"),
+    .max(20, "First name must not exceed 20 characters"),
   lastname: Yup.string()
     .required("Last name is required")
     .min(3, "Last name must be at least 3 characters")
-    .max(12, "Last name must not exceed 12 characters"),
+    .max(20, "Last name must not exceed 20 characters"),
   email: Yup.string()
     .required("Email is required")
     .email("Invalid email format")
-    .max(30, "Email must not exceed 30 characters"),
 });
 
-const ProfileForm = ({ handleChange, handleClick, user }) => {
+const ProfileForm = ({ handleChange, handleClick, user, loading }) => {
   const {
     register,
     handleSubmit,
@@ -39,7 +39,8 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
   };
 
   return (
-    <div>
+    <>
+      {loading ? (<Spinner/>) : (
       <form
         onSubmit={handleSubmit(onSubmit)}
         onChange={handleChange}
@@ -86,8 +87,8 @@ const ProfileForm = ({ handleChange, handleClick, user }) => {
         />
 
         <Button type="submit" title="Update" />
-      </form>
-    </div>
+      </form>)}
+    </>
   );
 };
 
