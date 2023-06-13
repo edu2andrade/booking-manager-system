@@ -1,30 +1,60 @@
 import React from "react";
-import Input from "../input/index.jsx";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import Button from "../button/index.jsx";
 import styles from "./login.module.css";
+import InputField from "../inputField/index.jsx";
 
-const LoginForm = ({ handleChange, handleSubmit }) => (
+const validationShema = Yup.object().shape({
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email format"),
+  password: Yup.string()
+  .matches(/^(?=.*\d{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{12,}$/, 'La contraseña no cumple los requisitos')
+  .required('Password is required')
+});
+
+
+const LoginForm = ({ handleChange, handleClick }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationShema),
+  });
+ 
+  const onSubmit = (data) =>{
+    handleClick(data);
+  };
+ 
+ 
+  return (
   <form
-    className={styles._form}
+    onSubmit={handleSubmit(onSubmit)}
     onChange={handleChange}
-    onSubmit={handleSubmit}
+    className={styles._form}    
   >
-    <Input
-      icon={<i className="fa-solid fa-envelope"></i>}
+    <InputField
+      icon="classNamefa-solid fa-envelope"
       type="email"
       placeholder="Email"
       name="email"
-      required
+      register={register}
+      errors={errors}
     />
-    <Input
-      icon={<i className="fa-solid fa-lock"></i>}
+    <InputField
+      icon="fa-solid fa-lock"
       type="password"
       placeholder="Password"
       name="password"
-      required
+      register={register}
+      errors={errors}
     />
     <Button type="submit" title="Login" />
   </form>
-);
+  )
+ };
 
 export default LoginForm;

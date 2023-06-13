@@ -22,9 +22,9 @@ const LoginPage = () => {
     setNewLogin({ ...newLogin, [target.name]: target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    try {
+   
       const data = await loginUser(newLogin);
 
       if (data.role === "admin")
@@ -33,9 +33,7 @@ const LoginPage = () => {
       if (data.role === "worker")
         navigate(`/worker-dashboard/${data.company_id}`);
       toast.success("Login successfully");
-    } catch (error) {
-      toast.error(error.message);
-    }
+   
   };
 
   return (
@@ -49,7 +47,7 @@ const LoginPage = () => {
         <div className={styles._actionContainer}>
           <Logotipo />
           <h1 className={styles._heading}>Login</h1>
-          <LoginForm handleSubmit={handleSubmit} handleChange={handleChange} />
+          <LoginForm handleClick={handleClick} handleChange={handleChange} />
           <span className={styles._credits}>
             Photo by Andrew Neel on Unsplash
           </span>
