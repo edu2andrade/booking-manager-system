@@ -11,6 +11,7 @@
 
 ._fail {
   color: var(--highlight);
+  text-align: center;
   margin: 10px 0 ;
 }
 ._registerLink {

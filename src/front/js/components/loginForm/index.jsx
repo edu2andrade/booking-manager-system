@@ -57,7 +57,7 @@ const LoginForm = ({  handleClick, handleChange, invalidDate, loading }) => {
             />
             <Button type="submit" title="Login" />
       </form>)}
-  {invalidDate && <div>
+  {invalidDate && <div className="this">
                   <p className={styles._fail}>The data entered is incorrect.</p>
                   <Link to={"/company-register"} className={styles._registerLink}>
                     Register like client!
@@ -65,8 +65,7 @@ const LoginForm = ({  handleClick, handleChange, invalidDate, loading }) => {
                   <Link to={"/company-register"}className={styles._registerLink}>
                       Register your company!
                   </Link>
-                  </div>}
-                  
+                  </div>}              
   </>
   )
  };
