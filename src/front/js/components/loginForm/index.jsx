@@ -59,7 +59,7 @@ const LoginForm = ({  handleClick, handleChange, invalidDate, loading }) => {
       </form>)}
   {invalidDate && <div className="this">
                   <p className={styles._fail}>The data entered is incorrect.</p>
-                  <Link to={"/company-register"} className={styles._registerLink}>
+                  <Link to={"/user-register"} className={styles._registerLink}>
                     Register like client!
                   </Link>
                   <Link to={"/company-register"}className={styles._registerLink}>
