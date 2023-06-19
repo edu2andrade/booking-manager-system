@@ -7,6 +7,7 @@ import Input from "../input/index.jsx";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from "../../validations/userFormValidation.js"; 
+import { toast } from "react-toastify";
 
 const initialState = {
     username: "",
@@ -31,15 +32,13 @@ const UserForm = ({ textBtn }) => {
   };
 
     const onSubmit = async (e) => {
-    // e.preventDefault();
     const resMsg = await registerUser(newUser);
-    console.log(resMsg); 
-    // if (resMsg?.error) {
-    //   toast.error(resMsg?.msg);
-    // } else {
-    //   toast.success(resMsg?.msg);
-    //   navigate("/user-dashboard");
-    // }
+    if (resMsg?.error) {
+      toast.error(resMsg?.msg);
+    } else {
+      toast.success(resMsg?.msg);
+      navigate("/user-dashboard");
+    }
   };
 
   return (

@@ -13,7 +13,9 @@ export const registerUser = async (user) => {
       body: JSON.stringify(user),
     });
     const data = await res.json();
-    console.log("user fetch =====>", data);
+    if (res.status === 200) {
+      await loginUser({ email: user.email, password: user.password })
+    }
     return data;
   } catch (err) {
     console.log("Error Register User", err);
