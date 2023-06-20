@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BigContainer from "../../components/bigContainer/index.jsx";
 import Input from "../input/index.jsx";
+import InputField from "../inputField/index.jsx";
 import styles from "./workerForm.module.css";
 import Button from "../button/index.jsx";
 import { createWorker } from "../../service/workers.js";
@@ -15,7 +16,6 @@ const initialState = {
   firstname: "",
   lastname: "",
   email: "",
-  working_schedule: "",
   password: "",
 };
 
@@ -40,7 +40,6 @@ const WorkerForm = ({ textBtn }) => {
 
   const onSubmit = async () => {
     const resMsg = await createWorker(companyID, newWorker);
-    console.log("resMsg", resMsg);
     if (resMsg?.error) {
       toast.error(resMsg?.msg);
     } else {
@@ -101,20 +100,6 @@ const WorkerForm = ({ textBtn }) => {
             </small>
           )}
           <Input
-            icon={<i className="fa-solid fa-calendar-days"></i>}
-            type="text"
-            placeholder="Working schedule"
-            name="working_schedule"
-            value={newWorker.working_schedule}
-            register={register}
-          />
-          {errors?.working_schedule && (
-            <small className={styles._fail}>
-              <i className="fa-solid fa-circle-exclamation"></i>{" "}
-              {errors.working_schedule?.message}
-            </small>
-          )}
-          <Input
             icon={<i className="fa-solid fa-envelope"></i>}
             type="email"
             placeholder="email"
@@ -128,13 +113,13 @@ const WorkerForm = ({ textBtn }) => {
               {errors.email?.message}
             </small>
           )}
-          <Input
-            icon={<i className="fa-solid fa-lock"></i>}
+          <InputField
+            icon="fa-solid fa-lock"
             type="password"
-            placeholder="password"
+            placeholder="Password"
             name="password"
-            value={newWorker.password}
             register={register}
+            errors={errors}
           />
           {errors?.password && (
             <small className={styles._fail}>
