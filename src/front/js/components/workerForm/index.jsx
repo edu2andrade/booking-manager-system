@@ -20,12 +20,8 @@ const initialState = {
 };
 
 const WorkerForm = ({ textBtn }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(workerSchema),
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(workerSchema)
   });
 
   const [newWorker, setNewWorker] = useState(initialState);
@@ -40,7 +36,6 @@ const WorkerForm = ({ textBtn }) => {
 
   const onSubmit = async () => {
     const resMsg = await createWorker(companyID, newWorker);
-    console.log("resMsg", resMsg);
     if (resMsg?.error) {
       toast.error(resMsg?.msg);
     } else {
