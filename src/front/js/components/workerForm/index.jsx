@@ -6,7 +6,7 @@ import styles from "./workerForm.module.css";
 import Button from "../button/index.jsx";
 import { createWorker } from "../../service/workers.js";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 import { workerSchema } from "../../validations/workerValidation.js";
 import { toast } from "react-toastify";
 
@@ -20,12 +20,9 @@ const initialState = {
 };
 
 const WorkerForm = ({ textBtn }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(workerSchema),
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(workerSchema)
   });
 
   const [newWorker, setNewWorker] = useState(initialState);
@@ -40,7 +37,6 @@ const WorkerForm = ({ textBtn }) => {
 
   const onSubmit = async () => {
     const resMsg = await createWorker(companyID, newWorker);
-    console.log("resMsg", resMsg);
     if (resMsg?.error) {
       toast.error(resMsg?.msg);
     } else {
