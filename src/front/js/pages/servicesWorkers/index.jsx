@@ -25,6 +25,7 @@ const ServicesWorkers = () => {
   const [workersList, setWorkersList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [serviceWorker, setServiceWorker] = useState(initialState);
+  const [step, setStep] = useState(1);
 
   const { company_id } = useParams();
   const navigate = useNavigate();
@@ -63,13 +64,25 @@ const ServicesWorkers = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resMsg = await createServiceWorker(company_id, transformData());
-    if (resMsg.data) {
-      toast.success(resMsg?.msg);
-      navigate(`/admin-dashboard/${company_id}`);
-    } else {
-      toast.error(resMsg?.msg);
+    try {
+      const resMsg = await createServiceWorker(company_id, transformData());
+      if (resMsg.data) {
+        toast.success(resMsg?.msg);
+        navigate(`/admin-dashboard/${company_id}`);
+      } else {
+        toast.error(resMsg?.msg);
+      }
+    } catch (error) {
+      console.error("Error creating service worker:", error);
     }
+  };
+
+  const handleNextStep = () => {
+    setStep(step + 1);
+  };
+
+  const handlePreviousStep = () => {
+    setStep(step - 1);
   };
 
   useEffect(() => {
@@ -86,22 +99,125 @@ const ServicesWorkers = () => {
       />
       <main className={styles._mainContainer}>
         <BigContainer>
-          <h1>Assign Services to Workers</h1>
-          <div className={styles._dropdownContainer}>
-            <form onChange={handleChange} onSubmit={handleSubmit}>
-              <select name="worker" className={`${styles._select} _boxShadow`}>
-                {workersList.map((op) => (
-                  <option key={op.id}>{op.user.username}</option>
-                ))}
-              </select>
-              <select name="service" className={`${styles._select} _boxShadow`}>
-                {servicesList.map((op) => (
-                  <option key={op.id}>{op.name}</option>
-                ))}
-              </select>
-              <Button type="submit" title="Create" />
-            </form>
-          </div>
+          {step === 1 && (
+            <>
+              <div className={styles._dropdownContainer}>
+                <p className={styles._firstTitle}>{step}/3</p>
+                <p className={styles._secondTitle}>
+                  Assign Services to Workers
+                </p>
+                <p className={styles._thirdTitle}>Select Your Worker</p>
+                <div className={styles._inputContainer}>
+                  <i className="fa-solid fa-circle-user"></i>
+                  <select
+                    name="worker"
+                    className={`${styles._select} _boxShadow`}
+                    onChange={handleChange}
+                    value={serviceWorker.worker}
+                  >
+                    <option value="">Select the worker</option>
+                    {workersList.map((op) => (
+                      <option key={op.id} value={op.user.username}>
+                        {op.user.username}
+                      </option>
+                    ))}
+                  </select>
+                  {serviceWorker.worker === "" && (
+                    <p className={styles._errorText}>Please select a worker</p>
+                  )}
+                </div>
+              </div>
+              <div className={styles._buttonNext}>
+                <Button type="button" title="Next" onClick={handleNextStep} />
+              </div>
+            </>
+          )}
+          {step === 2 && (
+            <>
+              <div className={styles._dropdownContainer}>
+                <p className={styles._firstTitle}>{step}/3</p>
+                <p className={styles._secondTitle}>
+                  Assign Services to Workers
+                </p>
+                <p className={styles._thirdTitle}>Select Your Service</p>
+                <div className={styles._inputContainer}>
+                  <i className="fa-solid fa-circle-user"></i>
+                  <select
+                    name="service"
+                    className={`${styles._select} _boxShadow`}
+                    onChange={handleChange}
+                    value={serviceWorker.service}
+                  >
+                    <option value="">Select the service</option>
+                    {servicesList.map((op) => (
+                      <option key={op.id} value={op.name}>
+                        {op.name}
+                      </option>
+                    ))}
+                  </select>
+                  {serviceWorker.service === "" && (
+                    <p className={styles._errorText}>Please select a service</p>
+                  )}
+                </div>
+                <div className={styles._buttonPrevious}>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="button"
+                      title="Previous"
+                      onClick={handlePreviousStep}
+                    />
+                  </div>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="button"
+                      title="Next"
+                      onClick={handleNextStep}
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          {step === 3 && (
+            <>
+              <div className={styles._dropdownContainer}>
+                <p className={styles._firstTitle}>{step}/3</p>
+                <p className={styles._secondTitle}>
+                  Assign Services to Workers
+                </p>
+                <p className={styles._fourthTitle}>Confirm your assignment</p>
+                <p className={styles._desTitle}>Service: </p>
+                <p className={styles._desinTitle}>{serviceWorker.service}</p>
+                <p className={styles._desTitle}>Worker: </p>
+                <p className={styles._desinTitle}>{serviceWorker.worker}</p>
+                <p className={styles._finalTitle}>
+                  Do you want to confirm your assignment?
+                </p>
+                <div className={styles._buttonPrevious}>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="button"
+                      title="Change"
+                      onClick={handlePreviousStep}
+                    />
+                  </div>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="submit"
+                      title="Confirm"
+                      onClick={handleSubmit}
+                    />
+                  </div>
+                </div>{" "}
+                {(serviceWorker.service === "" ||
+                  serviceWorker.worker === "") && (
+                  <p className={styles._errorText}>
+                    Please select a service and worker
+                  </p>
+                )}
+              </div>
+            </>
+          )}
         </BigContainer>
       </main>
     </>
