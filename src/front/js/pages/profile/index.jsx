@@ -63,9 +63,10 @@ const Profile = () => {
       await updateUserProfile(form);
 
       handleDashboard();
-      toast.success("Login successfully");
+      toast.success("Profile updated successfully ");
     } catch (error) {
       setLoading(false);
+      toast.error("An error occurred while updating user profile");
     }
   };
 
