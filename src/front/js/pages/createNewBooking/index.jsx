@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../../store/appContext";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./createNewBooking.module.css";
 import ReservationForm from "../../components/reservationForm/index.jsx";
@@ -23,6 +24,9 @@ const CreateNewBooking = () => {
   const [newBooking, setNewBooking] = useState(initialState);
   const [serviceWorkers, setServiceWorkers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { store } = useContext(Context);
+  const userStoredInContext = store.userProfileData.userData;
 
   const navigate = useNavigate();
   const { company_id } = useParams();
@@ -108,22 +112,23 @@ const CreateNewBooking = () => {
 
   return (
     <>
-      <Header />
-      <div className={styles._mainContainer}>
-        {!isLoading ? (
-          <ReservationForm
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            workersList={workersList}
-            servicesList={servicesList}
-            handleServiceSelect={handleServiceSelect}
-            handleWorkerSelect={handleWorkerSelect}
-            textBtn="Create"
-          />
-        ) : (
-          <Spinner />
-        )}
-      </div>
+      <Header
+        imgProfile={userStoredInContext?.avatar}
+        updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
+      />
+      {!isLoading ? (
+        <ReservationForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          workersList={workersList}
+          servicesList={servicesList}
+          handleServiceSelect={handleServiceSelect}
+          handleWorkerSelect={handleWorkerSelect}
+          textBtn="Create"
+        />
+      ) : (
+        <Spinner />
+      )}
     </>
   );
 };

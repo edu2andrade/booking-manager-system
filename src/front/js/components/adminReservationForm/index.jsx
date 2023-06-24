@@ -1,65 +1,165 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./adminReservationForm.module.css";
-import Input from "../input/index.jsx";
 import Button from "../button/index.jsx";
+import InputBooking from "../inputBooking/index.jsx";
+import BigContainer from "../../components/bigContainer/index.jsx";
 import { format } from "date-fns";
 
 const AdminReservationForm = ({
-  handleChange,
   handleSubmit,
-  workersList,
+  serviceWorkers,
   servicesList,
-  handleServiceSelect,
-  handleWorkerSelect,
-  textBtn,
+  newBooking,
+  setNewBooking,
 }) => {
+  const [step, setStep] = useState(1);
+  const [selectedService, setSelectedService] = useState("");
+
+  const handleNextStep = () => {
+    if (step === 1 && selectedService === "") {
+      return;
+    }
+    if (step === 2 && newBooking.worker === "") {
+      return;
+    }
+    setStep(step + 1);
+  };
+
+  const handlePreviousStep = () => {
+    setStep(step - 1);
+  };
+
+  const handleChangeService = (e) => {
+    if (e.target.name === "service") {
+      setSelectedService(e.target.value);
+      setNewBooking({ ...newBooking, [e.target.name]: e.target.value });
+    }
+  };
+
+  const handleChange = (e) => {
+    setNewBooking({ ...newBooking, [e.target.name]: e.target.value });
+  };
+
   return (
-    <main className={styles._mainContainerImg}>
-      <div className={styles._parentTwo}>
-        <div className={styles._childTwo}>
-          <h2 className={styles._titleService}>Create Booking</h2>
-          <form
-            className={styles._form}
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-          >
-            <div className={styles._selectContainer}>
+    <main className={styles._mainContainer}>
+      <BigContainer>
+        {step === 1 && (
+          <div className={styles._dropdownContainer}>
+            <p className={styles._firstTitle}>{step}/4</p>
+            <p className={styles._secondTitle}>Book Your Service</p>
+            <p className={styles._thirdTitle}>Which Service?</p>
+            <p className={styles._fourthTitle}>
+              Select the service you want to book
+            </p>
+            <div className={styles._inputContainer}>
+              <i className="fa-solid fa-circle-user"></i>
               <select
                 name="service"
                 className={`${styles._select} _boxShadow`}
-                onChange={(e) => handleServiceSelect(e)}
+                onChange={handleChangeService}
               >
-                {servicesList?.map((op) => (
-                  <option key={op.id}>{op && op.name}</option>
+                <option value="Services">Services</option>
+                {servicesList.map((op) => (
+                  <option key={op.id} value={op.name}>
+                    {op.name}
+                  </option>
                 ))}
               </select>
-              <select
-                name="worker"
-                className={`${styles._select} _boxShadow`}
-                onChange={(e) => handleWorkerSelect(e)}
-              >
-                {workersList?.map((op) => (
-                  <option key={op.id}>{op.user && op.user.username}</option>
-                ))}
-              </select>
-              <Input
-                icon={<i className="fa-solid fa-clock"></i>}
-                type="text"
-                placeholder="Start Service"
-                name="start_service"
-                date={format(new Date(), "MMM do yyyy 'at' hh:mm")}
-              />
-              <Input
-                icon={<i className="fa-solid fa-pen-to-square"></i>}
-                type="text"
-                placeholder="Description"
-                name="description"
-              />
-              <Button type="submit" title={textBtn} />
+              {newBooking.service === "" && (
+                <small className={styles._fail}>Please select a service</small>
+              )}
             </div>
-          </form>
-        </div>
-      </div>
+            <div className={styles._buttonNext}>
+              <Button type="button" title="Next" onClick={handleNextStep} />
+            </div>
+          </div>
+        )}
+        {step === 2 && (
+          <>
+            <div className={styles._dropdownContainer}>
+              <p className={styles._firstTitle}>{step}/4</p>
+              <p className={styles._secondTitle}>Book your reservation</p>
+              <p className={styles._thirdTitle}>With who?</p>
+              <p className={styles._fourthTitle}>
+                Select worker you want to make an appointment with
+              </p>
+              <div className={styles._inputContainer}>
+                <i className="fa-solid fa-circle-user"></i>
+                {serviceWorkers && selectedService ? (
+                  <select
+                    className={`${styles._select} _boxShadow`}
+                    name="worker"
+                    onChange={handleChange}
+                  >
+                    <option value="Workers">Workers</option>
+                    {serviceWorkers
+                      .filter((elem) => elem.services.name === selectedService)
+                      .map((op) => (
+                        <option key={op.id}>
+                          {op.workers.user.firstname && op.workers.user.lastname
+                            ? `${op.workers.user.firstname} ${op.workers.user.lastname}`
+                            : ""}
+                        </option>
+                      ))}
+                  </select>
+                ) : (
+                  <select
+                    className={`${styles._select} _boxShadow`}
+                    name="worker"
+                    onChange={handleChange}
+                  >
+                    <option value="Workers">Workers</option>
+                  </select>
+                )}
+                {newBooking.worker === "" && (
+                  <small className={styles._fail}>Please select a worker</small>
+                )}
+              </div>
+              <div className={styles._buttonsWrapper}>
+                <div className={styles._buttonInside}>
+                  <Button
+                    type="button"
+                    title="Previous"
+                    onClick={handlePreviousStep}
+                  />
+                </div>
+                <div className={styles._buttonInside}>
+                  <Button type="button" title="Next" onClick={handleNextStep} />
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {step === 3 && (
+          <>
+            <div className={styles._dropdownContainer}>
+              <p className={styles._firstTitle}>{step}/4</p>
+              <p className={styles._secondTitle}>Book Your Service</p>
+              <p className={styles._thirdTitle}>When?</p>
+              <p className={styles._fourthTitle}>
+                Select the date and time you want to book
+              </p>
+              <div className={styles._inputContainer}>
+                <InputBooking
+                  icon={<i className="fa-solid fa-calendar-days"></i>}
+                />
+              </div>
+              <div className={styles._buttonsWrapper}>
+                <div className={styles._buttonInside}>
+                  <Button
+                    type="button"
+                    title="Previous"
+                    onClick={handlePreviousStep}
+                  />
+                </div>
+                <div className={styles._buttonInside}>
+                  <Button type="button" title="Next" onClick={handleNextStep} />
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </BigContainer>
     </main>
   );
 };
