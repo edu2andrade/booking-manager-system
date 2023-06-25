@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 const Profile = () => {
   const [file, setFile] = useState("");
   const [fileUrl, setFileUrl] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const { store, actions } = useContext(Context);
   const userStoredInContext = store.userProfileData.userData;
@@ -37,32 +37,37 @@ const Profile = () => {
     }
   };
 
-  const handleDashboard = () =>{
+  const handleDashboard = () => {
     const localStorageData = JSON.parse(
-      localStorage.getItem("token/role/company_id"));
+      localStorage.getItem("token/role/company_id")
+    );
 
-    if (localStorageData.role === "admin") navigate(`/admin-dashboard/${localStorageData.company_id}`);
+    if (localStorageData.role === "admin")
+      navigate(`/admin-dashboard/${localStorageData.company_id}`);
     if (localStorageData.role === "client") navigate("/user-dashboard");
-    if (localStorageData.role === "worker") navigate(`/worker-dashboard/${localStorageData.company_id}`);
-
-  }
+    if (localStorageData.role === "worker")
+      navigate(`/worker-dashboard/${localStorageData.company_id}`);
+  };
 
   const handleClick = async () => {
-    setLoading(true);
-    const form = new FormData();
+    try {
+      setLoading(true);
+      const form = new FormData();
 
-    form.append("avatar", file);
-    form.append("email", userStoredInContext?.email);
-    form.append("username", userStoredInContext?.username);
-    form.append("firstname", userStoredInContext?.firstname);
-    form.append("lastname", userStoredInContext?.lastname);
+      form.append("avatar", file);
+      form.append("email", userStoredInContext?.email);
+      form.append("username", userStoredInContext?.username);
+      form.append("firstname", userStoredInContext?.firstname);
+      form.append("lastname", userStoredInContext?.lastname);
 
-    await updateUserProfile(form);
-    
-    handleDashboard()
+      await updateUserProfile(form);
 
-    setLoading(false);
-
+      handleDashboard();
+      toast.success("Profile updated successfully ");
+    } catch (error) {
+      setLoading(false);
+      toast.error("An error occurred while updating user profile");
+    }
   };
 
   return (
@@ -71,12 +76,12 @@ const Profile = () => {
         imgProfile={userStoredInContext?.avatar}
         updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
       />
-      
+
       <ImgProfile
         img={fileUrl === "" ? userStoredInContext?.avatar : fileUrl}
         handleChange={handleChange}
       />
-      
+
       <main className={styles._mainContainerProfile}>
         <div className={styles._subContainer}>
           <h2 className={styles._title}>Profile update</h2>
