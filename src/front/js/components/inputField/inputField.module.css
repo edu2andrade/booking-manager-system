@@ -33,6 +33,7 @@
 
 ._fail {
   color: var(--highlight);
+  font-size: 0.875rem;
 }
 
 ._inputContainerError input {
