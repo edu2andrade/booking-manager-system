@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./adminReservationForm.module.css";
 import Button from "../button/index.jsx";
-import InputBooking from "../inputBooking/index.jsx";
+import DateTimePicker from "../datePicker/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
 import { format } from "date-fns";
 
@@ -14,12 +14,19 @@ const AdminReservationForm = ({
 }) => {
   const [step, setStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const handleNextStep = () => {
     if (step === 1 && selectedService === "") {
       return;
     }
     if (step === 2 && newBooking.worker === "") {
+      return;
+    }
+    if (step === 3 && selectedDate === "") {
+      return;
+    }
+    if (step === 4 && newBooking.description === "") {
       return;
     }
     setStep(step + 1);
@@ -31,13 +38,30 @@ const AdminReservationForm = ({
 
   const handleChangeService = (e) => {
     if (e.target.name === "service") {
-      setSelectedService(e.target.value);
-      setNewBooking({ ...newBooking, [e.target.name]: e.target.value });
+      const selectedService = parseInt(e.target.value);
+      setSelectedService(selectedService);
+      setNewBooking({ ...newBooking, [e.target.name]: selectedService });
     }
   };
 
+  const handleDateChange = (date) => {
+    const formattedDate = format(date, "yyyy-MM-dd HH:mm:ss");
+    setSelectedDate(date);
+    setNewBooking({ ...newBooking, start_service: formattedDate });
+  };
+
   const handleChange = (e) => {
-    setNewBooking({ ...newBooking, [e.target.name]: e.target.value });
+    setNewBooking({
+      ...newBooking,
+      [e.target.name]: parseInt(e.target.value),
+    });
+  };
+
+  const handleDescription = (e) => {
+    setNewBooking({
+      ...newBooking,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -45,9 +69,11 @@ const AdminReservationForm = ({
       <BigContainer>
         {step === 1 && (
           <div className={styles._dropdownContainer}>
-            <p className={styles._firstTitle}>{step}/4</p>
+            <p className={styles._firstTitle}>{step}/5</p>
             <p className={styles._secondTitle}>Book Your Service</p>
-            <p className={styles._thirdTitle}>Which Service?</p>
+            <p>
+              <strong>Which Service?</strong>
+            </p>
             <p className={styles._fourthTitle}>
               Select the service you want to book
             </p>
@@ -60,7 +86,7 @@ const AdminReservationForm = ({
               >
                 <option value="Services">Services</option>
                 {servicesList.map((op) => (
-                  <option key={op.id} value={op.name}>
+                  <option key={op.id} value={op.id}>
                     {op.name}
                   </option>
                 ))}
@@ -77,9 +103,11 @@ const AdminReservationForm = ({
         {step === 2 && (
           <>
             <div className={styles._dropdownContainer}>
-              <p className={styles._firstTitle}>{step}/4</p>
+              <p className={styles._firstTitle}>{step}/5</p>
               <p className={styles._secondTitle}>Book your reservation</p>
-              <p className={styles._thirdTitle}>With who?</p>
+              <p>
+                <strong>With who?</strong>
+              </p>
               <p className={styles._fourthTitle}>
                 Select worker you want to make an appointment with
               </p>
@@ -93,9 +121,11 @@ const AdminReservationForm = ({
                   >
                     <option value="Workers">Workers</option>
                     {serviceWorkers
-                      .filter((elem) => elem.services.name === selectedService)
+                      .filter(
+                        (elem) => elem.service_id === parseInt(selectedService)
+                      )
                       .map((op) => (
-                        <option key={op.id}>
+                        <option key={op.id} value={op.worker_id}>
                           {op.workers.user.firstname && op.workers.user.lastname
                             ? `${op.workers.user.firstname} ${op.workers.user.lastname}`
                             : ""}
@@ -133,17 +163,25 @@ const AdminReservationForm = ({
         {step === 3 && (
           <>
             <div className={styles._dropdownContainer}>
-              <p className={styles._firstTitle}>{step}/4</p>
+              <p className={styles._firstTitle}>{step}/5</p>
               <p className={styles._secondTitle}>Book Your Service</p>
-              <p className={styles._thirdTitle}>When?</p>
+              <p>
+                <strong>When?</strong>
+              </p>
               <p className={styles._fourthTitle}>
                 Select the date and time you want to book
               </p>
-              <div className={styles._inputContainer}>
-                <InputBooking
-                  icon={<i className="fa-solid fa-calendar-days"></i>}
-                />
-              </div>
+
+              <DateTimePicker
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                handleDateChange={handleDateChange}
+              />
+              {selectedDate === "" && (
+                <small className={styles._fail}>
+                  Please select date and time
+                </small>
+              )}
               <div className={styles._buttonsWrapper}>
                 <div className={styles._buttonInside}>
                   <Button
@@ -154,6 +192,94 @@ const AdminReservationForm = ({
                 </div>
                 <div className={styles._buttonInside}>
                   <Button type="button" title="Next" onClick={handleNextStep} />
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {step === 4 && (
+          <>
+            <div className={styles._dropdownContainer}>
+              <p className={styles._firstTitle}>{step}/5</p>
+              <p className={styles._secondTitle}>Book Your Service</p>
+              <p>
+                <strong>Any special request?</strong>
+              </p>
+              <p className={styles._fourthTitle}>
+                If you want to ask something more...
+              </p>
+              <div className={styles._inputContainer}>
+                <i className="fa-solid fa-pen-to-square"></i>
+                <input
+                  className="_boxShadow"
+                  placeholder="Ask Something"
+                  name="description"
+                  value={newBooking.description}
+                  onChange={handleDescription}
+                />
+              </div>
+              {newBooking.description === "" && (
+                <small className={styles._fail}>
+                  Please add any extra requirements
+                </small>
+              )}
+              <div className={styles._buttonsWrapper}>
+                <div className={styles._buttonInside}>
+                  <Button
+                    type="button"
+                    title="Previous"
+                    onClick={handlePreviousStep}
+                  />
+                </div>
+                <div className={styles._buttonInside}>
+                  <Button type="button" title="Next" onClick={handleNextStep} />
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {step === 5 && (
+          <>
+            <div className={styles._dropdownContainer}>
+              <p className={styles._firstTitle}>{step}/5</p>
+              <p className={styles._secondTitle}>Book Your Service</p>
+              <p>
+                <strong>Confirm your appointment</strong>
+              </p>
+              <br />
+              <p>
+                <strong>Service:</strong>
+              </p>
+              <p className={styles._fourthTitle}>
+                {selectedService} with {newBooking.worker}
+              </p>
+              <p>
+                <strong>Date and Time:</strong>
+              </p>
+              <p className={styles._fourthTitle}>
+                {format(selectedDate, "MMMM d, yyyy h:mm aa")}
+              </p>
+              <p>
+                <strong>Description:</strong>
+              </p>
+              <p className={styles._fourthTitle}>{newBooking.description}</p>
+              <p>
+                <strong> Do you want to confirm your appointment?</strong>
+              </p>
+              <div className={styles._buttonsWrapper}>
+                <div className={styles._buttonInside}>
+                  <Button
+                    type="button"
+                    title="Change"
+                    onClick={handlePreviousStep}
+                  />
+                </div>
+                <div className={styles._buttonInside}>
+                  <Button
+                    type="button"
+                    title="Confirm"
+                    onClick={handleSubmit}
+                  />
                 </div>
               </div>
             </div>

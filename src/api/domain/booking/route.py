@@ -33,7 +33,7 @@ def admin_create_new_booking(company_id):
     new_booking = Controller.admin_create_new_booking(company_id, current_user_id, body)
 
     if isinstance(new_booking, Booking):
-        return Response.response_ok('New booking created successfully!', new_booking.serialize_admin_booking())
+        return Response.response_ok('New booking created successfully!', new_booking.serialize())
     else:
         return Response.response_error(new_booking['msg'], new_booking['status'])
 

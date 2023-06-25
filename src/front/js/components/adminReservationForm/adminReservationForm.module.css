@@ -44,13 +44,6 @@ h1 {
   letter-spacing: -0.03em;
   margin-bottom: 20px;
 }
-._thirdTitle {
-  font-weight: var(--font-bold);
-  line-height: 16px;
-  line-height: 19px;
-  letter-spacing: -0.03em;
-  margin-bottom: 24px;
-}
 
 ._fourthTitle {
   font-weight: var(--font-regular);
@@ -65,13 +58,33 @@ h1 {
   min-width: 470px;
   font-size: var(--text-sm);
   color: var(--gray-900);
-  border: none;
 }
 
 ._inputContainer > i {
   position: absolute;
   top: 18px;
   left: 14px;
+}
+
+._inputContainer > input {
+  padding: 8px 16px 8px 40px;
+  margin-block: 6px;
+  width: 100%;
+  border: none;
+  border-radius: var(--border-sm);
+}
+
+._inputContainer input:focus {
+  outline: 1px solid var(--gray-300);
+}
+
+._inputContainer input::placeholder {
+  font-size: var(--text-sm);
+  color: var(--gray-300);
+}
+
+._inputContainer input:disabled {
+  cursor: not-allowed;
 }
 
 ._select {
