@@ -110,12 +110,6 @@ const UserCompanyForm = ({ textBtn, textBackBtn }) => {
         register={register}
         errors={errors}
       />
-      {errors?.password && (
-        <small className={styles._fail}>
-          <i className="fa-solid fa-circle-exclamation"></i>{" "}
-          {errors.password?.message}
-        </small>
-      )}
       <Button
         type="submit"
         title={textBackBtn}
