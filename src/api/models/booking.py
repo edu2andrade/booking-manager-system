@@ -29,7 +29,6 @@ class Booking(db.Model):
             "start_service": self.start_service,
             "description": self.description,
             "user_id": self.user_id,
-            "user": self.user.serialize(),
             "service_workers_id": self.service_workers_id,
             "services_workers": self.services_workers.serialize()
         }

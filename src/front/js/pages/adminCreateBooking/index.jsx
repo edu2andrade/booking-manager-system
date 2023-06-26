@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "./adminCreateBooking.module.css";
 import AdminReservationForm from "../../components/adminReservationForm/index.jsx";
 import { listServicesByCompany } from "../../service/services.js";
-import { createBooking } from "../../service/booking.js";
+import { adminCreateBooking } from "../../service/booking.js";
 import { getAllServiceWorkers } from "../../service/service_worker.js";
 import { toast } from "react-toastify";
 import Header from "../../components/header/index.jsx";
@@ -43,9 +43,12 @@ const AdminCreateBooking = () => {
   }, []);
 
   const handleSubmit = async () => {
-    const resMsg = await createBooking(company_id, newBooking);
+    const resMsg = await adminCreateBooking(company_id, newBooking);
     resMsg.data ? toast.success(resMsg?.msg) : toast.error(resMsg?.msg);
-    if (resMsg.data.user.role_id === 3) {
+    const localStorageData = JSON.parse(
+      localStorage.getItem("token/role/company_id")
+    );
+    if (localStorageData.role === "worker") {
       navigate(`/worker-dashboard/${company_id}`);
     } else {
       navigate(`/admin-dashboard/${company_id}`);

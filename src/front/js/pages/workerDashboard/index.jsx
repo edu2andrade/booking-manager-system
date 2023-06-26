@@ -44,8 +44,6 @@ const WorkerDashboard = () => {
     );
     const { worker_id } = localStorageData;
 
-    console.log(worker_id);
-
     const bookingsByWorkerId = bookingList.filter(
       (booking) => booking?.services_workers?.worker_id === worker_id
     );

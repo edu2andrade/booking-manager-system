@@ -26,6 +26,7 @@
 	],
 	"license": "ISC",
 	"devDependencies": {
+		"babel-loader": "^8.2.0",
 		"@babel/cli": "^7.6.4",
 		"@babel/core": "^7.16.0",
 		"@babel/plugin-proposal-class-properties": "^7.16.0",
@@ -34,7 +35,6 @@
 		"@babel/preset-react": "^7.16.0",
 		"@babel/runtime": "^7.16.3",
 		"babel-eslint": "^10.1.0",
-		"babel-loader": "^7.1.5",
 		"babel-plugin-transform-class-properties": "^6.24.1",
 		"bc-console": "0.0.2",
 		"css-loader": "^6.5.1",
@@ -73,6 +73,7 @@
 		]
 	},
 	"dependencies": {
+		"webpack": "^5.0.0", 
 		"@hookform/resolvers": "^3.1.0",
 		"date-fns": "^2.30.0",
 		"moment": "^2.29.4",

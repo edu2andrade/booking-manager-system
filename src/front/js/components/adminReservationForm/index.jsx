@@ -15,6 +15,9 @@ const AdminReservationForm = ({
   const [step, setStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [service, setService] = useState("");
+  const [workerName, setWorkerName] = useState("");
+  const [workerSurname, setWorkerSurname] = useState("");
 
   const handleNextStep = () => {
     if (step === 1 && selectedService === "") {
@@ -37,11 +40,13 @@ const AdminReservationForm = ({
   };
 
   const handleChangeService = (e) => {
-    if (e.target.name === "service") {
-      const selectedService = parseInt(e.target.value);
-      setSelectedService(selectedService);
-      setNewBooking({ ...newBooking, [e.target.name]: selectedService });
-    }
+    const service = parseInt(e.target.value);
+    const serviceFilter = serviceWorkers
+      .filter((elem) => elem.service_id === service)
+      .map((elem) => elem.services.name);
+    setService(serviceFilter);
+    setSelectedService(service);
+    setNewBooking({ ...newBooking, [e.target.name]: service });
   };
 
   const handleDateChange = (date) => {
@@ -51,9 +56,17 @@ const AdminReservationForm = ({
   };
 
   const handleChange = (e) => {
+    const worker = parseInt(e.target.value);
+    const workerFilter = serviceWorkers
+      .filter((elem) => elem.worker_id === worker)
+      .find(
+        (elem) => elem.workers.user.firstname && elem.workers.user.lastname
+      );
+    setWorkerName(workerFilter?.workers.user.firstname);
+    setWorkerSurname(workerFilter?.workers.user.lastname);
     setNewBooking({
       ...newBooking,
-      [e.target.name]: parseInt(e.target.value),
+      [e.target.name]: worker,
     });
   };
 
@@ -171,8 +184,8 @@ const AdminReservationForm = ({
               <p className={styles._fourthTitle}>
                 Select the date and time you want to book
               </p>
-
               <DateTimePicker
+                className={styles._dateTimePicker}
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
                 handleDateChange={handleDateChange}
@@ -251,7 +264,7 @@ const AdminReservationForm = ({
                 <strong>Service:</strong>
               </p>
               <p className={styles._fourthTitle}>
-                {selectedService} with {newBooking.worker}
+                {`${service} with ${workerName} ${workerSurname}`}
               </p>
               <p>
                 <strong>Date and Time:</strong>
