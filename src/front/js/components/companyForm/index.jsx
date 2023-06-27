@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "../input/index.jsx";
 import styles from "./companyForm.module.css";
 import Button from "../button/index.jsx";
+import TimeSelector from "../timePicker/index.jsx";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { companySchema } from "../../validations/companyValidation.js";
@@ -97,6 +98,7 @@ const CompanyForm = ({ textBtn }) => {
           {errors.working_schedule?.message}
         </small>
       )}
+      <TimeSelector />
       <Button type="submit" title={textBtn} />
     </form>
   );

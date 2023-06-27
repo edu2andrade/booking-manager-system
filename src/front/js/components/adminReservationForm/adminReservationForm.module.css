@@ -110,7 +110,6 @@ h1 {
 }
 
 ._buttonsWrapper {
-  margin: 1px red solid;
   display: flex;
   justify-content: space-between;
   width: 100%;
