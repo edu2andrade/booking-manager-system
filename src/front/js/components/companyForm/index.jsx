@@ -21,7 +21,6 @@ const CompanyForm = ({ textBtn }) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     actions.saveCompanyData(data);
     navigate("/company-register-2");
   };

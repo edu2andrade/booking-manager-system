@@ -16,6 +16,7 @@ export const createBooking = async (company_id, booking) => {
       body: JSON.stringify(booking),
     });
     const data = await res.json();
+    console.log(data)
     return data;
   } catch (err) {
     console.log("Error to Create Booking by User", err);
