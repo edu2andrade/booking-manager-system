@@ -6,7 +6,6 @@ import Logotipo from "../../components/logotipo/index.jsx";
 import CompanyForm from "../../components/companyForm/index.jsx";
 
 const CompanyRegister = () => {
-
   const [isLoading, setIsLoading] = useState(false);
 
   return (
@@ -20,13 +19,7 @@ const CompanyRegister = () => {
         <div className={styles._actionContainer}>
           <Logotipo />
           <h1 className={styles._heading}>Company Register</h1>
-          {!isLoading ? (
-            <CompanyForm
-              textBtn="Next Step"
-            />
-          ) : (
-            <Spinner />
-          )}
+          {!isLoading ? <CompanyForm textBtn="Next Step" /> : <Spinner />}
           <span className={styles._credits}>
             Photo by Andrew Neel on Unsplash
           </span>

@@ -3,6 +3,19 @@
   width: 480px;
 }
 
+._inputContainer {
+  position: relative;
+  min-width: 470px;
+  font-size: var(--text-sm);
+  color: var(--gray-900);
+}
+
+._inputContainer > i {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+}
+
 ._fail {
   color: var(--highlight);
 }

@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import { useNavigate } from "react-router-dom";
 import Input from "../input/index.jsx";
 import styles from "./companyForm.module.css";
 import Button from "../button/index.jsx";
+import TimeSelector from "../../components/timeSelector/index.jsx";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { companySchema } from "../../validations/companyValidation.js";
+import { format } from "date-fns";
 
 const CompanyForm = ({ textBtn }) => {
   const { actions } = useContext(Context);
@@ -83,20 +85,28 @@ const CompanyForm = ({ textBtn }) => {
           {errors.address?.message}
         </small>
       )}
-      <Input
-        icon={<i className="fa-solid fa-clock"></i>}
-        type="text"
-        placeholder="Working Schedule"
-        label="working_schedule"
-        name="working_schedule"
-        register={register}
-      />
-      {errors?.working_schedule && (
-        <small className={styles._fail}>
-          <i className="fa-solid fa-circle-exclamation"></i>{" "}
-          {errors.working_schedule?.message}
-        </small>
-      )}
+      <div>
+        <div className={styles._inputContainer}>
+          <i className="fa-solid fa-business-time"></i>
+        </div>
+        <TimeSelector
+          label="opening_time"
+          name="opening_time"
+          register={register}
+          placeholder="Select Opening Time"
+        />
+      </div>
+      <div>
+        <div className={styles._inputContainer}>
+          <i className="fa-solid fa-business-time"></i>
+        </div>
+        <TimeSelector
+          label="closing_time"
+          name="closing_time"
+          register={register}
+          placeholder="Select Closing Time"
+        />
+      </div>
       <Button type="submit" title={textBtn} />
     </form>
   );

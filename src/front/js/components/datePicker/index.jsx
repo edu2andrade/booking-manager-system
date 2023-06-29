@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./datePicker.module.css";
+import { setHours, setMinutes } from "date-fns";
 
-const DateTimePicker = ({ selectedDate, handleDateChange }) => {
+const DateTimePicker = ({
+  selectedDate,
+  handleDateChange,
+  minTime,
+  maxTime,
+}) => {
   return (
     <DatePicker
       className={styles._dateTimePicker}
@@ -13,6 +19,8 @@ const DateTimePicker = ({ selectedDate, handleDateChange }) => {
       showTimeSelect
       dateFormat="dd MMMM yyyy, p"
       placeholderText="Select a date"
+      minTime={minTime}
+      maxTime={maxTime}
     />
   );
 };
