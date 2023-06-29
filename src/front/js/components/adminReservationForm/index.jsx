@@ -142,7 +142,7 @@ const AdminReservationForm = ({
                 onChange={handleChangeService}
               >
                 <option value="Services">Services</option>
-                {servicesList.map((op) => (
+                {servicesList?.map((op) => (
                   <option key={op.id} value={op.id}>
                     {op.name}
                   </option>
