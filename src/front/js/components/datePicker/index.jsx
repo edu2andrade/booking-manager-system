@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { setHours, setMinutes } from "date-fns";
+import styles from "./datePicker.module.css";
 
 const DateTimePicker = ({
   selectedDate,
@@ -11,6 +11,7 @@ const DateTimePicker = ({
 }) => {
   return (
     <DatePicker
+      className={styles._dateTimePicker}
       selected={selectedDate}
       onChange={handleDateChange}
       minDate={new Date()}
