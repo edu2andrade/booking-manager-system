@@ -7,9 +7,9 @@
 
 ._workersContainer {
   display: flex;
+  width: 100%;
   align-items: center;
-  justify-content: center;
-  grid-area: workers;
+  overflow: auto;
 }
 
 ._workerImg {
@@ -38,9 +38,7 @@
   min-height: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 ._title {
