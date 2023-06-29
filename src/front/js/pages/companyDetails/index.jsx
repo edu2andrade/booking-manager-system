@@ -156,7 +156,9 @@ const CompanyDetails = () => {
               </div>
               <footer className={styles._modalFooter}>
                 <p>
-                  <strong>Do you want to appointment with this service?</strong>
+                  <strong>
+                    Do you want to make an appointment with this service?
+                  </strong>
                 </p>
                 <div className={styles._btnWrapperdiv}>
                   <Button
