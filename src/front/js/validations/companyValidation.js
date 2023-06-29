@@ -16,7 +16,10 @@ export const companySchema = yup.object().shape({
     address: yup
         .string()
         .required("Address is required"),
-    working_schedule: yup
+    opening_time: yup
         .string()
-        .required("Working Schedule is required"),
+        .required("Opening Time is required"),
+    closing_time: yup
+        .string()
+        .required("Closing Time is required"),
 });  

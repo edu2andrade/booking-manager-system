@@ -18,7 +18,7 @@ class Booking(db.Model):
         self.user_id = user_id
         self.company_id = company_id
         self.service_workers_id = service_workers_id
-        self.start_service = datetime.datetime.strptime(start_service, "%Y-%m-%d %H:%M:%S")
+        self.start_service = datetime.datetime.strptime(start_service, "%Y-%m-%d %H:%M")
         self.description = description
 
     def serialize(self):

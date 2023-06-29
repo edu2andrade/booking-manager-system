@@ -106,7 +106,9 @@ const CompanyDetails = () => {
                 </div>
                 <div className={styles._row}>
                   <span>Opening:</span>
-                  <p>{company?.working_schedule}</p>
+                  <p>
+                    {company?.opening_time} - {company?.closing_time}
+                  </p>
                 </div>
                 <div className={styles._workers}>
                   <span>Workers:</span>
@@ -156,7 +158,9 @@ const CompanyDetails = () => {
               </div>
               <footer className={styles._modalFooter}>
                 <p>
-                  <strong>Do you want to appointment with this service?</strong>
+                  <strong>
+                    Do you want to make an appointment with this service?
+                  </strong>
                 </p>
                 <div className={styles._btnWrapperdiv}>
                   <Button
