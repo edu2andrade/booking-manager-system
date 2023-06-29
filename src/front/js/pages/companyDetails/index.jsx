@@ -106,7 +106,9 @@ const CompanyDetails = () => {
                 </div>
                 <div className={styles._row}>
                   <span>Opening:</span>
-                  <p>{company?.working_schedule}</p>
+                  <p>
+                    {company?.opening_time} - {company?.closing_time}
+                  </p>
                 </div>
                 <div className={styles._workers}>
                   <span>Workers:</span>
