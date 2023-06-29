@@ -11,6 +11,7 @@ const DateTimePicker = ({
 }) => {
   return (
     <DatePicker
+      className={styles._dateTimePicker}
       selected={selectedDate}
       onChange={handleDateChange}
       minDate={new Date()}
