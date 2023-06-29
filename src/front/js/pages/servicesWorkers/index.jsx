@@ -78,6 +78,12 @@ const ServicesWorkers = () => {
   };
 
   const handleNextStep = () => {
+    if (step === 1 && serviceWorker.worker === "") {
+      return;
+    }
+    if (step === 2 && serviceWorker.service === "") {
+      return;
+    }
     setStep(step + 1);
   };
 
@@ -208,13 +214,7 @@ const ServicesWorkers = () => {
                       onClick={handleSubmit}
                     />
                   </div>
-                </div>{" "}
-                {(serviceWorker.service === "" ||
-                  serviceWorker.worker === "") && (
-                  <p className={styles._errorText}>
-                    Please select a service and worker
-                  </p>
-                )}
+                </div>
               </div>
             </>
           )}

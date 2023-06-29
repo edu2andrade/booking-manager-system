@@ -20,8 +20,12 @@ const initialState = {
 };
 
 const WorkerForm = ({ textBtn }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(workerSchema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(workerSchema),
   });
 
   const [newWorker, setNewWorker] = useState(initialState);
@@ -117,12 +121,6 @@ const WorkerForm = ({ textBtn }) => {
             register={register}
             errors={errors}
           />
-          {errors?.password && (
-            <small className={styles._fail}>
-              <i className="fa-solid fa-circle-exclamation"></i>{" "}
-              {errors.password?.message}
-            </small>
-          )}
           <Button type="submit" title={textBtn} />
         </form>
       </BigContainer>

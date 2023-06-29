@@ -97,5 +97,5 @@
   min-width: 120px;
 }
 ._errorText {
-  color: var(--cyan-500);
+  color: var(--highlight);
 }
