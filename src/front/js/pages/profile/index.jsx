@@ -50,23 +50,22 @@ const Profile = () => {
   };
 
   const handleClick = async () => {
-    try {
-      setLoading(true);
-      const form = new FormData();
+    setLoading(true);
+    const form = new FormData();
 
-      form.append("avatar", file);
-      form.append("email", userStoredInContext?.email);
-      form.append("username", userStoredInContext?.username);
-      form.append("firstname", userStoredInContext?.firstname);
-      form.append("lastname", userStoredInContext?.lastname);
+    form.append("avatar", file);
+    form.append("email", userStoredInContext?.email);
+    form.append("username", userStoredInContext?.username);
+    form.append("firstname", userStoredInContext?.firstname);
+    form.append("lastname", userStoredInContext?.lastname);
 
-      await updateUserProfile(form);
-
-      handleDashboard();
-      toast.success("Profile updated successfully ");
-    } catch (error) {
+    const resMsg = await updateUserProfile(form);
+    if (resMsg?.error) {
+      toast.error(resMsg?.msg);
       setLoading(false);
-      toast.error("An error occurred while updating user profile");
+    } else {
+      toast.success(resMsg?.msg);
+      handleDashboard();
     }
   };
 
