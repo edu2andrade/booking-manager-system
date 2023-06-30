@@ -11,6 +11,7 @@ import Button from "../../components/button/index.jsx";
 import BtnService from "../../components/btnService/index.jsx";
 import ModalCompany from "../../components/modalCompany/index.jsx";
 import Spinner from "../../components/spinner/index.jsx";
+import { toast } from "react-toastify";
 
 const initialState = {
   user: {
@@ -55,6 +56,22 @@ const CompanyDetails = () => {
     }
   }, [companyId, selectedWorker]);
 
+  const handleSubmit = () => {
+    try {
+      const localStorageData = JSON.parse(
+        localStorage.getItem("token/role/company_id")
+      );
+      if (localStorageData.role === "client") {
+        navigate("/user-dashboard");
+      } else if (localStorageData.role === "admin") {
+        navigate(`/admin-create-booking/${companyId}`);
+      }
+    } catch (err) {
+      toast.error("You have to be logged in.");
+      navigate("/login");
+    }
+  };
+
   return (
     <div className={styles._mainContainer}>
       {loading ? (
@@ -63,11 +80,7 @@ const CompanyDetails = () => {
         <>
           <Logotipo className={styles._logo} />
           <div className={styles._btnWrapper}>
-            <Button
-              type="button"
-              title="Booking now"
-              onClick={() => navigate(`/create-booking/${companyId}`)}
-            />
+            <Button type="button" title="Booking now" onClick={handleSubmit} />
           </div>
           <BigContainer>
             <h1>{company?.name}</h1>
@@ -166,7 +179,7 @@ const CompanyDetails = () => {
                   <Button
                     type="button"
                     title="Booking now"
-                    onClick={() => navigate(`/create-booking/${companyId}`)}
+                    onClick={handleSubmit}
                   />
                 </div>
               </footer>
@@ -203,7 +216,7 @@ const CompanyDetails = () => {
                   <Button
                     type="button"
                     title="Booking now"
-                    onClick={() => navigate(`/create-booking/${companyId}`)}
+                    onClick={handleSubmit}
                   />
                 </div>
               </footer>

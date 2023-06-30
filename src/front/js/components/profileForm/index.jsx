@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import Button from "../button/index.jsx";
 import InputField from "../inputField/index.jsx";
 import styles from "./profileForm.module.css";
-import Spinner from "../spinner/index.jsx"
+import Spinner from "../spinner/index.jsx";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
     .max(20, "Last name must not exceed 20 characters"),
   email: Yup.string()
     .required("Email is required")
-    .email("Invalid email format")
+    .email("Invalid email format"),
 });
 
 const ProfileForm = ({ handleChange, handleClick, user, loading }) => {
@@ -40,54 +40,57 @@ const ProfileForm = ({ handleChange, handleClick, user, loading }) => {
 
   return (
     <>
-      {loading ? (<Spinner/>) : (
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        onChange={handleChange}
-        className={styles._form}
-      >
-        <InputField
-          icon="fa-solid fa-circle-user"
-          type="text"
-          placeholder="Username"
-          name="username"
-          defaultValue={user?.username}
-          register={register}
-          errors={errors}
-        />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={handleChange}
+          className={styles._form}
+        >
+          <InputField
+            icon="fa-solid fa-circle-user"
+            type="text"
+            placeholder="Username"
+            name="username"
+            defaultValue={user?.username}
+            register={register}
+            errors={errors}
+          />
 
-        <InputField
-          icon="fa-solid fa-circle-user"
-          type="text"
-          placeholder="First name"
-          name="firstname"
-          defaultValue={user?.firstname}
-          register={register}
-          errors={errors}
-        />
+          <InputField
+            icon="fa-solid fa-circle-user"
+            type="text"
+            placeholder="First name"
+            name="firstname"
+            defaultValue={user?.firstname}
+            register={register}
+            errors={errors}
+          />
 
-        <InputField
-          icon="fa-solid fa-circle-user"
-          type="text"
-          placeholder="Last name"
-          name="lastname"
-          defaultValue={user?.lastname}
-          register={register}
-          errors={errors}
-        />
+          <InputField
+            icon="fa-solid fa-circle-user"
+            type="text"
+            placeholder="Last name"
+            name="lastname"
+            defaultValue={user?.lastname}
+            register={register}
+            errors={errors}
+          />
 
-        <InputField
-          icon="fa-solid fa-envelope"
-          type="email"
-          placeholder="Email"
-          name="email"
-          defaultValue={user?.email}
-          register={register}
-          errors={errors}
-        />
+          <InputField
+            icon="fa-solid fa-envelope"
+            type="email"
+            placeholder="Email"
+            name="email"
+            defaultValue={user?.email}
+            register={register}
+            errors={errors}
+          />
 
-        <Button type="submit" title="Update" />
-      </form>)}
+          <Button type="submit" title="Update" />
+        </form>
+      )}
     </>
   );
 };

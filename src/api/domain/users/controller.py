@@ -42,14 +42,14 @@ def get_single_user(user_id, current_user_id):
 
 
 def update_profile(username, firstname, lastname, email, avatar, current_user_id):
-    model_email = User.query.filter_by(email=email).first()
-    model_username = User.query.filter_by(username=username).first()
+    # model_email = User.query.filter_by(email=email).first()
+    # model_username = User.query.filter_by(username=username).first()
 
-    if model_email:
-        return {'msg': 'Email already exists in the database', 'status': 400}
+    # if model_email:
+    #     return {'msg': 'Email already exists in the database', 'status': 400}
     
-    if model_username:
-        return {'msg': 'Username already exists in the database', 'status': 400}
+    # if model_username:
+    #     return {'msg': 'Username already exists in the database', 'status': 400}
    
     if avatar:
         img = upload(avatar)

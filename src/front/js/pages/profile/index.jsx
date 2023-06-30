@@ -50,22 +50,22 @@ const Profile = () => {
   };
 
   const handleClick = async () => {
-    setLoading(true);
-    const form = new FormData();
+    try {
+      setLoading(true);
+      const form = new FormData();
 
-    form.append("avatar", file);
-    form.append("email", userStoredInContext?.email);
-    form.append("username", userStoredInContext?.username);
-    form.append("firstname", userStoredInContext?.firstname);
-    form.append("lastname", userStoredInContext?.lastname);
+      form.append("avatar", file);
+      form.append("email", userStoredInContext?.email);
+      form.append("username", userStoredInContext?.username);
+      form.append("firstname", userStoredInContext?.firstname);
+      form.append("lastname", userStoredInContext?.lastname);
 
-    const resMsg = await updateUserProfile(form);
-    if (resMsg?.error) {
-      toast.error(resMsg?.msg);
-      setLoading(false);
-    } else {
-      toast.success(resMsg?.msg);
+      const resMsg = await updateUserProfile(form);
       handleDashboard();
+      toast.success(resMsg?.msg);
+      setLoading(false);
+    } catch (error) {
+      toast.error(resMsg?.msg);
     }
   };
 
