@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 import styles from "./workerDashboard.module.css";
 
-import BookingCard from "../../components/bookingCard/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
 import Modal from "../../components/modal/index.jsx";
 import Button from "../../components/button/index.jsx";
@@ -163,7 +162,6 @@ const WorkerDashboard = () => {
               <strong>Description: </strong>
               {selectedBooking?.services_workers.services.description}
             </p>
-
             <div className={styles._modalFooter}>
               <p>
                 <strong>Do you want to delete your appointment??</strong>
