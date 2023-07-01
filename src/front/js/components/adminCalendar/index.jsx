@@ -12,6 +12,11 @@ const AdminCalendar = ({ companyId }) => {
   const [bookingsByWorker, setBookingsByWorker] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    getWorkers();
+    getBookings();
+  }, []);
+
   const getWorkers = async () => {
     const workers = await listWorkers(companyId);
     setWorkersList(workers);
@@ -29,11 +34,6 @@ const AdminCalendar = ({ companyId }) => {
     setBookingsByWorker(bookingsByWorkerId);
     setIsOpen(true);
   };
-
-  useEffect(() => {
-    getWorkers();
-    getBookings();
-  }, []);
 
   return (
     <div className={styles._mainContainer}>
