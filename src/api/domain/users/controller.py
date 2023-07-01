@@ -42,15 +42,24 @@ def get_single_user(user_id, current_user_id):
 
 
 def update_profile(username, firstname, lastname, email, avatar, current_user_id):
+    # model_email = User.query.filter_by(email=email).first()
+    # model_username = User.query.filter_by(username=username).first()
+
+    # if model_email:
+    #     return {'msg': 'Email already exists in the database', 'status': 400}
+    
+    # if model_username:
+    #     return {'msg': 'Username already exists in the database', 'status': 400}
    
     if avatar:
         img = upload(avatar)
         url_avatar = img['secure_url']
     else:
         user = Repository.get_single_user(current_user_id)
-        url_avatar = user.avatar  
+        url_avatar = user.avatar
 
     return Repository.update_profile(username, firstname, lastname, email, url_avatar, current_user_id)
+
 
 def delete_user(current_user_id):
     user = User.query.get(current_user_id)
