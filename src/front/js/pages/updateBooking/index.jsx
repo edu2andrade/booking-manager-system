@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Context } from "../../store/appContext";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/header/index.jsx";
 import UpdateBookingList from "../../components/updateBookingCard/index.jsx";
-import { useParams } from "react-router-dom";
-import { getBookingByUser, updateBooking } from "../../service/booking.js";
-import { toast } from "react-toastify";
-
-const initialState = {
-  worker: "",
-  service: "",
-  start_service: "",
-  description: "",
-};
+import { getBookingByUser, getBookingById } from "../../service/booking.js";
+import { getInfoCompanyById } from "../../service/company.js";
+import { format, setHours, setMinutes, parse } from "date-fns";
 
 const UpdateBooking = () => {
-  const { bookingID } = useParams();
-  const [formData, setFormData] = useState(initialState);
   const [workerList, setWorkerList] = useState([]);
   const [serviceList, setServiceList] = useState([]);
+  const [currentBooking, setCurrentBooking] = useState({});
+  const [companyInfo, setCompanyInfo] = useState({});
+  const [minTime, setMinTime] = useState(null);
+  const [maxTime, setMaxTime] = useState(null);
+  const { bookingID } = useParams();
 
-  const responseToast = (msg) => toast(msg);
+  const navigate = useNavigate();
+
+  const { store } = useContext(Context);
+  const userStoredInContext = store.userProfileData.userData;
 
   const getBooking = async () => {
     const bookingData = await getBookingByUser();
-
     // Filter by workers unique
     const uniqueWorkers = bookingData.reduce((workers, booking) => {
       const worker = booking.services_workers.workers;
@@ -44,31 +44,61 @@ const UpdateBooking = () => {
     setServiceList(uniqueServices);
   };
 
+  // const getReservation = async () => {
+  //   const booking = await getBookingById(bookingID);
+  //   setCurrentBooking(booking);
+  // };
+
   useEffect(() => {
     getBooking();
+    // getReservation();
   }, []);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormData(initialState);
-    const booking = await updateBooking(bookingID, formData);
-    setFormData(booking);
-    responseToast(booking.msg);
-  };
 
-  const handleChange = ({ target }) => {
-    setFormData({ ...formData, [target.name]: target.value });
-  };
+  // const getCompany = async () => {
+  //   const company = await getInfoCompanyById(currentBooking.company_id);
+  //   setCompanyInfo(company);
+  // };
+
+  // useEffect(() => {
+  //   getCompany();
+  // }, [currentBooking]);
+
+  // useEffect(() => {
+  //   if (companyInfo?.opening_time) {
+  //     const openingTime = parse(companyInfo.opening_time, "HH:mm", new Date());
+  //     const calculatedMinTime = setHours(
+  //       setMinutes(openingTime, 0),
+  //       openingTime.getHours()
+  //     );
+  //     setMinTime(calculatedMinTime);
+  //   }
+  // }, [companyInfo]);
+
+  // useEffect(() => {
+  //   if (companyInfo?.closing_time) {
+  //     const closingTime = parse(companyInfo.closing_time, "HH:mm", new Date());
+  //     const calculatedMaxTime = setHours(
+  //       setMinutes(closingTime, 0),
+  //       closingTime.getHours()
+  //     );
+  //     setMaxTime(calculatedMaxTime);
+  //   }
+  // }, [companyInfo]);
 
   return (
     <>
-      <Header />
+      <Header
+        imgProfile={userStoredInContext?.avatar}
+        updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
+      />
       <UpdateBookingList
-        formData={formData}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
         textBtn="Update"
         workerList={workerList}
         serviceList={serviceList}
+        currentBooking={currentBooking}
+        minTime={minTime}
+        maxTime={maxTime}
+        companyInfo={companyInfo}
       />
     </>
   );
