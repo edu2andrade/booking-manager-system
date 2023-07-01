@@ -60,13 +60,12 @@ const Profile = () => {
       form.append("firstname", userStoredInContext?.firstname);
       form.append("lastname", userStoredInContext?.lastname);
 
-      await updateUserProfile(form);
-
+      const resMsg = await updateUserProfile(form);
       handleDashboard();
-      toast.success("Profile updated successfully ");
-    } catch (error) {
+      toast.success(resMsg?.msg);
       setLoading(false);
-      toast.error("An error occurred while updating user profile");
+    } catch (error) {
+      toast.error(resMsg?.msg);
     }
   };
 
