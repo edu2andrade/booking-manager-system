@@ -62,8 +62,10 @@ const CompanyDetails = () => {
         localStorage.getItem("token/role/company_id")
       );
       if (localStorageData.role === "client") {
-        navigate("/user-dashboard");
+        navigate(`/create-booking/${companyId}`);
       } else if (localStorageData.role === "admin") {
+        navigate(`/admin-create-booking/${companyId}`);
+      } else if (localStorageData.role === "worker") {
         navigate(`/admin-create-booking/${companyId}`);
       }
     } catch (err) {
