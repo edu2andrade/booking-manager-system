@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./reservationForm.module.css";
 import Button from "../button/index.jsx";
 import DateTimePicker from "../datePicker/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
-import { format } from "date-fns";
+import { getInfoCompanyById } from "../../service/company";
+import { format, setHours, setMinutes, parse } from "date-fns";
 
 const ReservationForm = ({
   handleSubmit,
@@ -18,6 +20,15 @@ const ReservationForm = ({
   const [service, setService] = useState("");
   const [workerName, setWorkerName] = useState("");
   const [workerSurname, setWorkerSurname] = useState("");
+  const [companyInfo, setCompanyInfo] = useState({});
+  const [minTime, setMinTime] = useState(null);
+  const [maxTime, setMaxTime] = useState(null);
+
+  const [startDate, setStartDate] = useState(
+    setHours(setMinutes(new Date(), 30), 17)
+  );
+
+  const { company_id } = useParams();
 
   const handleNextStep = () => {
     if (step === 1 && selectedService === "") {
@@ -50,10 +61,42 @@ const ReservationForm = ({
   };
 
   const handleDateChange = (date) => {
-    const formattedDate = format(date, "yyyy-MM-dd HH:mm:ss");
+    const formattedDate = format(date, "yyyy-MM-dd HH:mm");
     setSelectedDate(date);
+    setStartDate(formattedDate);
     setNewBooking({ ...newBooking, start_service: formattedDate });
   };
+
+  const getCompany = async () => {
+    const company = await getInfoCompanyById(company_id);
+    setCompanyInfo(company);
+  };
+
+  useEffect(() => {
+    getCompany;
+  }, []);
+
+  useEffect(() => {
+    if (companyInfo.opening_time) {
+      const openingTime = parse(companyInfo.opening_time, "HH:mm", new Date());
+      const calculatedMinTime = setHours(
+        setMinutes(openingTime, 0),
+        openingTime.getHours()
+      );
+      setMinTime(calculatedMinTime);
+    }
+  }, [companyInfo]);
+
+  useEffect(() => {
+    if (companyInfo.closing_time) {
+      const closingTime = parse(companyInfo.closing_time, "HH:mm", new Date());
+      const calculatedMaxTime = setHours(
+        setMinutes(closingTime, 0),
+        closingTime.getHours()
+      );
+      setMaxTime(calculatedMaxTime);
+    }
+  }, [companyInfo]);
 
   const handleChange = (e) => {
     const worker = parseInt(e.target.value);
@@ -68,6 +111,7 @@ const ReservationForm = ({
       ...newBooking,
       [e.target.name]: worker,
     });
+    getCompany();
   };
 
   const handleDescription = (e) => {
@@ -189,6 +233,9 @@ const ReservationForm = ({
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
                 handleDateChange={handleDateChange}
+                startDate={startDate}
+                minTime={minTime}
+                maxTime={maxTime}
               />
               {selectedDate === "" && (
                 <small className={styles._fail}>
