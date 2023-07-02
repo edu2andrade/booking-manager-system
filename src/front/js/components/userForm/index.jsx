@@ -1,46 +1,122 @@
-import React from "react";
-import Input from "../input/index.jsx";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../service/user";
 import styles from "./userForm.module.css";
 import Button from "../button/index.jsx";
+import Input from "../input/index.jsx";
+import InputField from "../inputField/index.jsx";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userSchema } from "../../validations/userFormValidation.js";
+import { toast } from "react-toastify";
 
-const UserForm = ({ handleChange, handleSubmit, textBtn }) => (
-  <form
-    className={styles._form}
-    onChange={handleChange}
-    onSubmit={handleSubmit}
-  >
-    <Input
-      icon={<i className="fa-solid fa-circle-user"></i>}
-      type="text"
-      placeholder="Username"
-      name="username"
-    />
-    <Input
-      icon={<i className="fa-solid fa-circle-user"></i>}
-      type="text"
-      placeholder="First Name"
-      name="firstname"
-    />
-    <Input
-      icon={<i className="fa-solid fa-circle-user"></i>}
-      type="text"
-      placeholder="Last Name"
-      name="lastname"
-    />
-    <Input
-      icon={<i className="fa-solid fa-envelope"></i>}
-      type="email"
-      placeholder="Email"
-      name="email"
-    />
-    <Input
-      icon={<i className="fa-solid fa-lock"></i>}
-      type="password"
-      placeholder="Password"
-      name="password"
-    />
-    <Button type="submit" title={textBtn} />
-  </form>
-);
+const initialState = {
+  username: "",
+  firstname: "",
+  lastname: "",
+  email: "",
+  password: "",
+};
 
+const UserForm = ({ textBtn }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(userSchema),
+  });
+
+  const [newUser, setNewUser] = useState(initialState);
+
+  const navigate = useNavigate();
+
+  const handleChange = ({ target }) => {
+    setNewUser({ ...newUser, [target.name]: target.value });
+  };
+
+  const onSubmit = async (e) => {
+    const resMsg = await registerUser(newUser);
+    if (resMsg?.error) {
+      toast.error(resMsg?.msg);
+    } else {
+      toast.success(resMsg?.msg);
+      navigate("/user-dashboard");
+    }
+  };
+
+  return (
+    <form
+      className={styles._form}
+      onChange={handleChange}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <Input
+        icon={<i className="fa-solid fa-circle-user"></i>}
+        type="text"
+        placeholder="Username"
+        label="username"
+        name="username"
+        register={register}
+      />
+      {errors?.username && (
+        <small className={styles._fail}>
+          <i className="fa-solid fa-circle-exclamation"></i>{" "}
+          {errors.username?.message}
+        </small>
+      )}
+      <Input
+        icon={<i className="fa-solid fa-circle-user"></i>}
+        type="text"
+        placeholder="First Name"
+        label="firstname"
+        name="firstname"
+        register={register}
+      />
+      {errors?.firstname && (
+        <small className={styles._fail}>
+          <i className="fa-solid fa-circle-exclamation"></i>{" "}
+          {errors.firstname?.message}
+        </small>
+      )}
+      <Input
+        icon={<i className="fa-solid fa-circle-user"></i>}
+        type="text"
+        placeholder="Last Name"
+        label="lastname"
+        name="lastname"
+        register={register}
+      />
+      {errors?.lastname && (
+        <small className={styles._fail}>
+          <i className="fa-solid fa-circle-exclamation"></i>{" "}
+          {errors.lastname?.message}
+        </small>
+      )}
+      <Input
+        icon={<i className="fa-solid fa-envelope"></i>}
+        type="text"
+        placeholder="Email"
+        label="email"
+        name="email"
+        register={register}
+      />
+      {errors?.email && (
+        <small className={styles._fail}>
+          <i className="fa-solid fa-circle-exclamation"></i>{" "}
+          {errors.email?.message}
+        </small>
+      )}
+      <InputField
+        icon="fa-solid fa-lock"
+        type="password"
+        placeholder="Password"
+        name="password"
+        register={register}
+        errors={errors}
+      />
+      <Button type="submit" title={textBtn} />
+    </form>
+  );
+};
 export default UserForm;

@@ -35,7 +35,8 @@
 
 ._navContainer span {
   color: var(--gray-900);
-  padding: 8px;
+  background-color: var(--primary-200);
+  padding: 8px 12px;
   font-size: var(--text-md);
   font-weight: var(--font-semibold);
   border-radius: var(--border-sm);
@@ -43,12 +44,5 @@
 }
 
 ._navContainer span:hover {
-  background-color: var(--primary-200);
-}
-
-._userProfileImg {
-  width: 40px;
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: var(--border-full);
+  background-color: var(--primary-50);
 }

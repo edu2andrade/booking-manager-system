@@ -34,16 +34,32 @@ def get_single_user(user_id, current_user_id):
     current_user = User.query.get(current_user_id)
 
     if user is None:
-        return {'msg': f'User with id: {user_id}, does not exist in this database.', 'status': 404} 
+        return {'msg': 'User does not exist in this database.', 'status': 404} 
 
     if current_user.roles.type == 'client':
         return {'msg': 'User has no rights to view this profile,', 'status': 404 }
     return user
 
+
 def update_profile(username, firstname, lastname, email, avatar, current_user_id):
-    img = upload(avatar)
-    url_avatar = img['secure_url']
+    # model_email = User.query.filter_by(email=email).first()
+    # model_username = User.query.filter_by(username=username).first()
+
+    # if model_email:
+    #     return {'msg': 'Email already exists in the database', 'status': 400}
+    
+    # if model_username:
+    #     return {'msg': 'Username already exists in the database', 'status': 400}
+   
+    if avatar:
+        img = upload(avatar)
+        url_avatar = img['secure_url']
+    else:
+        user = Repository.get_single_user(current_user_id)
+        url_avatar = user.avatar
+
     return Repository.update_profile(username, firstname, lastname, email, url_avatar, current_user_id)
+
 
 def delete_user(current_user_id):
     user = User.query.get(current_user_id)
@@ -91,7 +107,7 @@ def login(body):
             new_identity = user.serialize()
 
             new_token = create_access_token(identity=new_identity)
-            return {"token": new_token, "role": user_role_type, "company_id": worker.company_id}
+            return {"token": new_token, "role": user_role_type, "company_id": worker.company_id, "worker_id": worker.id}
 
     if user_role_type == 'client':
         if bcrypt.checkpw(body['password'].encode(), user.password.encode()):

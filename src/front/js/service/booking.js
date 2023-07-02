@@ -34,7 +34,6 @@ export const adminCreateBooking = async (company_id, booking) => {
       body: JSON.stringify(booking),
     });
     const data = await res.json();
-    console.log("admin create booking", data);
     return data;
   } catch (err) {
     console.log("Error to Create Booking by Company", err);
@@ -69,7 +68,23 @@ export const getBookingByUser = async () => {
       },
     });
     const data = await res.json();
-    console.log("fetch", data)
+    return data.data;
+  } catch (err) {
+    console.log("Error to Get Booking by User", err);
+  }
+};
+
+export const getBookingById = async (bookingID) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${URL}/booking/${bookingID}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...HEADERS,
+      },
+    });
+    const data = await res.json();
     return data.data;
   } catch (err) {
     console.log("Error to Get Booking by User", err);

@@ -1,34 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../service/user";
-
 import styles from "./userRegister.module.css";
 import { bgImg } from "../../../../assets/assets.jsx";
-
 import UserForm from "../../components/userForm/index.jsx";
 import Logotipo from "../../components/logotipo/index.jsx";
-
-const initialState = {
-  username: "",
-  firstname: "",
-  lastname: "",
-  email: "",
-  password: "",
-};
+import Spinner from "../../components/spinner/index.jsx";
+import { toast } from "react-toastify";
 
 const UserRegister = () => {
-  const [newUser, setNewUser] = useState(initialState);
-  const navigate = useNavigate();
 
-  const handleChange = ({ target }) => {
-    setNewUser({ ...newUser, [target.name]: target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await registerUser(newUser);
-    navigate("/user-dashboard");
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <main className={styles._mainContainer}>
@@ -41,11 +21,13 @@ const UserRegister = () => {
         <div className={styles._actionContainer}>
           <Logotipo />
           <h1 className={styles._heading}>Sign Up</h1>
-          <UserForm
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            textBtn="Register"
-          />
+          {!isLoading ? (
+            <UserForm
+              textBtn="Register"
+            />
+          ) : (
+            <Spinner />
+          )}
           <span className={styles._credits}>
             Photo by Andrew Neel on Unsplash
           </span>

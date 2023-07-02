@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../../store/appContext";
 import { useParams, useNavigate } from "react-router-dom";
-import "../../pages/servicesWorkers/styles.css";
+
+import styles from "./servicesWorkers.module.css";
 import Header from "../../components/header/index.jsx";
 import BigContainer from "../../components/bigContainer/index.jsx";
+import Button from "../../components/button/index.jsx";
+
+import { getUserProfile } from "../../service/user";
 import { listWorkers } from "../../service/workers";
 import { listServicesByCompany } from "../../service/services";
 import { createServiceWorker } from "../../service/service_worker";
@@ -14,12 +19,21 @@ const initialState = {
 };
 
 const ServicesWorkers = () => {
+  const { store, actions } = useContext(Context);
+  const userStoredInContext = store.userProfileData.userData;
+
   const [workersList, setWorkersList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [serviceWorker, setServiceWorker] = useState(initialState);
+  const [step, setStep] = useState(1);
 
-  const navigate = useNavigate();
   const { company_id } = useParams();
+  const navigate = useNavigate();
+
+  const fetchUser = async () => {
+    const user = await getUserProfile();
+    actions.saveUserProfileData(user);
+  };
 
   const getWorkers = async () => {
     const workers = await listWorkers(company_id);
@@ -50,39 +64,160 @@ const ServicesWorkers = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resMsg = await createServiceWorker(company_id, transformData());
-    resMsg.data ? toast.success(resMsg?.msg) : toast.error(resMsg?.msg);
-    navigate("/admin-dashboard");
+    try {
+      const resMsg = await createServiceWorker(company_id, transformData());
+      if (resMsg.data) {
+        toast.success(resMsg?.msg);
+        navigate(`/admin-dashboard/${company_id}`);
+      } else {
+        toast.error(resMsg?.msg);
+      }
+    } catch (error) {
+      console.error("Error creating service worker:", error);
+    }
+  };
+
+  const handleNextStep = () => {
+    if (step === 1 && serviceWorker.worker === "") {
+      return;
+    }
+    if (step === 2 && serviceWorker.service === "") {
+      return;
+    }
+    setStep(step + 1);
+  };
+
+  const handlePreviousStep = () => {
+    setStep(step - 1);
   };
 
   useEffect(() => {
     getWorkers();
     getServices();
+    fetchUser();
   }, []);
 
   return (
     <>
-      <Header />
-      <main className="main-container">
+      <Header
+        imgProfile={userStoredInContext?.avatar}
+        updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
+      />
+      <main className={styles._mainContainer}>
         <BigContainer>
-          <h1>Assign Services to Workers</h1>
-          <div className="dropdownContainer">
-            <form onChange={handleChange} onSubmit={handleSubmit}>
-              <select name="worker" className="boxShadow">
-                {workersList.map((op) => (
-                  <option key={op.id}>{op.user.username}</option>
-                ))}
-              </select>
-              <select name="service" className="boxShadow">
-                {servicesList.map((op) => (
-                  <option key={op.id}>{op.name}</option>
-                ))}
-              </select>
-              <button type="submit" className="loginBtn boxShadow">
-                Assign Service
-              </button>
-            </form>
-          </div>
+          {step === 1 && (
+            <>
+              <div className={styles._dropdownContainer}>
+                <p className={styles._firstTitle}>{step}/3</p>
+                <p className={styles._secondTitle}>
+                  Assign Services to Workers
+                </p>
+                <p className={styles._thirdTitle}>Select Your Worker</p>
+                <div className={styles._inputContainer}>
+                  <i className="fa-solid fa-circle-user"></i>
+                  <select
+                    name="worker"
+                    className={`${styles._select} _boxShadow`}
+                    onChange={handleChange}
+                    value={serviceWorker.worker}
+                  >
+                    <option value="">Select the worker</option>
+                    {workersList.map((op) => (
+                      <option key={op.id} value={op.user.username}>
+                        {op.user.username}
+                      </option>
+                    ))}
+                  </select>
+                  {serviceWorker.worker === "" && (
+                    <p className={styles._errorText}>Please select a worker</p>
+                  )}
+                </div>
+              </div>
+              <div className={styles._buttonNext}>
+                <Button type="button" title="Next" onClick={handleNextStep} />
+              </div>
+            </>
+          )}
+          {step === 2 && (
+            <>
+              <div className={styles._dropdownContainer}>
+                <p className={styles._firstTitle}>{step}/3</p>
+                <p className={styles._secondTitle}>
+                  Assign Services to Workers
+                </p>
+                <p className={styles._thirdTitle}>Select Your Service</p>
+                <div className={styles._inputContainer}>
+                  <i className="fa-solid fa-circle-user"></i>
+                  <select
+                    name="service"
+                    className={`${styles._select} _boxShadow`}
+                    onChange={handleChange}
+                    value={serviceWorker.service}
+                  >
+                    <option value="">Select the service</option>
+                    {servicesList.map((op) => (
+                      <option key={op.id} value={op.name}>
+                        {op.name}
+                      </option>
+                    ))}
+                  </select>
+                  {serviceWorker.service === "" && (
+                    <p className={styles._errorText}>Please select a service</p>
+                  )}
+                </div>
+                <div className={styles._buttonPrevious}>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="button"
+                      title="Previous"
+                      onClick={handlePreviousStep}
+                    />
+                  </div>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="button"
+                      title="Next"
+                      onClick={handleNextStep}
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          {step === 3 && (
+            <>
+              <div className={styles._dropdownContainer}>
+                <p className={styles._firstTitle}>{step}/3</p>
+                <p className={styles._secondTitle}>
+                  Assign Services to Workers
+                </p>
+                <p className={styles._fourthTitle}>Confirm your assignment</p>
+                <p className={styles._desTitle}>Service: </p>
+                <p className={styles._desinTitle}>{serviceWorker.service}</p>
+                <p className={styles._desTitle}>Worker: </p>
+                <p className={styles._desinTitle}>{serviceWorker.worker}</p>
+                <p className={styles._finalTitle}>
+                  Do you want to confirm your assignment?
+                </p>
+                <div className={styles._buttonPrevious}>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="button"
+                      title="Change"
+                      onClick={handlePreviousStep}
+                    />
+                  </div>
+                  <div className={styles._buttonInside}>
+                    <Button
+                      type="submit"
+                      title="Confirm"
+                      onClick={handleSubmit}
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </BigContainer>
       </main>
     </>

@@ -1,7 +1,7 @@
 from api.models.index import db, Company
 
 def create_company(body, new_user_id):
-    new_company = Company(new_user_id, body['cif'], body['name'], body['description'], body['address'], body['working_schedule'])
+    new_company = Company(new_user_id, body['cif'], body['name'], body['description'], body['address'], body['opening_time'], body['closing_time'])
     db.session.add(new_company)
     db.session.commit()
     return new_company
@@ -29,7 +29,8 @@ def update_company(update_company, company):
         company.name = update_company['name']
         company.description = update_company['description']
         company.address = update_company['address']
-        company.working_schedule = update_company['working_schedule']
+        company.opening_time = update_company['opening_time']
+        company.closing_time = update_company['closing_time']
         db.session.commit()
         return company
     else:

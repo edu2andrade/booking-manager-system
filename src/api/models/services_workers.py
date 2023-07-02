@@ -9,14 +9,14 @@ class Services_workers(db.Model):
     booking = db.relationship("Booking", back_populates="services_workers")
 
     def __init__(self,worker_id, service_id):
-        self.worker_id = worker_id
         self.service_id = service_id
+        self.worker_id = worker_id
 
     def serialize(self):
         return {
         "id": self.id,
-        "worker_id": self.worker_id,
         "service_id": self.service_id,
+        "worker_id": self.worker_id,
         "services": self.services.serialize(),
         "workers": self.workers.serialize(),
         }

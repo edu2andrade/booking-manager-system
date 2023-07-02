@@ -1,28 +1,14 @@
-import React, { useState, useContext } from "react";
-import { Context } from "../../store/appContext";
-import { useNavigate } from "react-router-dom";
-import { createCompany } from "../../service/company.js";
+import React, { useState } from "react";
 
 import styles from "./companyRegister2.module.css";
 import { bgImg } from "../../../../assets/assets.jsx";
 
 import Logotipo from "../../components/logotipo/index.jsx";
-import UserForm from "../../components/userForm/index.jsx";
+import UserCompanyForm from "../../components/userCompanyForm/index.jsx";
+import Spinner from "../../components/spinner/index.jsx";
 
 const CompanyRegister2 = () => {
-  const { store } = useContext(Context);
-  const [newCompany, setNewCompany] = useState(store.companyData.data);
-  const navigate = useNavigate();
-
-  const handleChange = ({ target }) => {
-    setNewCompany({ ...newCompany, [target.name]: target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await createCompany(newCompany);
-    navigate("/login");
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <main className={styles._mainContainer}>
@@ -35,11 +21,14 @@ const CompanyRegister2 = () => {
         <div className={styles._actionContainer}>
           <Logotipo />
           <h1 className={styles._heading}>Admin Data</h1>
-          <UserForm
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            textBtn="Finish Register"
-          />
+          {!isLoading ? (
+            <UserCompanyForm
+              textBtn="Finish Register"
+              textBackBtn="Previous Step"
+            />
+          ) : (
+            <Spinner />
+          )}
           <span className={styles._credits}>
             Photo by Andrew Neel on Unsplash
           </span>

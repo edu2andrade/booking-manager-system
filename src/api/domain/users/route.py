@@ -36,7 +36,7 @@ def get_single_user(user_id):
     user = Controller.get_single_user(user_id, current_user_id)
     
     if isinstance(user, User):
-        return Response.response_ok(f'User with id: {user_id}, has been retrieved from database.', user.serialize())
+        return Response.response_ok('User has been retrieved from database.', user.serialize())
     else:
         return Response.response_error(user['msg'], user['status']) 
 
@@ -59,14 +59,16 @@ def update_profile():
     current_user_id = current_user["id"]
 
     try:
-        avatar = request.files['avatar']
+        avatar = request.files.get('avatar')
         body = request.form.to_dict()
         updated_profile = Controller.update_profile(body['username'], body['firstname'], body["lastname"], body['email'], avatar, current_user_id)
+        # if isinstance(updated_profile, User):
         return Response.response_ok('User was successfully updated.', updated_profile.serialize())
+        # else:
+        #     return Response.response_error(updated_profile['msg'], updated_profile['status'])
     except Exception as error:
-        print("error", error)
         return Response.response_error('Internal error...', 500)
-
+    
 @api.route('/delete/<int:user_id>', methods=['PATCH'])
 @jwt_required()
 def delete_user(user_id):
@@ -75,7 +77,7 @@ def delete_user(user_id):
 
     user = Controller.delete_user(user_id, current_user_id)
     if isinstance(user, User):
-        return Response.response_ok(f'User with id: {user_id}, was deleted from database.', user.serialize())
+        return Response.response_ok('User was deleted from database.', user.serialize())
     else:
         return Response.response_error(user['msg'], user['status'])
 

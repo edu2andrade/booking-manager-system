@@ -1,74 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Context } from "../../store/appContext";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../components/header/index.jsx";
 import UpdateBookingList from "../../components/updateBookingCard/index.jsx";
-import { useParams } from "react-router-dom";
-import { getBookingByUser, updateBooking } from "../../service/booking.js";
-import { toast } from "react-toastify";
-
-const initialState = {
-  worker: "",
-  service: "",
-  start_service: "",
-  description: "",
-};
+import { getBookingByUser, getBookingById } from "../../service/booking.js";
+import { listServicesByCompany } from "../../service/services.js";
+import { listWorkers } from "../../service/workers.js";
+import { getAllServiceWorkers } from "../../service/service_worker.js";
 
 const UpdateBooking = () => {
-  const { bookingID } = useParams();
-  const [formData, setFormData] = useState(initialState);
-  const [workerList, setWorkerList] = useState([]);
-  const [serviceList, setServiceList] = useState([]);
+  const [workersList, setWorkersList] = useState([]);
+  const [servicesList, setServicesList] = useState([]);
+  const [serviceWorkers, setServiceWorkers] = useState([]);
+  const [company, setCompany] = useState("");
 
-  const responseToast = (msg) => toast(msg);
+  const navigate = useNavigate();
+  const { bookingID } = useParams();
+
+  const { store } = useContext(Context);
+  const userStoredInContext = store.userProfileData.userData;
 
   const getBooking = async () => {
-    const bookingData = await getBookingByUser();
-
-    // Filter by workers unique
-    const uniqueWorkers = bookingData.reduce((workers, booking) => {
-      const worker = booking.services_workers.workers;
-      if (!workers.some((w) => w.id === worker.id)) {
-        workers.push(worker);
-      }
-      return workers;
-    }, []);
-    setWorkerList(uniqueWorkers);
-
-    // Filter by services unique
-    const uniqueServices = bookingData.reduce((services, booking) => {
-      const service = booking.services_workers.services;
-      if (!services.some((s) => s.id === service.id)) {
-        services.push(service);
-      }
-      return services;
-    }, []);
-    setServiceList(uniqueServices);
+    const bookingData = await getBookingById(bookingID);
+    setCompany(bookingData.company_id);
   };
 
   useEffect(() => {
     getBooking();
   }, []);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormData(initialState);
-    const booking = await updateBooking(bookingID, formData);
-    setFormData(booking);
-    responseToast(booking.msg);
+
+  const listServiceWorkers = async () => {
+    const allServiceWorkers = await getAllServiceWorkers();
+    setServiceWorkers(allServiceWorkers);
   };
 
-  const handleChange = ({ target }) => {
-    setFormData({ ...formData, [target.name]: target.value });
+  const servicesByCompany = async () => {
+    const services = await listServicesByCompany(company);
+    setServicesList(services);
   };
+
+  const workersByCompany = async () => {
+    const workers = await listWorkers(company);
+    setWorkersList(workers);
+  };
+
+  useEffect(() => {
+    listServiceWorkers();
+    servicesByCompany();
+    workersByCompany();
+  }, [company]);
 
   return (
     <>
-      <Header />
+      <Header
+        imgProfile={userStoredInContext?.avatar}
+        updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
+      />
       <UpdateBookingList
-        formData={formData}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
         textBtn="Update"
-        workerList={workerList}
-        serviceList={serviceList}
+        workersList={workersList}
+        servicesList={servicesList}
+        setServicesList={setServicesList}
+        setWorkersList={setWorkersList}
+        serviceWorkers={serviceWorkers}
       />
     </>
   );

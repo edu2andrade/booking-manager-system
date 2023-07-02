@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { updateUserProfile } from "../../service/user.js";
-import "./styles.css";
+import styles from "./profile.module.css";
 
 import ProfileForm from "../../components/profileForm/index.jsx";
 import Header from "../../components/header/index.jsx";
 import ImgProfile from "../../components/imgProfile/index.jsx";
 import { useNavigate } from "react-router-dom";
-
-const initialState = {
-  username: "",
-  firstname: "",
-  lastname: "",
-  email: "",
-};
+import { Context } from "../../store/appContext.js";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const [file, setFile] = useState("");
   const [fileUrl, setFileUrl] = useState("");
-  const [user, setUser] = useState(initialState);
+  const [loading, setLoading] = useState(false);
+
+  const { store, actions } = useContext(Context);
+  const userStoredInContext = store.userProfileData.userData;
 
   const navigate = useNavigate();
 
@@ -32,43 +30,69 @@ const Profile = () => {
       };
       reader.readAsDataURL(target.files[0]);
     } else {
-      setUser({ ...user, [target.name]: target.value });
+      actions.saveUserProfileData({
+        ...userStoredInContext,
+        [target.name]: target.value,
+      });
     }
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    const form = new FormData();
-    form.append("avatar", file);
-    form.append("email", user.email);
-    form.append("username", user.username);
-    form.append("firstname", user.firstname);
-    form.append("lastname", user.lastname);
-    console.log(form);
-    updateUserProfile(form);
-    navigate("/");
-    // setUser({
-    //   username: "",
-    //   firstname: "",
-    //   lastname: "",
-    //   email: "",
-    // });
+  const handleDashboard = () => {
+    const localStorageData = JSON.parse(
+      localStorage.getItem("token/role/company_id")
+    );
+
+    if (localStorageData.role === "admin")
+      navigate(`/admin-dashboard/${localStorageData.company_id}`);
+    if (localStorageData.role === "client") navigate("/user-dashboard");
+    if (localStorageData.role === "worker")
+      navigate(`/worker-dashboard/${localStorageData.company_id}`);
   };
+
+  const handleClick = async () => {
+    try {
+      setLoading(true);
+      const form = new FormData();
+
+      form.append("avatar", file);
+      form.append("email", userStoredInContext?.email);
+      form.append("username", userStoredInContext?.username);
+      form.append("firstname", userStoredInContext?.firstname);
+      form.append("lastname", userStoredInContext?.lastname);
+
+      const resMsg = await updateUserProfile(form);
+      handleDashboard();
+      toast.success(resMsg?.msg);
+      setLoading(false);
+    } catch (error) {
+      toast.error(resMsg?.msg);
+    }
+  };
+
   return (
-    <main className="">
-      <Header />
-      <ImgProfile img={fileUrl} handleChange={handleChange} />
-      <main className="mainContainerProfile">
-        <div className="background">
-          <h2 className="title">Profile update</h2>
+    <>
+      <Header
+        imgProfile={userStoredInContext?.avatar}
+        updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
+      />
+
+      <ImgProfile
+        img={fileUrl === "" ? userStoredInContext?.avatar : fileUrl}
+        handleChange={handleChange}
+      />
+
+      <main className={styles._mainContainerProfile}>
+        <div className={styles._subContainer}>
+          <h2 className={styles._title}>Profile update</h2>
           <ProfileForm
             handleChange={handleChange}
             handleClick={handleClick}
-            user={user}
+            user={userStoredInContext}
+            loading={loading}
           />
         </div>
       </main>
-    </main>
+    </>
   );
 };
 export default Profile;

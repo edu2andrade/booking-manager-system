@@ -2,14 +2,13 @@ import React from "react";
 import styles from "./input.module.css";
 
 const Input = ({
+  icon,
   type,
   placeholder,
-  icon,
   name,
   defaultValue,
-  disabled,
-  value,
   date,
+  register,
 }) => {
   return (
     <div className={styles._inputContainer}>
@@ -19,10 +18,9 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         name={name}
-        value={value}
         defaultValue={defaultValue}
-        disabled={disabled}
         date={date}
+        {...register(name)}
       />
     </div>
   );
