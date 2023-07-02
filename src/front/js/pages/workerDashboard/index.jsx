@@ -162,18 +162,11 @@ const WorkerDashboard = () => {
               <strong>Description: </strong>
               {selectedBooking?.services_workers.services.description}
             </p>
-
             <div className={styles._modalFooter}>
               <p>
-                <strong>Do you want to change your appointment??</strong>
+                <strong>Do you want to delete your appointment??</strong>
               </p>
               <div className={styles._btnWrapper}>
-                <Button
-                  title="Update"
-                  onClick={() =>
-                    navigate(`/update-booking/${selectedBooking?.id}`)
-                  }
-                />
                 <Button
                   title="Delete"
                   onClick={() =>

@@ -10,6 +10,7 @@ import { getBookingById } from "../../service/booking.js";
 import { setHours, setMinutes, parse, format } from "date-fns";
 
 import { toast } from "react-toastify";
+import { getServicesbyWorker } from "../../service/service_worker";
 
 const initialState = {
   service: "",
@@ -39,8 +40,6 @@ const UpdateBookingList = ({
     getCompany();
     getReservation();
   }, []);
-
-  console.log(workersList);
 
   const navigate = useNavigate();
   const { bookingID } = useParams();
@@ -96,19 +95,10 @@ const UpdateBookingList = ({
     }
   };
 
-  console.log(booking);
-
   const handleWorkerSelect = (e) => {
-    const worker = workersList.filter(
+    const worker = workersList.find(
       (elem) => elem.id === parseInt(e.target.value)
     );
-    const newListServices = [];
-    serviceWorkers.forEach((serviceWorker) => {
-      if (serviceWorker.worker_id === worker.id) {
-        newListServices.push(serviceWorker.services);
-      }
-    });
-    setServicesList(newListServices);
     setBooking({ ...booking, worker: worker.id });
   };
 

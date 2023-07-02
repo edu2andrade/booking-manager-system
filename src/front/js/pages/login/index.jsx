@@ -16,7 +16,7 @@ const initialState = {
 
 const LoginPage = () => {
   const [newLogin, setNewLogin] = useState(initialState);
-  const [invalidDate, setInvalidDate] = useState(false);
+  const [invalidData, setInvalidData] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -26,19 +26,19 @@ const LoginPage = () => {
   };
 
   const handleClick = async () => {
-    try{
-        setLoading(true)
-        const data = await loginUser(newLogin);
-        if (data.role === "admin")
-          navigate(`/admin-dashboard/${data.company_id}`);
-        if (data.role === "client") navigate("/user-dashboard");
-        if (data.role === "worker")
-          navigate(`/worker-dashboard/${data.company_id}`);
-        toast.success("Login successfully");
-        }catch(error) {
-          setLoading(false)
-          setInvalidDate(error.message);
-      };
+    try {
+      setLoading(true);
+      const data = await loginUser(newLogin);
+      if (data.role === "admin")
+        navigate(`/admin-dashboard/${data.company_id}`);
+      if (data.role === "client") navigate("/user-dashboard");
+      if (data.role === "worker")
+        navigate(`/worker-dashboard/${data.company_id}`);
+      toast.success("Login successfully");
+    } catch (error) {
+      setLoading(false);
+      setInvalidData(error.message);
+    }
   };
 
   return (
@@ -52,8 +52,12 @@ const LoginPage = () => {
         <div className={styles._actionContainer}>
           <Logotipo />
           <h1 className={styles._heading}>Login</h1>
-          <LoginForm handleClick={handleClick} handleChange={handleChange}
-           invalidDate={invalidDate} loading={loading}/>
+          <LoginForm
+            handleClick={handleClick}
+            handleChange={handleChange}
+            invalidData={invalidData}
+            loading={loading}
+          />
           <span className={styles._credits}>
             Photo by Andrew Neel on Unsplash
           </span>

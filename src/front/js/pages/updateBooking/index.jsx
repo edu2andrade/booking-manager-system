@@ -20,12 +20,6 @@ const UpdateBooking = () => {
   const { store } = useContext(Context);
   const userStoredInContext = store.userProfileData.userData;
 
-  // const getBooking = async () => {
-  //   const bookingData = await getBookingByUser();
-  //   setCompany(company);
-  //   console.log("booking data", bookingData);
-  // };
-
   const getBooking = async () => {
     const bookingData = await getBookingById(bookingID);
     setCompany(bookingData.company_id);

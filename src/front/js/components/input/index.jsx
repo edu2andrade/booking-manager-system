@@ -9,11 +9,9 @@ const Input = ({
   defaultValue,
   date,
   register,
-  }) => {
-
+}) => {
   return (
-    <div className={styles._inputContainer}
-      >
+    <div className={styles._inputContainer}>
       {icon}
       <input
         className="_boxShadow"
@@ -26,6 +24,6 @@ const Input = ({
       />
     </div>
   );
-}; 
+};
 
 export default Input;
