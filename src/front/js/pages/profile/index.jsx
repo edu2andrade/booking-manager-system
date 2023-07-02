@@ -75,7 +75,6 @@ const Profile = () => {
         imgProfile={userStoredInContext?.avatar}
         updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
       />
-
       <ImgProfile
         img={fileUrl === "" ? userStoredInContext?.avatar : fileUrl}
         handleChange={handleChange}

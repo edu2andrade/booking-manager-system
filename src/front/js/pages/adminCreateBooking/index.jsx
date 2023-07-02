@@ -55,6 +55,8 @@ const AdminCreateBooking = () => {
     }
   };
 
+  console.log(newBooking);
+
   return (
     <>
       <Header
