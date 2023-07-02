@@ -42,10 +42,6 @@ export const getInfoCompanyById = async (company_id) => {
       headers: HEADERS,
     });
     const data = await res.json();
-<<<<<<< HEAD
-    console.log("company by id", data)
-=======
->>>>>>> 26f903a3b916b2e49dfc3addc8263e26162b5a5c
     return data;
   } catch (err) {
     console.log("Error to Get Info Company by ID", err);

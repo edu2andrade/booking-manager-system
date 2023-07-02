@@ -63,8 +63,6 @@ const UserDashboard = () => {
     resMsg.data ? toast.success(resMsg?.msg) : toast.error(resMsg?.msg);
   };
 
-  console.log(selectedBooking);
-
   return (
     <div>
       <Header

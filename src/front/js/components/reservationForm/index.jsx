@@ -28,6 +28,8 @@ const ReservationForm = ({
     setHours(setMinutes(new Date(), 30), 17)
   );
 
+  console.log(newBooking);
+
   const { company_id } = useParams();
 
   const handleNextStep = () => {

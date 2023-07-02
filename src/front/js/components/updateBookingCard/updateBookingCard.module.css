@@ -97,7 +97,7 @@
   border: none;
   border-radius: var(--border-sm);
   font-size: var(--text-sm);
-  color: var(--gray-400);
+  color: var(--gray-900);
 }
 
 ._inputContainer select:focus {

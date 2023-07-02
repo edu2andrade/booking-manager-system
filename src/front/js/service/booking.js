@@ -120,7 +120,6 @@ export const updateBooking = async (bookingID, body) => {
       body: JSON.stringify(body),
     });
     const data = await res.json();
-    console.log("update booking", data);
     return data;
   } catch (err) {
     console.log("Error to update this service", err);
