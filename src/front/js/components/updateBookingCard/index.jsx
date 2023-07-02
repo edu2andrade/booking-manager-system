@@ -79,8 +79,8 @@ const UpdateBookingList = ({
   }, [companyInfo]);
 
   const handleServiceSelect = (e) => {
-    const selectedServiceId = parseInt(e.target.value, 10);
-    const service = servicesList.find(
+    const selectedServiceId = parseInt(e.target.value);
+    const service = servicesList.filter(
       (service) => service.id === selectedServiceId
     );
 
@@ -99,7 +99,7 @@ const UpdateBookingList = ({
   console.log(booking);
 
   const handleWorkerSelect = (e) => {
-    const worker = workersList.find(
+    const worker = workersList.filter(
       (elem) => elem.id === parseInt(e.target.value)
     );
     const newListServices = [];
