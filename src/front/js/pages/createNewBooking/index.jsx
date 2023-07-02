@@ -47,9 +47,6 @@ const CreateNewBooking = () => {
 
   const handleSubmit = async () => {
     const resMsg = await createBooking(company_id, newBooking);
-    const localStorageData = JSON.parse(
-      localStorage.getItem("token/role/company_id")
-    );
     if (resMsg.data) {
       toast.success(resMsg?.msg);
       navigate("/user-dashboard");

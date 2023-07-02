@@ -8,7 +8,6 @@ import Input from "../../components/input/index.jsx";
 
 const UpdatePassword = () => {
   const { store } = useContext(Context);
-  console.log(store, "storeupdate");
   const navigate = useNavigate();
   const handlesubmit = () => {
     navigate("/");

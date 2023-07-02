@@ -11,7 +11,9 @@
   justify-content: center;
   text-align: center;
   align-items: center;
+  justify-content: center;
   overflow: auto;
+  padding-bottom: 8px;
 }
 
 ._workerImg {
@@ -21,6 +23,7 @@
   color: var(--gray-900);
   font-weight: var(--font-semibold);
   font-size: var(--text-sm);
+  text-align: center;
   border-right: 0.5px solid var(--gray-900);
   padding-inline: 80px;
   cursor: pointer;
