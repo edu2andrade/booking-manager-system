@@ -8,7 +8,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       saveCompanyData: (data) => {
         const store = getStore();
         setStore({ companyData: { ...store.companyData, data } });
-        console.log("Company data saved in flux ======>", store.companyData);
       },
       saveUserProfileData: (userData) => {
         const store = getStore();

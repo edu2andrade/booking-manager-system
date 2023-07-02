@@ -69,7 +69,7 @@ def get_booking(booking_id, current_user_id):
             return booking
 
     if user.roles.type == 'client':
-        if user.id == booking.id:
+        if user.id == booking.user_id:
             return booking
         
     return {'msg': 'You do not have rights to see this bookings', 'status': 403}

@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 
-const LoginForm = ({ handleClick, handleChange, invalidDate, loading }) => {
+const LoginForm = ({ handleClick, handleChange, invalidData, loading }) => {
   const {
     register,
     handleSubmit,
@@ -57,11 +57,11 @@ const LoginForm = ({ handleClick, handleChange, invalidDate, loading }) => {
           <Button type="submit" title="Login" />
         </form>
       )}
-      {invalidDate && (
+      {invalidData && (
         <div>
           <p className={styles._fail}>The data entered is incorrect.</p>
           <Link to={"/user-register"} className={styles._registerLink}>
-            Register like client!
+            Register as a client!
           </Link>
           <Link to={"/company-register"} className={styles._registerLink}>
             Register your company!

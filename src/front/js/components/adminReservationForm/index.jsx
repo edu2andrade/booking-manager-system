@@ -77,7 +77,7 @@ const AdminReservationForm = ({
   }, []);
 
   useEffect(() => {
-    if (companyInfo.opening_time) {
+    if (companyInfo?.opening_time) {
       const openingTime = parse(companyInfo.opening_time, "HH:mm", new Date());
       const calculatedMinTime = setHours(
         setMinutes(openingTime, 0),
@@ -88,7 +88,7 @@ const AdminReservationForm = ({
   }, [companyInfo]);
 
   useEffect(() => {
-    if (companyInfo.closing_time) {
+    if (companyInfo?.closing_time) {
       const closingTime = parse(companyInfo.closing_time, "HH:mm", new Date());
       const calculatedMaxTime = setHours(
         setMinutes(closingTime, 0),
