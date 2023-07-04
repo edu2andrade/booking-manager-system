@@ -7,6 +7,8 @@ import BigContainer from "../../components/bigContainer/index.jsx";
 import { getInfoCompanyById } from "../../service/company";
 import { format, setHours, setMinutes, parse } from "date-fns";
 
+import { URL } from "../../service";
+
 const AdminReservationForm = ({
   handleSubmit,
   serviceWorkers,

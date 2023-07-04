@@ -8,6 +8,7 @@ import { adminCreateBooking } from "../../service/booking.js";
 import { getAllServiceWorkers } from "../../service/service_worker.js";
 import { toast } from "react-toastify";
 import Header from "../../components/header/index.jsx";
+import { createHaircutCheckout } from "../../service/checkout.js";
 
 const initialState = {
   service: "",
@@ -43,19 +44,19 @@ const AdminCreateBooking = () => {
   }, []);
 
   const handleSubmit = async () => {
-    const resMsg = await adminCreateBooking(company_id, newBooking);
-    resMsg.data ? toast.success(resMsg?.msg) : toast.error(resMsg?.msg);
-    const localStorageData = JSON.parse(
-      localStorage.getItem("token/role/company_id")
-    );
-    if (localStorageData.role === "worker") {
-      navigate(`/worker-dashboard/${company_id}`);
-    } else {
-      navigate(`/admin-dashboard/${company_id}`);
-    }
+    const checkout = await createHaircutCheckout();
+    console.log("front ---> ", checkout);
+    // const resMsg = await adminCreateBooking(company_id, newBooking);
+    // resMsg.data ? toast.success(resMsg?.msg) : toast.error(resMsg?.msg);
+    // const localStorageData = JSON.parse(
+    //   localStorage.getItem("token/role/company_id")
+    // );
+    // if (localStorageData.role === "worker") {
+    //   navigate(`/worker-dashboard/${company_id}`);
+    // } else {
+    //   navigate(`/admin-dashboard/${company_id}`);
+    // }
   };
-
-  console.log(newBooking);
 
   return (
     <>
@@ -64,6 +65,7 @@ const AdminCreateBooking = () => {
         updateProfile={() => navigate(`/profile/${userStoredInContext?.id}`)}
       />
       <div className={styles._mainContainer}>
+        <button onClick={handleSubmit}>Call stripe</button>
         <AdminReservationForm
           handleSubmit={handleSubmit}
           servicesList={servicesList}
