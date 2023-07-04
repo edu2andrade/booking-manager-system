@@ -1,22 +1,20 @@
 import { URL } from ".";
-
-const HEADERS = {
-  "Content-Type": "application/json",
-};
+import getStripeJs from "./stripe.js";
 
 export const createHaircutCheckout = async () => {
-  try {
-    const res = await fetch(`${URL}/checkout/haircut`, {
-      method: "POST",
-      headers: {
-        ...HEADERS,
-      },
+  const response = await fetch(`${URL}/checkout/haircut`, {
+    method: "POST",
+  });
+  const { sessionId } = await response.json();
+  const stripe = await getStripeJs();
+  if (stripe) {
+    const result = await stripe.redirectToCheckout({
+      sessionId,
     });
-    const data = await res.json();
-    console.log("back ---->", data);
-    // window.location.href = data.url;
-    return data;
-  } catch (err) {
-    console.log("Error in checkout", err);
+    if (result.error) {
+      console.error(`Something goes wrong here --> ${result.error.message}`);
+    }
+  } else {
+    console.error("Failed to load Stripe.js");
   }
 };
