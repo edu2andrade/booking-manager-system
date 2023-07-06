@@ -121,7 +121,10 @@ const WorkerDashboard = () => {
                   </p>
                   <p>
                     <strong>Start: </strong>
-                    {format(new Date(booking.start_service), "iii 'at' p")}
+                    {format(
+                      new Date(booking.start_service),
+                      "EEE, dd MMM yyyy h:mm a"
+                    )}
                   </p>
                   <p>
                     <strong>Duration: </strong>
@@ -130,7 +133,7 @@ const WorkerDashboard = () => {
                   <p>
                     <strong>Description: </strong>
                   </p>
-                  <p>{booking.services_workers.services.description}</p>
+                  <p>{booking.description}</p>
                 </div>
               ))
             )}

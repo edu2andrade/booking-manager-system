@@ -65,7 +65,7 @@ const AdminCalendar = ({ companyId }) => {
           <p>
             <strong>
               {bookingsByWorker[0]?.services_workers.workers.user.username}{" "}
-              bookings
+              Bookings
             </strong>
           </p>
           {bookingsByWorker.map((booking) => (
@@ -80,7 +80,10 @@ const AdminCalendar = ({ companyId }) => {
               </p>
               <p>
                 <strong>Start: </strong>
-                {format(new Date(booking.start_service), "iii 'at' p")}
+                {format(
+                  new Date(booking.start_service),
+                  "EEE, dd MMM yyyy h:mm a"
+                )}
               </p>
               <p>
                 <strong>Duration: </strong>
@@ -89,7 +92,7 @@ const AdminCalendar = ({ companyId }) => {
               <p>
                 <strong>Description: </strong>
               </p>
-              <p>{booking.services_workers.services.description}</p>
+              <p>{booking.description}</p>
             </div>
           ))}
         </div>
