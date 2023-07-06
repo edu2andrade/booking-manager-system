@@ -90,7 +90,7 @@ const UserDashboard = () => {
                     key={booking.id}
                     date={format(
                       new Date(booking.start_service),
-                      "MMM do yyyy 'at' hh:mm"
+                      "EEE, dd MMM yyyy h:mm a"
                     )}
                     service={booking.services_workers.services.name}
                     worker={booking.services_workers.workers.user.username}
@@ -127,17 +127,20 @@ const UserDashboard = () => {
             </p>
             <p>
               <strong>Date and time: </strong>
-              {selectedBooking?.services_workers.services.created_at}
+              {selectedBooking?.start_service &&
+                format(
+                  new Date(selectedBooking.start_service),
+                  "EEE, dd MMM yyyy h:mm a"
+                )}
             </p>
-
             <p>
               <strong> Duration: </strong>
               {selectedBooking?.services_workers.services.service_duration}{" "}
-              hours
+              minutes
             </p>
             <p>
               <strong>Description: </strong>
-              {selectedBooking?.services_workers.services.description}
+              {selectedBooking?.description}
             </p>
 
             <div className={styles._modalFooter}>

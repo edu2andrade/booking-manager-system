@@ -18,12 +18,12 @@
 ._bookingContainer {
   width: 100%;
   margin-bottom: 16px;
-  padding: 16px;
+  padding: 25px;
   display: flex;
   border-radius: var(--border-md);
   background-color: var(--primary-50);
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   scroll-snap-align: start;
 }
 
